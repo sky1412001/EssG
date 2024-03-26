@@ -1,4 +1,3 @@
-import {StatusBar} from 'native-base';
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -10,9 +9,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  StatusBar
 } from 'react-native';
 import COLORS from './COLORS';
-
 const PostLandingForm = ({navigation, route}) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -61,7 +60,6 @@ const PostLandingForm = ({navigation, route}) => {
           padding: 20,
           backgroundColor: 'white',
           justifyContent:'space-evenly',
-
           marginTop:10
         }}>
         <View>

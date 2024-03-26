@@ -8,7 +8,8 @@ import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Student from "./Auth/Student";
 import Ways from "./src/Ways";
-import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Consultant , Screen, FlagScreen,} from "./src";
+import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Screen, FlagScreen,} from "./src";
+import Status from "./Auth/Status";
 
 const App = () =>{
   const Stack = createNativeStackNavigator();
@@ -26,9 +27,10 @@ const App = () =>{
       <Stack.Screen name="HomeScreen" component={HomeScreen}/>
       <Stack.Screen name="DeatailScreen" component={DeatailScreen}/>
       <Stack.Screen name= "PostLandingForm" component={PostLandingForm}/>
-      <Stack.Screen name="Consultant" component={Consultant}/>
       <Stack.Screen name="Screen" component={Screen}/>
       <Stack.Screen name="FlagScreen" component={FlagScreen} />
+      <Stack.Screen name="Status" component={Status} />
+
     </Stack.Navigator>
   </NavigationContainer>
   )

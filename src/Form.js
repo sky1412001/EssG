@@ -34,11 +34,7 @@ const Form = () =>{
   const [date, setDate] = useState('')
   const data = {firstname, lastname, mobileNo, pickerValue,selectCounrty, email};
 
-  const handleDateChange = (selectedDate) => {
-    // Handle the selected date here
-    setDate(selectedDate);
-  };
-
+  
   const refreshData = () => {
     setFirstName('');
     setLastName('');
@@ -60,7 +56,6 @@ const Form = () =>{
     }
   };
   const postData = async () => {
-
     try {
       console.warn({firstname, lastname, email, mobileNo, pickerValue, selectCounrty})
       const response = await axios.post(baseUrl, data);

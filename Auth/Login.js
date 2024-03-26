@@ -136,7 +136,6 @@ const Login = ({navigation},props) => {
                   marginTop: -37,
                 }}
               />
-              
             </TouchableOpacity>
           </View>
           <View style={styles.formAction}>

@@ -8,7 +8,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Pressable
 } from 'react-native';
 import COLORS from './COLORS';
 import {Rating} from 'react-native-stock-star-rating';
@@ -21,7 +20,6 @@ const DeatailScreen = ({navigation, route}) => {
   }
  const Data = route.params;
   return (
-
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
       <ImageBackground style={{flex: 0.7}} source={Data.image}>

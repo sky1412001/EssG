@@ -1,21 +1,34 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Image, Animated, StyleSheet, Easing } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Logo = require('./Logo/LOGO.png');
 
 const Splash = ({ navigation }) => {
-  
   const animatedValue = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
-    moveImage();
-    const timeout = setTimeout(() => {
-      navigation.navigate('Onboard');
-    }, 3000);
-    return () => {
-      clearTimeout(timeout); // Clear the timeout
-      animatedValue.stopAnimation();
+    const checkOnboardingStatus = async () => {
+      try {
+        const onboardingShown = await AsyncStorage.getItem('onboardingShown');
+        if (!onboardingShown) {
+          // Onboarding screen hasn't been shown before
+          moveImage();
+          const timeout = setTimeout(() => {
+            navigation.navigate('Onboard'); // Navigate to the Onboard screen after animation
+          }, 3000);
+          return () => {
+            clearTimeout(timeout); // Clear the timeout
+            animatedValue.stopAnimation();
+          };
+        } else {
+          navigation.navigate('Navigator'); // Navigate to the homepage directly
+        }
+      } catch (error) {
+        console.error('Error checking onboarding status:', error);
+        navigation.navigate('Navigator');
+      }
     };
+    checkOnboardingStatus();
   }, []);
   const moveImage = () => {
     Animated.loop(
@@ -27,25 +40,19 @@ const Splash = ({ navigation }) => {
       })
     ).start();
   };
-
   const spin = animatedValue.interpolate({
-
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'], 
-
-    // Rotate from 0 to 360 degrees
-
+    outputRange: ['0deg', '360deg'],
   });
-
-  // Calculate translateX and translateY based on the current angle of rotation
-  
   return (
     <View style={styles.container}>
-     
+      <Animated.Image
+        source={Logo}
+        style={[styles.image, { transform: [{ rotate: spin }] }]}
+      />
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#0466C8',

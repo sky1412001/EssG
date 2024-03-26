@@ -8,9 +8,9 @@ import {
   TextInput,
   Image,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  StatusBar
 } from 'react-native';
-import { StatusBar } from 'native-base';
 const imail = require('./icons/lock.png');
 const eyes = require('./icons/eye.png');
 const hiden = require('./icons/hiden.png');
@@ -82,8 +82,7 @@ const Signup = ({navigation}) => {
   };
   const toggleEye = () => {
     setSeePassword(!seepassword);
-  };
-
+  }
   return (
     <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
     <ScrollView style={{flex:1}}>
@@ -96,7 +95,6 @@ const Signup = ({navigation}) => {
           </Text>
         </View>
         <View style={styles.form}>
-          
          {/*USERNAME */}
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Username</Text>
@@ -132,7 +130,6 @@ const Signup = ({navigation}) => {
               value={email}
             />    
           </View>
-
           {/*PASSWORD*/}
           <View style={styles.input}>
             <View style={{flexDirection:'row' ,justifyContent:'space-between'}}>
@@ -168,11 +165,8 @@ const Signup = ({navigation}) => {
               secureTextEntry={!seepassword}
               value={password}
             />
-
-                {/*SHOW & HIDE PASSWORd*/}
-                
+                {/*SHOW & HIDE PASSWORd*/}  
             <TouchableOpacity onPress={toggleEye}>
-              
               <Image
                 source={seepassword ? eyes : hiden}
                 style={{
@@ -183,7 +177,6 @@ const Signup = ({navigation}) => {
                   marginTop: -35,
                 }}
               />
-
             </TouchableOpacity>
             <Text>{suggestions}</Text>
           </View>
@@ -219,12 +212,9 @@ const Signup = ({navigation}) => {
       </View>
     </ScrollView>
     </ImageBackground>
-
   );
 };
 export default Signup;
-
-
 const styles = StyleSheet.create({
   container: {
     padding: 24,
@@ -245,7 +235,6 @@ const styles = StyleSheet.create({
     color: '#929292',
     textAlign: 'center',
   },
-  /** Header */
   header: {
     marginVertical: 33,
   },

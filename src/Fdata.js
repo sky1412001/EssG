@@ -24,7 +24,7 @@ const Fdata = [
     },
     {
         id:3,
-        name:"Dubai",
+        name:"DUBAI",
         subname:'(दुबई)',
         image:require('./flag/usa.png'),
         officename:"Ess Global",

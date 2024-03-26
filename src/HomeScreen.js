@@ -22,10 +22,7 @@ import {
   Modal,
   Button,
 } from 'react-native';
-import {Avatar, TextInput} from 'react-native-paper';
 import {Rating} from 'react-native-stock-star-rating';
-
-
 const currentDate = new Date();
 import COLORS from './COLORS';
 import Dataco from './Data';
@@ -58,7 +55,6 @@ const monthName = monthNames[monthIndex];
 const HomeScreen = ({navigation}) => {
 
   const flatlistRef = useRef();
-  // Get Dimesnions
   const screenWidth = Dimensions.get('window').width;
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -66,7 +62,6 @@ const HomeScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [checkValidEmail, setCheckValidEmail] = useState('')
 
-  // Auto Scroll
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -80,18 +75,13 @@ const HomeScreen = ({navigation}) => {
       // Update the active index
       setActiveIndex(nextIndex);
     }, 3500);
-
-    // Cleanup the interval on unmount or change of activeIndex
-
     return () => clearInterval(interval);
-
   }, [activeIndex]);
   const getItemLayout = (data, index) => ({
     length: screenWidth,
     offset: screenWidth * index,
     index: index,
   });
-
   const handleScroll = event => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
     const index = Math.floor(scrollPosition / screenWidth);
@@ -107,24 +97,35 @@ const HomeScreen = ({navigation}) => {
       setCheckValidEmail(true);
     }
   };
-
-  // Recommended Card //
   const Nation = ({Fdata})=> {
     return(
       <TouchableOpacity onPress={()=>navigation.navigate('FlagScreen', Fdata)}>
-
-      <View style={{padding:10}}>
-        <View  style={{padding:20, backgroundColor:"white",borderRadius:10, elevation:3}}>
-          <Image source={Fdata.image} style={{width:70, height:50}}/>
+      <View style={{padding:3}}>
+        <View  style={{gap:5,padding:13, backgroundColor:"white",borderRadius:10, elevation:3, alignItems:'center', justifyContent:'center'}}>
+          <Image source={Fdata.image} style={{width:50, height:30}}/>
+        <Text style={{textAlign:'auto'}}>{Fdata.name}</Text>
         </View>
         <View>
         </View>
       </View>
-
-
       </TouchableOpacity>
     )
+  }
+  const Consultant = ({Dataco}) =>{
+    return(
+      <TouchableOpacity onPress={()=>navigation.navigate('DeatailScreen', Dataco)}>
 
+      <View style={styles.card}>
+      <View style={{flexDirection:'column'}}>
+      <Image source={Dataco.image} style={{width:75, height:75, borderRadius:50}}/>
+        </View>
+        <View style={{justifyContent:"center", alignItems:'center'}}>
+          <Text style={styles.name}>{Dataco.name}</Text>
+          <Rating stars={Dataco.rating} maxStars={5} size={13} color={'#FFD700'}/>
+        </View>
+      </View>
+      </TouchableOpacity>
+    )
   }
   
   const RecommendedCard = ({Slider}) => {
@@ -159,13 +160,11 @@ const HomeScreen = ({navigation}) => {
       </TouchableOpacity>
     );
   };
- 
   return (
     <ScrollView>
       {/*Header with Date info */}
       <View style={{borderBottomLeftRadius:15, borderBottomRightRadius:15, elevation:10}}>
-
-<ImageBackground style={{flex:1,height: hp('21%'), elevation:5}} source={require('./Home/header.png')}>
+<ImageBackground style={{flex:1,height: hp('17%'), elevation:5}} source={require('./Home/header.png')}>
       <View style={styles.header}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
         <View>
@@ -198,148 +197,30 @@ const HomeScreen = ({navigation}) => {
           onScroll={handleScroll}
           renderItem={({item}) => <RecommendedCard Slider={item} />}
         />
-      
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          padding: 5,
-          margin: 8,
-        }}>
-          <TouchableOpacity onPress={()=>setIsModalVisible(true)}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 55,
-            height: 55,
-            elevation: 3,
-            borderRadius: 10,
-          }} >
-          <Image source={edu} style={{width:35, height: 35}} />
-        </View>
-          </TouchableOpacity>
-        <Modal
-          visible={isModalVisible}
-          transparent
-          onRequestClose={() => setIsModalVisible(false)}
-           animationType='slide'
-          >
-            <View style={{alignItems:"center", justifyContent:'flex-end', marginTop:30,}}>
-              <ImageBackground source={require('./Postdata/formBack.png')} style={{flex:1}}>
-
-              <View style={{backgroundColor:'#ffff',width:350, height:700, borderRadius:20, elevation:20}}>
-                <View style={{borderWidth:2, width:70, borderColor:'grey', marginTop:10, alignSelf:'center'}}></View>
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-              <View style={{flexDirection:"row", alignItems:"center", justifyContent:'space-between', padding:10}}>
-               <Text style={{textAlign:"center", fontSize:17, fontFamily:'Poppins-Bold', color:COLORS.primary}}>Apply Now</Text>
-              </View>
-              <View style={{alignSelf:'flex-end'}}>
-               <TouchableOpacity onPress={()=>setIsModalVisible(false)}>
-               <Image source={require('./Tabicon/cross.png')} style={{width:30, height:30,marginHorizontal:10}}/>
-               </TouchableOpacity>
-
-              </View>
-
-                </View>
-              <View  style={{alignItems:"center"}}>
-              <Text style={{fontSize:17, fontFamily:'Poppins-Medium', color:'black'}}>Join our<Text style={{color:COLORS.primary, textDecorationLine:"underline"}}> Webinar</Text></Text>
-              <TextInput  placeholder='Email' autoCorrect={false} value={email}   style={{width:270, height:50, marginTop:10, backgroundColor:'white'}} onChangeText={(text)=>handleCheckEmail(text)}/>
-              <View>
-              {checkValidEmail ?(
-                <Text style={{color: 'red', textAlign: 'right'}}>
-                  Invalid Email format
-                </Text>
-              ) : null}
-            </View>
-              </View>
-              <TouchableOpacity disabled={email === '' || checkValidEmail}>
-              <View style={{alignSelf:'center', borderWidth:1, padding:10,borderColor:COLORS.primary, marginTop:70, width:100, height:50, alignItems:'center', justifyContent:'center', borderRadius:10}}>
-                <Text style={[
-        { color: (email === ''  || checkValidEmail) ? 'red' : 'green' ,fontFamily:"Poppins-Bold" , fontSize:15}
-    ]}>Submit</Text>
-              </View>
-              </TouchableOpacity>
-              </View>
-              </ImageBackground>
-              </View>
-              </Modal>
-              <TouchableOpacity onPress={()=>setIsModalVisible(true)}>
-          <View
-          style={{
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 55,
-            height: 55,
-            elevation: 3,
-            borderRadius: 10,
-          }}>
-          <Image source={four} style={{width: 30, height: 30}} />
-        </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setIsModalVisible(true)}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 55,
-            height: 55,
-            elevation: 3,
-            borderRadius: 10,
-          }}>
-          <Image source={six} style={{width: 30, height: 30}}/>
-        </View>
-              </TouchableOpacity> 
-      </View>
+      </View>  
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.sectionTwo}>Popular consultant</Text>
       </View>
       {/*Popular Consultant CARD*/}
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <View style={styles.card}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Avatar.Image size={80} source={Dataco[0]?.image} />
-            <View style={{marginLeft: 10}}>
-              <Text style={styles.name}>{Dataco[0]?.name}</Text>
-              <Text style={styles.details}>{Dataco[0]?.about}</Text>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Rating
-                  stars={Dataco[0]?.rating}
-                  maxStars={5}
-                  size={16}
-                  color={'#0466C8'}
-                />
-              </View>
-            </View>
-          </View>
-          <Text style={styles.charges}>{Dataco[0]?.rate}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Consultant')}>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontWeight: '800',
-                  textDecorationLine: 'underline',
-                }}>
-                SEE All
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+      <View style={{marginTop:2, backgroundColor:'white'}}>
+        <FlatList
+          snapToInterval={width - 45}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{paddingLeft: 11, paddingBottom: 2}}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={Dataco}
+          renderItem={({ item }) => <Consultant Dataco={item} navigation={navigation}/>}
+        />
       </View>
       <View>
-        <Text style={{marginHorizontal:20, fontFamily:"Poppins-Bold", color:'grey'}}>Our Offices</Text>
+        <Text style={{marginHorizontal:15, fontFamily:"Poppins-Bold", color:'grey'}}>Our Offices</Text>
       </View>
-      <View style={{marginTop:3}}>
+      <View style={{backgroundColor:'#FFFFFF'}}>
         <FlatList
           snapToInterval={width - 20}
           keyExtractor={item => item.id}
-          contentContainerStyle={{paddingLeft: 11, paddingBottom: 20}}
+          contentContainerStyle={{paddingLeft: 10, paddingBottom: 7}}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={Fdata}
@@ -398,18 +279,21 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   card: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    margin: 10,
+    backgroundColor:'#fff',
+    padding: 3,
+    margin: 5,
     flex: 1,
-    borderRadius: 10,
-    elevation: 5,
+    borderRadius: 5,
+    borderColor:COLORS.primary,
+    height:hp("15"),
+    elevation:0.7
+    
   },
   name: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: 15,
-    paddingLeft: 10,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 10,
     color: 'black',
+    textAlign:'center'
   },
   details: {
     fontFamily: 'Poppins-Bold',
@@ -456,13 +340,12 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   rmCardImage: {
-    width: width - 20, // Adjust the padding and margin accordingly
-    height: 190,
+    width: width - 20,
+    height: 145,
     marginRight: 20,
     borderRadius: 10,
     overflow: 'hidden',
     padding: 10,
-    elevation: 2,
   },
   redDotsContainer: {
     flexDirection: 'row',

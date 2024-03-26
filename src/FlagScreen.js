@@ -1,22 +1,17 @@
 import React from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableOpacity, Linking } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableOpacity, Linking, StatusBar } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import COLORS from "./COLORS";
-import { StatusBar } from "native-base";
-
 const FlagScreen = ({ navigation,route }) => {
     const Fdata = route.params;
-
     const handleAddressPress = () => {
         const encodedAddress = encodeURIComponent(`${Fdata.Adress1}`);
         const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
         Linking.openURL(mapUrl);
       };
-
     const handleEmailPress = () => {
         Linking.openURL(`mailto:${Fdata.email}`);
       };
-
     const handlePhonePress = () => {
         Linking.openURL(`tel:${Fdata.phoneno}`);
       };
@@ -48,12 +43,14 @@ const FlagScreen = ({ navigation,route }) => {
                     <Text style={{color:"green"}}>{Fdata.email}</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end', marginVertical:300,right:25}}>
+
+                    <Text style={{color:"white"}}>Call Now</Text>
+                </View>
         </ScrollView>
     );
 };
-
 export default FlagScreen;
-
 const styles = StyleSheet.create({
     header: {
         backgroundColor:COLORS.light,
