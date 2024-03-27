@@ -3,8 +3,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Geolocation from '@react-native-community/geolocation';
-
 import {
   View,
   Text,
@@ -31,10 +29,6 @@ import Fdata from './Fdata';
 const date = currentDate.getDate();
 const {width} = Dimensions.get('screen');
 
-const edu = require('./Tabicon/edu.png');
-const four = require('./Tabicon/four.png');
-const six = require('./Tabicon/six.png');
-
 const monthNames = [
   'Jan',
   'Feb',
@@ -51,28 +45,21 @@ const monthNames = [
 ];
 const monthIndex = currentDate.getMonth();
 const monthName = monthNames[monthIndex];
-
 const HomeScreen = ({navigation}) => {
 
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get('window').width;
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [email, setEmail] = useState('');
   const [checkValidEmail, setCheckValidEmail] = useState('')
-
-
   useEffect(() => {
     let interval = setInterval(() => {
-      // Calculate the next index to scroll to
       const nextIndex = (activeIndex + 1) % Slider.length;
-      // Scroll to the next index
       flatlistRef.current.scrollToIndex({
         index: nextIndex,
         animated: true,
       });
-      // Update the active index
       setActiveIndex(nextIndex);
     }, 3500);
     return () => clearInterval(interval);
@@ -97,13 +84,13 @@ const HomeScreen = ({navigation}) => {
       setCheckValidEmail(true);
     }
   };
-  const Nation = ({Fdata})=> {
+  const Nation = ({Fdata})=>{
     return(
       <TouchableOpacity onPress={()=>navigation.navigate('FlagScreen', Fdata)}>
-      <View style={{padding:3}}>
-        <View  style={{gap:5,padding:13, backgroundColor:"white",borderRadius:10, elevation:3, alignItems:'center', justifyContent:'center'}}>
-          <Image source={Fdata.image} style={{width:50, height:30}}/>
-        <Text style={{textAlign:'auto'}}>{Fdata.name}</Text>
+      <View>
+        <View  style={{gap:10,padding:17,borderRadius:10, alignItems:'center', justifyContent:'space-between', marginTop:10}}>
+          <Image source={Fdata.image} style={{width:55, height:35}}/>
+        <Text style={{textAlign:'center', color:'black', fontSize:12}}>{Fdata.name}</Text>
         </View>
         <View>
         </View>
@@ -113,21 +100,26 @@ const HomeScreen = ({navigation}) => {
   }
   const Consultant = ({Dataco}) =>{
     return(
-      <TouchableOpacity onPress={()=>navigation.navigate('DeatailScreen', Dataco)}>
-
+      <TouchableOpacity translucent onPress={()=>navigation.navigate('DeatailScreen', Dataco)}>
       <View style={styles.card}>
-      <View style={{flexDirection:'column'}}>
+      <View style={{flexDirection:'row'}}>
       <Image source={Dataco.image} style={{width:75, height:75, borderRadius:50}}/>
-        </View>
-        <View style={{justifyContent:"center", alignItems:'center'}}>
+      <View>
           <Text style={styles.name}>{Dataco.name}</Text>
-          <Rating stars={Dataco.rating} maxStars={5} size={13} color={'#FFD700'}/>
+<Text style={{fontSize:9, color:'grey', textAlign:'center'}}>{Dataco.about}</Text>
+<View style={{alignItems:"center", justifyContent:'center'}}>
+
+          <Rating stars={Dataco.rating} maxStars={5} size={11} color={'#FFD700'}/>
+</View>
+<View style={{marginTop:20, marginHorizontal:25}}><Text style={{color:'green', fontWeight:'600', textDecorationLine:'underline'}}>{Dataco.rate}</Text></View>
+      </View>
+        </View>
+        <View>
         </View>
       </View>
       </TouchableOpacity>
     )
   }
-  
   const RecommendedCard = ({Slider}) => {
     return (
       <TouchableOpacity
@@ -146,7 +138,7 @@ const HomeScreen = ({navigation}) => {
               justifyContent: 'space-between',
               alignItems: 'flex-end',
             }}>
-            <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
+            <View style={{width: '100%', flexDirection: 'row', marginTop:10}}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{color: 'white', marginLeft: 5}}></Text>
               </View>
@@ -172,7 +164,7 @@ const HomeScreen = ({navigation}) => {
             <View style={{flexDirection: 'row'}}>
             </View>
               <Text style={styles.date}>Today {`${monthName} ${date}`}</Text>
-            <View style={{flexDirection:'column',gap:-8, marginTop:4}}>
+            <View style={{flexDirection:'column',gap:-5, marginTop:4}}>
             <Text style={styles.heading}>Find your</Text>
             <Text style={styles.heading}>Immigration Consultant</Text>
             </View>
@@ -199,10 +191,10 @@ const HomeScreen = ({navigation}) => {
         />
       </View>  
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.sectionTwo}>Popular consultant</Text>
+        <Text style={styles.sectionTwo}>Popular Consultant</Text>
       </View>
       {/*Popular Consultant CARD*/}
-      <View style={{marginTop:2, backgroundColor:'white'}}>
+      <View style={{marginTop:2, backgroundColor:'#EDF2FB'}}>
         <FlatList
           snapToInterval={width - 45}
           keyExtractor={item => item.id}
@@ -214,13 +206,13 @@ const HomeScreen = ({navigation}) => {
         />
       </View>
       <View>
-        <Text style={{marginHorizontal:15, fontFamily:"Poppins-Bold", color:'grey'}}>Our Offices</Text>
+        <Text style={{marginHorizontal:15,fontWeight:'700', color:'grey'}}>Our Offices</Text>
       </View>
-      <View style={{backgroundColor:'#FFFFFF'}}>
+      <View style={{backgroundColor:'#FFFFFF', marginTop:5, elevation:1}}>
         <FlatList
           snapToInterval={width - 20}
           keyExtractor={item => item.id}
-          contentContainerStyle={{paddingLeft: 10, paddingBottom: 7}}
+          contentContainerStyle={{paddingLeft: 10}}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={Fdata}
@@ -230,7 +222,6 @@ const HomeScreen = ({navigation}) => {
     </ScrollView>
   );
 };
-
 export default HomeScreen;
 const styles = StyleSheet.create({
   header: {
@@ -248,7 +239,7 @@ const styles = StyleSheet.create({
     fontFamily:'Poppins-Medium'
   },
   heading: {
-    fontFamily: 'Poppins-Bold',
+    fontWeight:'700',
     fontSize: hp('2.5%'),
     color: 'white',
   },
@@ -274,24 +265,24 @@ const styles = StyleSheet.create({
   },
   sectionTwo: {
     fontSize: 15,
-    fontFamily: 'Poppins-Bold',
+    fontWeight:'600',
     marginHorizontal:15,
     color: 'grey',
   },
   card: {
     backgroundColor:'#fff',
-    padding: 3,
+    padding: 5,
     margin: 5,
-    flex: 1,
     borderRadius: 5,
     borderColor:COLORS.primary,
-    height:hp("15"),
-    elevation:0.7
+    height:hp("14%"),
+    width:wp("43%"),
+    elevation:0.9
     
   },
   name: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 10,
+    fontSize: 11,
     color: 'black',
     textAlign:'center'
   },
@@ -353,18 +344,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   
   },
-  // Style for each red dot
   redDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
     marginHorizontal: 5,
   },
-  // Style for active red dot
   activeDot: {
     backgroundColor: COLORS.primary,
   },
-  // Style for inactive red dot
   inactiveDot: {
     backgroundColor: 'rgba(0,0,0,0)',
     borderWidth:1,

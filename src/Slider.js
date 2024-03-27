@@ -15,17 +15,10 @@ const Slider = [
         about:'Work',
         detail:'A work visa is a permit that gives you the right to work and live in a country other than your country of residence. You have to meet several qualifying conditions to qualify for a work visa, which change based on which country you want to work in.'
     },
+   
+    
     {
         id:2,
-        name:'Work',
-        image:require('./Tabicon/Buusi.png'),
-        rating:5, 
-        about:'Study',
-        detail:'A work visa is a permit that gives you the right to work and live in a country other than your country of residence. You have to meet several qualifying conditions to qualify for a work visa, which change based on which country you want to work in.'
-    }
-    ,
-    {
-        id:3,
         name:'Work',
         image:require('./Tabicon/travel.png'),
         rating:4, 
@@ -34,7 +27,7 @@ const Slider = [
     }
     ,
     {
-        id:4,
+        id:3,
         name:'Work',
         image:require('./Tabicon/tour.png'),
         rating:4.4, 

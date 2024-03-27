@@ -1,0 +1,1 @@
+ <Rating stars={Dataco.rating} maxStars={5} size={11} color={'#FFD700'}/>

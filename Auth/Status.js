@@ -10,7 +10,6 @@ const Status =()=>{
   const [coverPicture, setCoverPicture] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-
   useEffect(() => {
     const getImages = async () => {
       try {
@@ -151,7 +150,7 @@ const Status =()=>{
     return(
  <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
-      <ImageBackground style={{flex: 0.7,}} source={coverPicture? {uri: coverPicture} : y} > 
+      <ImageBackground style={{flex: 0.7,backgroundColor:'lightblue'}} source={{uri: coverPicture}} > 
         <View style={style.header}>
         </View>
         <View style={style.imageDetails}>
@@ -221,7 +220,7 @@ const style = StyleSheet.create({
     marginTop: 70,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 20, 
   },
   imageDetails: {
     padding: 20,

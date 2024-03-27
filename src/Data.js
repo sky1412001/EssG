@@ -2,8 +2,8 @@ const Data = [
     {
         id:0,
         name:'Fathima',
-        about:'Study vistor Visa', 
-        rating:5,
+        about:'Vistor Visa', 
+        rating:4.8,
         rate:'59$',
         image:require('./Home/fatima.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
@@ -11,7 +11,7 @@ const Data = [
     {
         id:1,
         name:'Anjali',
-        about:'Study vistor Visa', 
+        about:'Study Visa', 
         rating:4.4,
         rate:'50$',
         image:require('./Home/Anjali.jpg'),
@@ -21,8 +21,8 @@ const Data = [
     {
         id:2,
         name:'Sam',
-        about:'Study vistor Visa', 
-        rating:4.3,
+        about:'Work Visa', 
+        rating:3.3,
         rate:'53$',
         image:require('./Home/one.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
@@ -30,8 +30,8 @@ const Data = [
     {
         id:3,
         name:'SofiA',
-        about:'Study vistor Visa', 
-        rating:4.0,
+        about:'Study Visa', 
+        rating:2.5,
         rate:'23$',
         image:require('./Home/two.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'

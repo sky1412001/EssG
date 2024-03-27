@@ -33,5 +33,16 @@ const Fdata = [
         phoneno:' +971 4 263 4214',
         email:'uae@essglobal.com'
     },
+    {
+        id:4,
+        name:"AUSTRALIA",
+        subname:'ऑस्ट्रेलिया',
+        image:require('./flag/Austrlia.png'),
+        officename:"Ess Global",
+        office:"Australia",
+        Adress1:'Melbourne :-Suite 615, 530 Little Collins street, Melbourne VIC 3000',
+        phoneno:'61411333327',
+        email:' info@essglobal.com'
+    },
 ]
 export default Fdata;

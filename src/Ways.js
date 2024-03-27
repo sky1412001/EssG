@@ -23,6 +23,15 @@ const Ways = ({navigation}) =>{
            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={{borderRadius:10,backgroundColor:'#B21E35', width:'50%', height:50, alignItems:'center', justifyContent:'center'}}>
             <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Login with Gmail</Text>
            </TouchableOpacity>
+           <View style={{flexDirection:'row', justifyContent:'space-evenly', alignItems:'flex-end', marginTop:250, gap:40}}>
+
+           <TouchableOpacity onPress={()=>navigation.navigate('Chat')} style={{borderRadius:10,backgroundColor:'green', width:'35%', height:50, alignItems:'center', justifyContent:'center'}}>
+            <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Contact us</Text>
+           </TouchableOpacity>
+           <TouchableOpacity onPress={()=>navigation.navigate('About')} style={{borderRadius:10,backgroundColor:'orange', width:'35%', height:50, alignItems:'center', justifyContent:'center'}}>
+            <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>About us</Text>
+           </TouchableOpacity>
+           </View>
         </View>
         </ImageBackground>
         </SafeAreaView>

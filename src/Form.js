@@ -78,7 +78,6 @@ const Form = () =>{
   return(
     <ScrollView style={{flex: 1, backgroundColor: '#e8ecf4'}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
-      <ImageBackground source={require('./Postdata/formBack.png')}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
@@ -135,15 +134,18 @@ const Form = () =>{
             {/*QUERY TYPE SELECTOR*/}
 
           <View style={styles.input}>
+            <View  style={{width:wp('89%'), height:55  ,  backgroundColor:'#fff',
+           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
+
           <Picker
-           style={{width:wp('88%'), height:hp('7%')  ,  backgroundColor:'#fff',
-           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:20,elevation:10}}
+        dropdownIconColor={"blue"}
+          
           selectedValue={pickerValue}
           onValueChange={(itemValue, itemIndex) => {
             setPickerValue(itemValue);
           }}
          >
-          <Picker.Item label="Select Your Query" value=""/>
+          <Picker.Item label="Select Your Query" value="" style={{color:'#222'}}/>
           <Picker.Item label="Study Visa" value="1" />
           <Picker.Item label="Work Visa" value="2" />
           <Picker.Item label="Tourist Visa" value="3" />
@@ -151,24 +153,28 @@ const Form = () =>{
           <Picker.Item label="Bussiness query" value="5"/>
           <Picker.Item label="Citizenship by investment" value="6"/>
         </Picker>  
+            </View>
           </View>
             {/*COUNTRY TYPE*/}
           <View style={styles.input}>
+            <View   style={{width:wp('89%'), height:hp('7%'),backgroundColor: '#fff',
+           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
+
           <Picker
-           style={{width:wp('88%'), height:hp('7%'),backgroundColor: '#fff',
-           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', elevation:10}}
+         dropdownIconColor={'blue'}
           selectedValue={selectCounrty}
           onValueChange={(itemValue, itemIndex) => {
             setSelectCountry(itemValue);
           }} 
          >
 
-          <Picker.Item label="Select Country " value=""/>
+          <Picker.Item label="Select Country " value="" style={{color:'#222'}}/>
           <Picker.Item label="Austrlia" value="17" />
           <Picker.Item label="Canada" value="18" />
           <Picker.Item label="U.S.A" value="19" />
           <Picker.Item label="U.K" value="20" />     
         </Picker>              
+            </View>
           </View>
 
         {/*EMAIL TYPE SELECTOR*/}
@@ -205,7 +211,6 @@ const Form = () =>{
          
         </View>
       </View>
-      </ImageBackground>
     </ScrollView>
   )
 }
@@ -272,8 +277,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 15,
     fontWeight: '500',
-    elevation:10,
-
+borderRadius:8,
     color: '#222',
   },
   /* Button */

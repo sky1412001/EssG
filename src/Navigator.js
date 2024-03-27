@@ -15,9 +15,7 @@ const commu = require('./Tabicon/commu.png');
 const files = require('./Tabicon/files.png');
 const profile = require('./Tabicon/profile.png');
 const contact = require('./Tabicon/contact.png');
-
 const Stack = createNativeStackNavigator();
-
 const Navigator = () => {
   const Tab = createMaterialBottomTabNavigator();
   return (
@@ -40,7 +38,7 @@ const Navigator = () => {
         },
       }}>
       <Tab.Screen  options={{ tabBarIcon: () => (
-      <Image source={home} style={{width: 30, height: 30}} />  
+      <Image source={home} style={{width: 30, height: 30}}/>  
           ),
         }}
         name="HomeScreen"
@@ -49,7 +47,7 @@ const Navigator = () => {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <Image source={commu} style={{width: 30, height: 30}} />
+            <Image source={commu} style={{width: 30, height: 30}}/>
           ),
         }}
         name="Services"
@@ -58,7 +56,7 @@ const Navigator = () => {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <Image source={contact} style={{width: 30, height: 30}} />
+            <Image source={contact} style={{width: 30, height: 30}}/>
           ),
         }}
         name="Contact us"
@@ -67,7 +65,7 @@ const Navigator = () => {
         <Tab.Screen
         options={{
           tabBarIcon: () => (
-          <Image source={profile} style={{width: 30, height: 30}} />
+          <Image source={profile} style={{width: 30, height: 30}}/>
           ),
         }}
         name="Ways"

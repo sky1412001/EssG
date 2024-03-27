@@ -43,10 +43,11 @@ const FlagScreen = ({ navigation,route }) => {
                     <Text style={{color:"green"}}>{Fdata.email}</Text>
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={handlePhonePress}>
                 <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end', marginVertical:300,right:25}}>
-
                     <Text style={{color:"white"}}>Call Now</Text>
                 </View>
+                </TouchableOpacity>
         </ScrollView>
     );
 };

@@ -45,7 +45,7 @@ const Onboard = ({ navigation }) => {
             backgroundColor: 'white',
             image: <Image source={Study} style={{ width: 300, height: 240 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily: 'Poppins-Bold' }}>STUDY</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:"800" }}>STUDY</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
@@ -57,7 +57,7 @@ const Onboard = ({ navigation }) => {
             backgroundColor: 'white',
             image: <Image source={work} style={{ width: 300, height: 250 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily: 'Poppins-Bold' }}>WORK</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:'800' }}>WORK</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
@@ -69,7 +69,7 @@ const Onboard = ({ navigation }) => {
             backgroundColor: 'white',
             image: <Image source={settle} style={{ width: 300, height: 250 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily: 'Poppins-Bold' }}>Settle</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:"800" }}>Settle</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
