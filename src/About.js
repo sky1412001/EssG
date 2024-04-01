@@ -1,15 +1,24 @@
 import React from "react";
-import { SafeAreaView, Text, ScrollView, View, Image, StyleSheet } from "react-native";
+import { SafeAreaView, Text, ScrollView, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "./COLORS";
 
 const target = require('./Logo/target.png');
 const vision = require('./Logo/Vision.png');
 
-const About = () => {
+const About = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
+
+                <View style={{alignItems:'center', justifyContent:"center"}}>
+            <TouchableOpacity onPress={navigation.goBack}>
+
+            <Image source={require('./Logo/back.png')} style={{width:25, height:25}}/>
+          </TouchableOpacity>
+                </View>
+          <View style={{alignItems:'center', justifyContent:'center'}}>
                 <Text style={styles.headerText}>About ESS Global</Text>
+          </View>
             </View>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.section}>
@@ -55,13 +64,19 @@ const styles = StyleSheet.create({
     },
     header: {
         height: 100,
-        padding: 35,
-        backgroundColor:COLORS.primary
+        padding:25,
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        backgroundColor:COLORS.primary,
+        gap:10,
+        borderBottomLeftRadius:30,
+        borderBottomRightRadius:30
     },
     headerText: {
         fontSize: 20,
         color: 'white',
-        fontWeight: '700',
+        fontFamily:'Poppins-Bold',
+        marginTop:10
     },
     scrollViewContent: {
         paddingVertical: 20,
@@ -72,7 +87,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 19,
         color: 'black',
-        fontWeight: '700',
+        fontFamily:'Poppins-Bold'
     },
     card: {
         backgroundColor: 'white',
@@ -83,6 +98,7 @@ const styles = StyleSheet.create({
     cardText: {
         color: 'grey',
         fontSize: 15,
+        fontFamily:'Poppins-Regular'
     },
     row: {
         flexDirection: 'row',

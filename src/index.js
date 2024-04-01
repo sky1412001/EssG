@@ -7,6 +7,8 @@ import Screen from "./Screen ";
 import FlagScreen from "./FlagScreen";
 import Chat from "./Chat";
 import About from "./About";
+import Blogs from "./Blogs";
+import BlogScreen from "./BlogScreen";
 export  {
     HomeScreen,
     DeatailScreen,
@@ -15,6 +17,8 @@ export  {
     Screen,
     FlagScreen,
     Chat, 
-    About
+    About,
+    Blogs,
+    BlogScreen
     
 }

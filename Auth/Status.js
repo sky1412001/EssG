@@ -150,7 +150,7 @@ const Status =()=>{
     return(
  <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
-      <ImageBackground style={{flex: 0.7,backgroundColor:'lightblue'}} source={{uri: coverPicture}} > 
+      <ImageBackground style={{flex: 0.7,backgroundColor:'lightblue'}} source={{uri: coverPicture}}> 
         <View style={style.header}>
         </View>
         <View style={style.imageDetails}>
@@ -165,7 +165,7 @@ const Status =()=>{
             <Image source={profilePicture ? {uri: profilePicture} : camera} style={{ width: 65, height: 65, borderRadius: 100 }} />
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>requestCameraPermission("profile")}>
+        <TouchableOpacity onPress={()=>requestCameraPermission("cover")}>
         <Image source={require('./icons/plus.png')} style={{width:25, height:25,left:85}}/>
         </TouchableOpacity>
         <Text style={{marginTop: 40, lineHeight: 32, fontFamily:'Poppins-Bold', color:COLORS.primary}}>Ess Global</Text>
@@ -180,6 +180,18 @@ const Status =()=>{
         <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>LOG OUT</Text></View>
         </TouchableOpacity>  
       </View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+      >
+        <View style={style.centeredView}>
+          <TouchableOpacity onPress={()=>setModalVisible(false)}>
+        <View style={{marginBottom:20}}><Text style={{color:'white', fontSize:20}}>Close</Text></View>
+          </TouchableOpacity>
+            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width:150, height:150}}/>
+        </View>
+      </Modal>
     </SafeAreaView>
     )
 }
@@ -240,4 +252,46 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 1, 0.8)', 
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    openButton: {
+      backgroundColor: '#F194FF',
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: 'center',
+    },
 });

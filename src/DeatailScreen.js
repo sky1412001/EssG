@@ -25,7 +25,7 @@ const DeatailScreen = ({navigation, route}) => {
       <ImageBackground style={{flex: 0.7}} source={Data.image}>
         <View style={style.header}>
           <TouchableOpacity onPress={navigation.goBack}>
-            <Image source={require('./Logo/back.png')} style={{width:20, height:20}}/>
+            <Image source={require('./Logo/backon.png')} style={{width:25, height:25}}/>
           </TouchableOpacity>
         </View>
         <View style={style.imageDetails}>
@@ -33,7 +33,7 @@ const DeatailScreen = ({navigation, route}) => {
             style={{
               width: '70%',
               fontSize: 30,
-              fontWeight: 'bold',
+              fontFamily:'Poppins-Bold',
               color: COLORS.primary,
               marginBottom: 20,
             }}> 

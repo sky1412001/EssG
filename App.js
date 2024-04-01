@@ -8,7 +8,7 @@ import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Student from "./Auth/Student";
 import Ways from "./src/Ways";
-import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Screen, FlagScreen,Chat, About} from "./src";
+import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Screen, FlagScreen,Chat, About, Blogs, BlogScreen} from "./src";
 import Status from "./Auth/Status";
 
 const App = () =>{
@@ -32,6 +32,8 @@ const App = () =>{
       <Stack.Screen name="Status" component={Status} />
       <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Blogs" component={Blogs} />
+      <Stack.Screen name="BlogScreen" component={BlogScreen} />
 
     </Stack.Navigator>
   </NavigationContainer>

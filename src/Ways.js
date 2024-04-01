@@ -1,14 +1,31 @@
-import React from "react";
-import {SafeAreaView, StyleSheet,View, Image, Text, Pressable, Touchable, TouchableOpacity, ImageBackground} from "react-native";
+import React,{useState,useEffect} from "react";
+import {SafeAreaView, StyleSheet,View, Image, Text, Pressable, Touchable, TouchableOpacity, ImageBackground, StatusBar,ActivityIndicator} from "react-native";
 const imail = require('../Auth/icons/lock.png');
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import COLORS from "./COLORS";
 
 const Ways = ({navigation}) =>{
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Simulate loading delay for 2 seconds
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+      </View>
+    );
+  }
   const Stack = createNativeStackNavigator()
     return(
-      <SafeAreaView style={{flex:1}}>
-        <ImageBackground source={require('./Postdata/formBack.png')} style={{flex:1}}>
+      <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
+        <StatusBar backgroundColor={COLORS.primary}/>
           <View style={styles.header}>
           <Image source={imail} style={styles.headerImg} />
           <Text style={styles.title}>
@@ -23,17 +40,22 @@ const Ways = ({navigation}) =>{
            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={{borderRadius:10,backgroundColor:'#B21E35', width:'50%', height:50, alignItems:'center', justifyContent:'center'}}>
             <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Login with Gmail</Text>
            </TouchableOpacity>
-           <View style={{flexDirection:'row', justifyContent:'space-evenly', alignItems:'flex-end', marginTop:250, gap:40}}>
+           <View style={{flexDirection:'row', justifyContent:'space-evenly', alignItems:'flex-end', marginTop:180, gap:40}}>
+           <TouchableOpacity onPress={()=>navigation.navigate('Chat')} style={{flexDirection:'row',borderWidth:1.6,borderColor:COLORS.primary,borderRadius:10,backgroundColor:'white', width:'35%', height:50, alignItems:'center', justifyContent:'space-evenly'}}>
+          <View style={{alignItems:'center',justifyContent:'center'}} >
 
-           <TouchableOpacity onPress={()=>navigation.navigate('Chat')} style={{borderRadius:10,backgroundColor:'green', width:'35%', height:50, alignItems:'center', justifyContent:'center'}}>
-            <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Contact us</Text>
+           <Image source={require('./Home/com.png')} style={{width:20, height:20}} />
+          </View>
+            <Text style={{color:COLORS.primary, fontSize:13, fontFamily:'Poppins-Bold'}}>Contact us</Text>
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>navigation.navigate('About')} style={{borderRadius:10,backgroundColor:'orange', width:'35%', height:50, alignItems:'center', justifyContent:'center'}}>
-            <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>About us</Text>
+           <TouchableOpacity onPress={()=>navigation.navigate('About')} style={{borderColor:COLORS.primary,borderWidth:2,borderRadius:10,backgroundColor:'white', width:'35%', height:50, alignItems:'center', justifyContent:'space-evenly', flexDirection:'row'}}>
+           <View style={{alignItems:'center',justifyContent:'center'}}>
+          <Image source={require('./Home/about.png')} style={{width:20, height:20}} />
+          </View>
+            <Text style={{color:COLORS.primary, fontSize:13, fontFamily:'Poppins-Bold'}}>About us</Text>
            </TouchableOpacity>
            </View>
         </View>
-        </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -41,14 +63,14 @@ export default Ways;
 const styles = StyleSheet.create({
     title: {
         fontSize: 27,
-        fontWeight: '700',
+        fontFamily:'Poppins-Bold',
         color: '#1d1d1d',
         marginBottom: 5,
         textAlign: 'center',
       },
       subtitle: {
         fontSize: 15,
-        fontWeight: '500',
+        fontFamily:'Poppins-Regular',
         color: '#929292',
         textAlign: 'center',
       },
@@ -59,5 +81,10 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         alignSelf: 'center',
+      },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
       },
 })

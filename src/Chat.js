@@ -1,27 +1,23 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, StatusBar, Image } from 'react-native';
 import COLORS from './COLORS';
 const user = require('../Auth/icons/camera.png')
-const Chat = () => {
+const Chat = ({navigation}) => {
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
 
   const handleSend = () => {
     if (message.trim() !== '') {
-      // Add user's message to chat messages list
       setChatMessages([...chatMessages, { text: message, fromUser: true }]);
-      // Clear input field
       setMessage('');
     }
   };
-
   useEffect(() => {
     if (chatMessages.length > 0 && chatMessages[chatMessages.length - 1].fromUser) {
       setTimeout(() => {
         setChatMessages([
           ...chatMessages,
-          { text: "Thank you for your message!", fromUser: false }
+          { text: "Thank you for reaching out to us regarding the problem you encountered with our App of ESS Global. We truly appreciate your proactive approach in bringing this matter to our attention.", fromUser: false }
         ]);
       }, 1000);
     }
@@ -29,16 +25,23 @@ const Chat = () => {
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor={COLORS.primary}/>
-        <View style={{elevation:1, height:50, marginTop:20, color:'white', flexDirection:'row', padding:10, gap:4}}>
-            <Image source={user} style={{width:38, height:38}}/>
+        <View style={{height:50, marginTop:20, color:'white', flexDirection:'row', padding:10, gap:20, borderColor:'#ccc', alignItems:'center', justifyContent:'flex-start'}}>
+         <TouchableOpacity onPress={()=>navigation.goBack()}>
+
+          <View style={{alignItems:"center", justifyContent:'center'}}>
+
+          <Image source={require('./Logo/backon.png')} style={{width:20, height:20}}/>
+          </View>
+         </TouchableOpacity>
+            <Image source={user} style={{width:36, height:36}}/>
             <View style={{alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:15}}>Admin</Text>
+                <Text style={{fontSize:15, color:'grey'}}>Admin</Text>
             </View>
         </View>
       <ScrollView style={styles.chatContainer}>
         {chatMessages.map((chat, index) => (
           <View key={index} style={[styles.messageContainer, chat.fromUser && styles.userMessage]}>
-            <Text>{chat.text}</Text>
+            <Text style={{color:'white'}}>{chat.text}</Text>
           </View>
         ))}
       </ScrollView>
@@ -46,6 +49,7 @@ const Chat = () => {
         <TextInput
           style={styles.input}
           placeholder="Type your message..."
+          placeholderTextColor={'#222'}
           value={message}
           onChangeText={text => setMessage(text)}
         />
@@ -56,7 +60,6 @@ const Chat = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -67,14 +70,15 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     padding: 10,
-    marginBottom: 5,
+    marginBottom: 9,
     borderRadius: 5,
-    backgroundColor: '#f0f0f0',
-    maxWidth: '80%',
+    backgroundColor: COLORS.primary,
+    maxWidth: '80%',           
   },
   userMessage: {
+    
     alignSelf: 'flex-end',
-    backgroundColor: '#dcf8c6',
+    backgroundColor: 'skyblue',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    color:'black',
     height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: COLORS.primary,
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -103,5 +108,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
 export default Chat;

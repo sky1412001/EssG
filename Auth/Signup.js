@@ -15,7 +15,6 @@ const imail = require('./icons/lock.png');
 const eyes = require('./icons/eye.png');
 const hiden = require('./icons/hiden.png');
 import COLORS from '../src/COLORS';
-
 const Signup = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -243,7 +242,6 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'center',
   },
-  /** Form */
   form: {
     marginBottom: 24,
     flexGrow: 1,
@@ -279,7 +277,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#222',
   },
-  /** Button */
   btn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -295,6 +292,5 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     fontWeight: '600',
     color: '#fff',
-   
   },
 });

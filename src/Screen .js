@@ -64,7 +64,6 @@ const Screen = ({navigation, route}) => {
   );
 };
 const style = StyleSheet.create({
-  
   bookNowBtn: {
     height: 50,
     width: 150,

@@ -10,6 +10,7 @@ import COLORS from './COLORS';
 import Profile from './Profile';
 import Login from '../Auth/Login';
 import Ways from './Ways';
+import { Blogs } from '.';
 const home = require('./Tabicon/home.png');
 const commu = require('./Tabicon/commu.png');
 const files = require('./Tabicon/files.png');
@@ -21,7 +22,7 @@ const Navigator = () => {
   return (
        <Tab.Navigator
       initialRouteName="HomeScreen"
-      barStyle={{ backgroundColor: 'white', height:60}}
+      barStyle={{ backgroundColor: 'white',height:60}}
       inactiveColor='rgba(0,0,0,0)'
       activeColor="rgba(0,0,0,0)"
       activeIndicatorStyle={{
@@ -34,7 +35,8 @@ const Navigator = () => {
       }}
       screenOptions={{
         tabBarStyle: {
-          height: 50   
+          height: 30  
+          
         },
       }}>
       <Tab.Screen  options={{ tabBarIcon: () => (
@@ -50,8 +52,8 @@ const Navigator = () => {
             <Image source={commu} style={{width: 30, height: 30}}/>
           ),
         }}
-        name="Services"
-        component={Services}
+        name="Blogs"
+        component={Blogs}
       />
       <Tab.Screen
         options={{
@@ -59,20 +61,19 @@ const Navigator = () => {
             <Image source={contact} style={{width: 30, height: 30}}/>
           ),
         }}
-        name="Contact us"
+        name="Contact"
         component={Form}
       />
         <Tab.Screen
         options={{
           tabBarIcon: () => (
-          <Image source={profile} style={{width: 30, height: 30}}/>
+          <Image source={profile} style={{width:30, height:30}}/>
           ),
         }}
         name="Ways"
         component={Ways}
       />  
     </Tab.Navigator> 
-   
   );
 };
 export default Navigator;

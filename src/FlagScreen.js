@@ -1,6 +1,5 @@
 import React from "react";
 import { ScrollView, StyleSheet, View, Text, Image, TouchableOpacity, Linking, StatusBar } from "react-native";
-import { useNavigation } from '@react-navigation/native';
 import COLORS from "./COLORS";
 const FlagScreen = ({ navigation,route }) => {
     const Fdata = route.params;
@@ -17,12 +16,17 @@ const FlagScreen = ({ navigation,route }) => {
       };
     return (
         <ScrollView>
-            <StatusBar backgroundColor={COLORS.light}/>
+            <StatusBar backgroundColor={COLORS.primary}/>
             <View style={styles.header}>
-                <View style={{elevation:10}}>
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                <View style={{alignItems:'center', justifyContent:'center',marginTop:30}}>
+                    <Image source={require('./Logo/backon.png')}  style={{width:20, height:20}}/>
+                </View>
+                </TouchableOpacity>
+                <View style={{elevation:1, alignItems:'center', justifyContent:'center'}}>
                     <Image source={Fdata.image} style={{width:70, height:50}}/>
                 </View>
-                <View>
+                <View style={{alignItems:'center', justifyContent:'center'}}>
                 <Text style={{fontSize:20,fontFamily:'Poppins-Medium', marginTop:5, color:'black'}}>{Fdata.name}</Text>
                 <Text style={{fontSize:20, marginTop:5, color:COLORS.primary}}>{Fdata.subname}</Text>
                 </View>
@@ -45,7 +49,7 @@ const FlagScreen = ({ navigation,route }) => {
                 </View>
                 <TouchableOpacity onPress={handlePhonePress}>
                 <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end', marginVertical:300,right:25}}>
-                    <Text style={{color:"white"}}>Call Now</Text>
+                    <Image source={require('./Tabicon/contact.png')}  style={{width:40, height:40}}/>
                 </View>
                 </TouchableOpacity>
         </ScrollView>
@@ -56,9 +60,10 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor:COLORS.light,
         height:110,
-        padding:40,
+        padding:10,
         flexDirection:"row",
-        justifyContent:"space-around",
-        elevation:5
+        elevation:5,
+        marginTop:20,
+        gap:20
     }
 });

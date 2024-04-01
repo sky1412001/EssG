@@ -14,15 +14,11 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import product from "./Product";
-
 const { width: screenWidth } = Dimensions.get('window');
-
 const Detail = () => {
   const flatlistRef = useRef();
   const [activeIndex, setActiveIndex] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (activeIndex === product.length - 1) {
@@ -39,22 +35,18 @@ const Detail = () => {
         });
       }
     }, 3500);
-
     return () => clearInterval(interval);
   }, [activeIndex]);
-
   const getItemLayout = (data, index) => ({
     length: screenWidth,
     offset: screenWidth * index,
     index: index,
   });
-
   const handleScroll = (event) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
     const index = Math.floor(scrollPosition / screenWidth);
     setActiveIndex(index);
   };
-
   const Card = ({ product }) => {
     return (
       <TouchableOpacity   activeOpacity={0.8}>
@@ -77,7 +69,6 @@ const Detail = () => {
       </TouchableOpacity>
     );
   };
-
   return (
     <ScrollView showVerticalScrollIndicator={false}>
       <View>
@@ -97,12 +88,8 @@ const Detail = () => {
     </ScrollView>
   );
 };
-
 export default Detail;
-
-const Styles = StyleSheet.create({
-    
-   
+const Styles = StyleSheet.create({     
     imgContainer: {
       height: 60,
       width:90,
@@ -119,7 +106,6 @@ const Styles = StyleSheet.create({
       fontSize: 20,
       color: 'black',
     },
-  
     rmCardImage: {
         screenwidth:screenWidth*2,
       height: 120,
@@ -129,7 +115,6 @@ const Styles = StyleSheet.create({
       padding: 10,
       elevation: 10
     },
-    
     sectionTitle: {
       marginHorizontal: 20,
       marginVertical: 20,

@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import axios from 'axios';
+import COLORS from '../src/COLORS';
 const imail = require('./icons/lock.png');
 const Student = ({ navigation }) => {
   const [fileNo, setFileNo] = useState('');
@@ -44,7 +45,7 @@ const Student = ({ navigation }) => {
   };
   return (
     <ScrollView style={styles.container}>
-      <StatusBar backgroundColor="white" />
+      <StatusBar backgroundColor={COLORS.primary} />
       <View>
         <View style={styles.header}>
           <Image source={imail} style={styles.headerImg}/>
@@ -104,13 +105,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 27,
-    fontWeight: '700',
+    fontFamily:'Poppins-Bold',
     color: '#1d1d1d',
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: '500',
+    fontFamily:'Poppins-Regular',
     color: '#929292',
   },
   form: {
@@ -153,5 +154,4 @@ const styles = StyleSheet.create({
     color: 'red',
   },
 });
-
 export default Student;

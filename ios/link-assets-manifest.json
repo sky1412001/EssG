@@ -6,12 +6,24 @@
       "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
     },
     {
-      "path": "assets/fonts/Poppins-MediumItalic.ttf",
-      "sha1": "b592c62fdf88c40cfd0f031bba6423b1d4430472"
-    },
-    {
       "path": "assets/fonts/Poppins-Regular.ttf",
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "assets/fonts/Roboto-Black.ttf",
+      "sha1": "3f8e401d808f6ce84b542266726514ac8be73171"
+    },
+    {
+      "path": "assets/fonts/Roboto-Bold.ttf",
+      "sha1": "62442a18a9fe9457c1afeabf683d263a691b7798"
+    },
+    {
+      "path": "assets/fonts/Roboto-Regular.ttf",
+      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+    },
+    {
+      "path": "assets/fonts/Voces-Regular.ttf",
+      "sha1": "80bce738d8bb52aa33756c98eddaf5e868c9ace1"
     }
   ]
 }
