@@ -39,11 +39,6 @@ const DeatailScreen = ({navigation, route}) => {
             }}> 
             {Data.name}
           </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{color: COLORS.white, fontWeight:'bold', fontSize: 20}}>
-            </Text>
-          </View>
         </View>
       </ImageBackground>
       <View style={style.detailsContainer}>

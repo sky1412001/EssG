@@ -97,7 +97,7 @@ const Form = () =>{
     }
   };
   return(
-    <ScrollView style={{flex: 1, backgroundColor: '#e8ecf4'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#e8ecf4'}}>
       <StatusBar translucent backgroundColor={COLORS.primary} />
       <View style={styles.container}>
         <View style={styles.header}>
@@ -148,9 +148,10 @@ const Form = () =>{
           </View>
             {/*QUERY TYPE SELECTOR*/}
           <View style={styles.input}>
-            <View  style={{width:wp('75.4%'), height:50,backgroundColor:'#fff',
+            <View  style={{width:wp('85%'), height:50,backgroundColor:'#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
 <Picker
+style={{width:wp('85%')}}
         dropdownIconColor={COLORS.primary}
         selectedValue={pickerValue}
         onValueChange={(itemValue, itemIndex) => {
@@ -169,9 +170,10 @@ const Form = () =>{
             </View>
           </View>
           <View style={styles.input}>
-            <View   style={{width:wp('75.4%'), height:50,backgroundColor: '#fff',
+            <View   style={{width:wp('85%'), height:50,backgroundColor: '#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
           <Picker
+          style={{width:wp('85%')}}
          dropdownIconColor={COLORS.primary}
           selectedValue={selectCounrty}
           onValueChange={(itemValue, itemIndex) => {
@@ -225,13 +227,14 @@ const Form = () =>{
           </View>
         </View>
       </Modal>
-    </ScrollView>
+    </SafeAreaView>
   )
 }
+
  export default Form;
 const styles = StyleSheet.create({
   container: {
-    padding: 25,
+    padding: 20,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
@@ -249,18 +252,16 @@ const styles = StyleSheet.create({
     color:'#222',
     textAlign: 'center',
   },
-  /** Header */
   header: {
-    marginVertical:20,
+    marginVertical:10,
   },
   headerImg: {
     width: 60,
     height: 60,
     alignSelf: 'center',
   },
-  /** Form */
   form: {
-    padding:20,
+    padding:10,
     backgroundColor: '#EDF2FB',
     marginBottom: 20,
     flexGrow: 1,
