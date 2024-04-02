@@ -42,9 +42,9 @@ const Status =()=>{
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED){
           console.log('Camera permission granted');
-          if (mediaType === 'profile') {
+          if (mediaType === 'profile'){
             openCamera('profile');
-          } else if (mediaType === 'cover') {
+          } else if (mediaType === 'cover'){
             openGallery('cover');
           }
         } else {
@@ -53,7 +53,7 @@ const Status =()=>{
       } else {
         if (mediaType === 'profile') {
           openCamera('profile');
-        } else if (mediaType === 'cover') {
+        } else if (mediaType === 'cover'){
           openGallery('cover');
         }
       }
@@ -88,7 +88,7 @@ const Status =()=>{
           try {
             await AsyncStorage.setItem('coverPicture', response.assets[0].uri);
             console.log('Cover picture stored successfully');
-          } catch (error) {
+          } catch (error){
             console.log('Error storing cover picture:', error);
           }
         }

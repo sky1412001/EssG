@@ -10,15 +10,11 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
   ScrollView,
-  Pressable,
   StyleSheet,
   Dimensions,
   FlatList,
   ImageBackground,
-  Modal,
-  Button,
   ActivityIndicator
 } from 'react-native';
 import {Rating} from 'react-native-stock-star-rating';
@@ -44,7 +40,6 @@ const monthNames = [
   'Nov',
   'Dec',
 ];
-
 const monthIndex = currentDate.getMonth();
 const monthName = monthNames[monthIndex];
 const HomeScreen = ({navigation}) => {
@@ -98,7 +93,7 @@ const HomeScreen = ({navigation}) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="large" color={COLORS.primary}/>
       </View>
     );
   }
@@ -114,12 +109,12 @@ const HomeScreen = ({navigation}) => {
               borderRadius: 10,
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginTop: 4,
+              marginTop: 3,
               flexDirection:'row',
               backgroundColor:'white'
             }}>
             <Image source={Fdata.image} style={{width: 20, height: 10}} />
-            <Text style={{textAlign: 'center', color: COLORS.primary, fontSize: 12, fontFamily:'Poppins-Bold'}}>
+            <Text style={{textAlign: 'center', color: COLORS.primary, fontSize: 11, fontFamily:'Poppins-Bold'}}>
               {Fdata.name}
             </Text>
           <View style={{backgroundColor:COLORS.primary, width:wp('5%')}}><Text style={{textAlign:'center',color:'white'}}>+</Text></View>
@@ -136,8 +131,8 @@ const HomeScreen = ({navigation}) => {
           <Image source={Dataco.image} style={{width:wp('17%'), height:hp('9%'),borderRadius:30}}/>
           </View>
           <View>
-            <Text style={{fontSize:hp('1.6%'), color:'#222',fontFamily:'Poppins-Bold'}}>{Dataco.name}</Text>
-            <Text style={{fontSize:hp('1.6%'), color:'#222', fontFamily:'Poppins-Regular'}}>{Dataco.about}</Text>
+            <Text style={{fontSize:hp('1.4%'), color:'#222',fontFamily:'Poppins-Bold'}}>{Dataco.name}</Text>
+            <Text style={{fontSize:hp('1.2%'), color:'#222', fontFamily:'Poppins-Regular'}}>{Dataco.about}</Text>
             <Rating stars={Dataco.rating} maxStars={5} size={12} color={'#0466C8'}/>
           </View>
         </View>
@@ -186,20 +181,20 @@ const HomeScreen = ({navigation}) => {
           <Image source={Visa.image} style={styles.image} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>{Visa.title}</Text>
-            <Text style={styles.subtitle}>{Visa.sub}</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={()=>navigation.navigate('PostLandingForm', Visa)}>
-        <View style={{backgroundColor:COLORS.primary, width:20,alignItems:'center', justifyContent:'center', marginHorizontal:wp('35%'), borderRadius:2}}>
-          <Text style={{color:'white'}}>+</Text>
+        <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+            <Text style={styles.subtitle}>{Visa.sub}</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate('PostLandingForm', Visa)} style={{backgroundColor:COLORS.primary, width:21}}>
+              <Text style={{color:COLORS.light, textAlign:'center'}}>+</Text>
+            </TouchableOpacity>
         </View>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
     )
   }
   return (
-    <ScrollView>
+    <SafeAreaView style={{backgroundColor:'white'}}>
       <View
         style={{
           borderBottomLeftRadius: 15,
@@ -207,7 +202,7 @@ const HomeScreen = ({navigation}) => {
           elevation: 10,
         }}>
           <View style={styles.header}>
-            <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
+            <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
             <View>
               <View style={{gap:-4}}>
                 <View style={{flexDirection: 'row'}}></View>
@@ -220,7 +215,11 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
       </View>
-      <View style={{marginTop: 10}}>
+
+      <View style={{top:-27,backgroundColor:'white', borderTopLeftRadius:26, borderTopRightRadius:26}}>
+<ScrollView>
+
+      <View style={{marginTop: 14, }}>
         <FlatList
           snapToInterval={width - 20}
           ref={flatlistRef}
@@ -232,13 +231,13 @@ const HomeScreen = ({navigation}) => {
           data={Slider}
           onScroll={handleScroll}
           renderItem={({item}) => <RecommendedCard Slider={item} />}
-        />
+          />
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.sectionTwo}>Popular Consultant</Text>
       </View>
       {/*Popular Consultant CARD*/}
-      <View style={{marginTop: 2, backgroundColor: '#EDF2FB'}}>
+      <View style={{ backgroundColor: '#EDF2FB'}}>
         <FlatList
           snapToInterval={width - 45}
           keyExtractor={item => item.id}
@@ -248,15 +247,15 @@ const HomeScreen = ({navigation}) => {
           data={Dataco}
           renderItem={({item}) => (
             <Consultant Dataco={item} navigation={navigation}/>
-          )}
-        />
+            )}
+            />
       </View>
       <View>
-        <Text style={{marginHorizontal: 15, fontFamily:'Poppins-Bold', color: 'grey'}}>
+        <Text style={{marginHorizontal: 15, fontFamily:'Poppins-Bold', color: 'grey', fontSize:12}}>
           Our Offices
         </Text>
       </View>
-      <View style={{backgroundColor: '#EDF2FB', marginTop: 5, padding:3}}>
+      <View style={{backgroundColor: '#EDF2FB', padding:3}}>
         <FlatList
           snapToInterval={width - 20}
           keyExtractor={item => item.id}
@@ -266,13 +265,13 @@ const HomeScreen = ({navigation}) => {
           data={Fdata}
           renderItem={({item}) => (
             <Nation Fdata={item} navigation={navigation} />
-          )}
+            )}
         />
       </View>
       <View>
-        <Text style={{marginHorizontal: 15, fontFamily:'Poppins-Bold', color: 'grey'}}>Our Services</Text>
+        <Text style={{marginHorizontal: 15, fontFamily:'Poppins-Bold', color: 'grey', fontSize:12}}>Our Services</Text>
       </View>
-      <View style={{backgroundColor: '#EDF2FB', marginTop: 5, elevation: 1}}>
+      <View style={{backgroundColor: '#EDF2FB', elevation: 1}}>
         <FlatList
           snapToInterval={width - 20}
           keyExtractor={item => item.id}
@@ -282,18 +281,19 @@ const HomeScreen = ({navigation}) => {
           data={Visa}
           renderItem={({item}) => (
             <Services Visa={item} navigation={navigation} />
-          )}
-        />
+            )}
+            />
       </View>
-    </ScrollView>
+            </ScrollView>
+            </View>
+    </SafeAreaView>
   );
 };
 export default HomeScreen;
 const styles = StyleSheet.create({
   header:{
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    height: hp('17.5%'),
+   
+    height: hp('19%'),
     padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily:"Poppins-Bold",
-    fontSize: hp('2.2%'),
+    fontSize: hp('2.1%'),
     color: 'white',
   },
   sectionOne: {
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   sectionTwo: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily:'Poppins-Bold',
     marginHorizontal: 15,
     color: 'grey',
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     width: wp('40%'), // adjust as needed
-    height: hp('10%'), // adjust as needed
+    height: hp('12%'), // adjust as needed
     padding: wp('2%'),
     borderRadius: wp('2%'),
     elevation: 1,
@@ -408,8 +408,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {
-    width: wp('7%'), // adjust as needed
-    height: wp('7%'), // adjust as needed
+    width: wp('12%'), // adjust as needed
+    height: hp('7%'), // adjust as needed
   },
   textContainer: {
     flex: 1,
@@ -419,12 +419,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: wp('2.5%'), // adjust as needed
     color: '#222',
-    fontFamily:'Poppins-Regular'
+    fontFamily:'Poppins-Bold'
   },
   subtitle: {
     fontSize: wp('2%'), // adjust as needed
     color:COLORS.primary,
-    fontWeight: '700',
+    fontFamily:'Poppins-Regular',
+    textAlign:'center'
   },
   loadingContainer: {
     flex: 1,

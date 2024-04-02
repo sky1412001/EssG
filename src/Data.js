@@ -19,7 +19,6 @@ const Data = [
         image:require('./Home/Anjali.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
     },
-    
     {
         id:2,
         name:'Sam',
@@ -39,8 +38,6 @@ const Data = [
         timing:'11:30AM - 1:00PM',
         image:require('./Home/two.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
-    },
-    
-    
+    }, 
 ]
 export default Data;

@@ -36,7 +36,6 @@ const Navigator = () => {
       screenOptions={{
         tabBarStyle: {
           height: 30  
-          
         },
       }}>
       <Tab.Screen  options={{ tabBarIcon: () => (

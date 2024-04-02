@@ -148,7 +148,7 @@ const Form = () =>{
           </View>
             {/*QUERY TYPE SELECTOR*/}
           <View style={styles.input}>
-            <View  style={{width:wp('85%'), height:50,backgroundColor:'#fff',
+            <View  style={{width:wp('84%'), height:50,backgroundColor:'#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
 <Picker
 style={{width:wp('85%')}}
@@ -170,7 +170,7 @@ style={{width:wp('85%')}}
             </View>
           </View>
           <View style={styles.input}>
-            <View   style={{width:wp('85%'), height:50,backgroundColor: '#fff',
+            <View   style={{width:wp('84%'), height:50,backgroundColor: '#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
           <Picker
           style={{width:wp('85%')}}
@@ -188,7 +188,6 @@ style={{width:wp('85%')}}
         </Picker>              
             </View>
           </View>
-        {/*EMAIL TYPE SELECTOR*/}
           <View style={styles.input}>
             <TextInput
               mode="outlined"
@@ -208,7 +207,7 @@ style={{width:wp('85%')}}
               disabled={email === '' || lastname === '' || mobileNo === '' || pickerValue === ''   || selectCounrty === "" || checkValidEmail} >
               <View  style={[
         styles.btn,
-        { backgroundColor: (firstname === '' || lastname === '' || pickerValue === ''||checkValidEmail) ? COLORS.primary : 'green' }
+        { backgroundColor: (firstname === '' || lastname === '' || pickerValue === ''|| checkValidEmail) ? COLORS.primary : 'green' }
     ]}>    
     <Image source={require('./Blog/plane.png')} style={{width:28, height:28}}/>
               </View>
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily:'Poppins-Bold',
     color: COLORS.primary,
-    marginBottom: 5,
+    marginBottom: 3,
     textAlign: 'center',
   },
   subtitle: {
@@ -263,7 +262,7 @@ const styles = StyleSheet.create({
   form: {
     padding:10,
     backgroundColor: '#EDF2FB',
-    marginBottom: 20,
+    marginBottom: 16,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,

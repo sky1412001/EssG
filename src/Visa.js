@@ -3,19 +3,19 @@ const Visa = [
         id:1,
         title:'Permanent Resident Services',
         sub:'Settle in foregin Country',
-        image:require('./Tabicon/edu.png'),
+        image:require('./Postdata/Pr.png'),
     },
     {
         id:2,
         title:'Tourist or Visitor Visa services',
-        sub:'Let the journey never end',
-        image:require('./Tabicon/four.png')
+        sub:'Let journey never end',
+        image:require('./Home/tour.png')
     },
     {
         id:3,
         title:'Skilled Immigration',
-        sub:'Sponsring and Managing Work',
-        image:require('./Tabicon/six.png')
+        sub:'Sponsring and Managing',
+        image:require('./Postdata/job.png')
     },
    
 ]

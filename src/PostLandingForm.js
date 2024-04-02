@@ -48,7 +48,7 @@ const PostLandingForm = ({navigation, route}) => {
     }
   };
   return (
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
       <StatusBar translucent backgroundColor={COLORS.primary} />
     <ScrollView style={{flex:1}}> 
       <View
@@ -56,22 +56,22 @@ const PostLandingForm = ({navigation, route}) => {
           padding: 15
         }}>
           <TouchableOpacity onPress={()=>navigation.goBack()}>
-        <View style={{marginVertical:30}}>
-          <Image source={require('./Logo/backon.png')} style={{width: 20, height: 20,}} />
+        <View style={{marginVertical:17}}>
+          <Image source={require('./Logo/backon.png')} style={{width: 20, height: 20,marginTop:20}} />
           </View>
           </TouchableOpacity>
         <View style={{alignSelf:'center'}}>
-          <Image source={Service.image} style={{width: 130, height: 130,}}
+          <Image source={Service.image} style={{width: 130, height: 130}}
           />
         </View>
       </View>
-      <View style={{backgroundColor:'#EDF2FB', margin:20, padding:10, elevation:2, borderRadius:20}}>
+      <View style={{backgroundColor:'#EDF2FB', margin:15, padding:10, elevation:2, borderRadius:20}}>
         <Text
           style={{
             fontSize: 19,
             textAlign: 'center',
             color:COLORS.primary,
-            fontWeight:'700'
+            fontFamily:'Poppins-Bold'
           }}>
           {Service.title}
         </Text>

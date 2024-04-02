@@ -77,7 +77,7 @@ const Detail = () => {
           ref={flatlistRef}
           getItemLayout={getItemLayout}
           keyExtractor={(item) => item.id.toString()} 
-          contentContainerStyle={{ paddingLeft: 4, paddingBottom: 20 }}
+          contentContainerStyle={{ paddingLeft: 4, paddingBottom: 20}}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={product}

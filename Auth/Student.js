@@ -12,43 +12,38 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import COLORS from '../src/COLORS';
-const imail = require('./icons/lock.png');
+const lockIcon = require('./icons/lock.png');
 const Student = ({ navigation }) => {
   const [fileNo, setFileNo] = useState('');
   const [passportNo, setPassportNo] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const data = {fileNo, passportNo}
+
   const baseUrl = "https://essglobal.com/ionicApi/api.php?tag=login";
+
   const postData = async () => {
     try {
-      const response = await axios.post(baseUrl, data);
+      const response = await axios.post(baseUrl, { fileNo, passportNo });
       console.log('POST Response:', response.data);
-      Alert.alert('Login successfully');
-      refreshData();
+      if (response.data.success) {
+        Alert.alert('Login successful');
+        refreshData();
+      } else {
+        Alert.alert('Invalid User and Password');
+      }
     } catch (error) {
       console.error('Error during POST request:', error);
-      if (error.response) {
-        setValue(error.response.data.msg || 'Invalid User and Password');
-      } else if (error.request){
-        console.error('Internet Connection Failed:', error.request);
-        setValue('Internet connection failed!');
-      } else {
-        console.error('Error setting up the request:', error.message);
-        setValue('Invalid User');
-      }
+      Alert.alert('Error', 'Failed to login. Please try again later.');
     }
   };
   const refreshData = () => {
     setFileNo('');
     setPassportNo('');
-    setErrorMessage('');
   };
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLORS.primary} />
       <View>
         <View style={styles.header}>
-          <Image source={imail} style={styles.headerImg}/>
+          <Image source={lockIcon} style={styles.headerImg}/>
           <Text style={styles.title}>
             Sign in to <Text style={{ color: '#075eec' }}>ESS GLOBAL</Text>
           </Text>
@@ -79,7 +74,7 @@ const Student = ({ navigation }) => {
               onChangeText={(text) => setPassportNo(text)}
             />
           </View>
-          <TouchableOpacity onPress={()=>navigation.navigate('Status')}>
+          <TouchableOpacity onPress={postData}>
             <View style={styles.btn}>
               <Text style={styles.btnText}>Log In</Text>
             </View>
@@ -89,6 +84,7 @@ const Student = ({ navigation }) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -150,8 +146,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
   },
-  errorMessage: {
-    color: 'red',
-  },
 });
+
 export default Student;

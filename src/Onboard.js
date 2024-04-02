@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, StatusBar } from 'react-native';
+import { Text, View, Image, StatusBar, TouchableOpacity } from 'react-native';
 const Study = require('./OnLogo/study.jpg');
 const work = require('./OnLogo/work.jpg');
 const settle = require('./OnLogo/settle.jpg')
@@ -7,10 +7,8 @@ const next = require('./OnLogo/next.png')
 import Onboarding from 'react-native-onboarding-swiper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import COLORS from './COLORS';
-
 const Onboard = ({ navigation }) => {
   const [showOnboarding, setShowOnboarding] = useState(false)
-
   const goToLogin = () => {
     navigation.navigate('Navigator')
   }
@@ -30,22 +28,20 @@ const Onboard = ({ navigation }) => {
     };
     checkOnboardingStatus();
   }, []);
-
   if (showOnboarding) {
     return (
       <Onboarding
-        color='yellow'
         bottomBarColor='white'
         onSkip={goToLogin}
         onDone={goToLogin}
-        skipLabel={<Text style={{ fontFamily: 'Poppins-Medium', color: COLORS.primary, textDecorationLine: 'underline' }}>SKIP</Text>}
-        nextLabel={<Text style={{ fontFamily: 'Poppins-Medium', color: COLORS.primary, textDecorationLine: 'underline' }}>NEXT</Text>}
+        skipLabel={<View><Text style={{ fontFamily: 'Poppins-Bold', color:COLORS.primary}}>SKIP</Text></View>}
+        nextLabel={<Text style={{fontFamily: 'Poppins-Bold', color: COLORS.primary, }}>NEXT</Text>}
         pages={[
           {
             backgroundColor: 'white',
             image: <Image source={Study} style={{ width: 300, height: 240 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:"800" }}>STUDY</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>STUDY</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
@@ -57,7 +53,7 @@ const Onboard = ({ navigation }) => {
             backgroundColor: 'white',
             image: <Image source={work} style={{ width: 300, height: 250 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:'800' }}>WORK</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>WORK</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
@@ -69,7 +65,7 @@ const Onboard = ({ navigation }) => {
             backgroundColor: 'white',
             image: <Image source={settle} style={{ width: 300, height: 250 }} />,
             title: (
-              <Text style={{ fontSize: 40, color: '#0466C8', fontWeight:"800" }}>Settle</Text>
+              <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>Settle</Text>
             ),
             subtitle: (
               <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
@@ -78,11 +74,22 @@ const Onboard = ({ navigation }) => {
             ),
           },
         ]}
+       
+        DotComponent={({ selected }) => (
+          <View
+            style={{
+              width: 6,
+              height: 6,
+              marginHorizontal: 3,
+              backgroundColor: selected ? COLORS.primary : '#c4c4c4',
+              borderRadius: 3,
+            }}
+          />
+        )}
       />
     );
   } else {
     return null
   }
 };
-
 export default Onboard;

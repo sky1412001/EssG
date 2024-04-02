@@ -24,7 +24,7 @@ const BlogD = [
         id:4,
         title:'STUDY VISA',
         About:'Scholarships from Western Sydney University: Studying in Australia is Easier for International Students',
-        message:'he world’s best universities are at the top of their game because of their distinguished academics and state-of-the-art facilities. These institutions also stand out for their heartwarming scholarships that encourage students to study and frame a prosperous life. One of Australia’s leading institutions, Western Sydney University, offers amazing scholarships to international students both for undergraduate and postgraduate streams. Studying in this multi-campus public research university can be highly rewarding. Managing finances becomes easy with big scholarships.  ',
+        message:'he world’s best universities are at the top of their game because of their distinguished academics and state-of-the-art facilities. These institutions also stand out for their heartwarming scholarships that encourage students to study and frame a prosperous life. One of Australia’s leading institutions, Western Sydney University, offers amazing scholarships to international students both for undergraduate and postgraduate streams.  ',
         image:require('./Blog/studyon.jpg')
     }
 ]

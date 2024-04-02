@@ -5,9 +5,7 @@ import BlogD from "./BlogD";
 
 const heart1 = require('./Logo/heart1.png');
 const heart2 = require('./Logo/heart2.png');
-
 const windowWidth = Dimensions.get('window').width;
-
 const Blogs = ({ navigation }) => {
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -15,7 +13,6 @@ const Blogs = ({ navigation }) => {
         setLike(!like);
     };
     useEffect(() => {
-        // Simulate loading delay for 2 seconds
         const timeout = setTimeout(() => {
           setLoading(false);
         }, 2000);
@@ -68,11 +65,10 @@ const Blogs = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
     },
     header: {
-        borderBottomLeftRadius:25,
-        borderBottomRightRadius:25,
+      borderBottomLeftRadius:20,
+      borderBottomRightRadius:20,
         backgroundColor: COLORS.primary,
         height: 90,
         justifyContent: 'center',
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
         fontFamily:'Poppins-Bold'
     },
     scrollViewContent: {
-        paddingVertical: 20,
+        paddingVertical: 20,  
     },
     blogContainer: {
         marginTop: 10,
