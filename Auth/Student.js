@@ -9,6 +9,7 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  ImageBackground
 } from 'react-native';
 import axios from 'axios';
 import COLORS from '../src/COLORS';
@@ -16,9 +17,7 @@ const lockIcon = require('./icons/lock.png');
 const Student = ({ navigation }) => {
   const [fileNo, setFileNo] = useState('');
   const [passportNo, setPassportNo] = useState('');
-
   const baseUrl = "https://essglobal.com/ionicApi/api.php?tag=login";
-
   const postData = async () => {
     try {
       const response = await axios.post(baseUrl, { fileNo, passportNo });
@@ -39,6 +38,7 @@ const Student = ({ navigation }) => {
     setPassportNo('');
   };
   return (
+    <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLORS.primary} />
       <View>
@@ -74,7 +74,7 @@ const Student = ({ navigation }) => {
               onChangeText={(text) => setPassportNo(text)}
             />
           </View>
-          <TouchableOpacity onPress={postData}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Status')}>
             <View style={styles.btn}>
               <Text style={styles.btnText}>Log In</Text>
             </View>
@@ -82,13 +82,13 @@ const Student = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+    </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8ecf4',
+    
     padding: 22,
   },
   header: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   inputControl: {
     height: 44,
-    backgroundColor: '#fff',
+    backgroundColor: '#e8ecf4',
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
@@ -147,5 +147,4 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
-
 export default Student;

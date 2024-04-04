@@ -1,5 +1,0 @@
- <TouchableOpacity    onPress={() => navigation.navigate('DeatailScreen', Dataco)}>
-              <View style={{alignSelf:'center',width:wp('29%'),height:hp('3%'),borderColor:COLORS.primary, borderWidth:1,alignItems:'center', justifyContent:'center', padding:2, borderRadius:5}}>
-                <Text style={{color:COLORS.primary, fontWeight:'500', fontSize:13, textAlign:'center'}}>See more</Text>
-              </View>
-          </TouchableOpacity>

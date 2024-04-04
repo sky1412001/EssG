@@ -34,7 +34,7 @@ const Onboard = ({ navigation }) => {
         bottomBarColor='white'
         onSkip={goToLogin}
         onDone={goToLogin}
-        skipLabel={<View><Text style={{ fontFamily: 'Poppins-Bold', color:COLORS.primary}}>SKIP</Text></View>}
+        skipLabel={<Text style={{ fontFamily: 'Poppins-Bold', color:COLORS.primary}}>SKIP</Text>}
         nextLabel={<Text style={{fontFamily: 'Poppins-Bold', color: COLORS.primary, }}>NEXT</Text>}
         pages={[
           {
@@ -74,7 +74,6 @@ const Onboard = ({ navigation }) => {
             ),
           },
         ]}
-       
         DotComponent={({ selected }) => (
           <View
             style={{

@@ -32,9 +32,9 @@ const FlagScreen = ({ navigation,route }) => {
                 </View>
             </View>
                 <View>
-                <Text style={{padding:12, fontFamily:"Poppins-Regular", fontSize:17, color:'grey'}}>Locations</Text>
+                <Text style={{padding:7, color:COLORS.primary,fontFamily:"Poppins-Bold", fontSize:14, color:COLORS.primary, marginHorizontal:15}}>Locations</Text>
                 </View>
-                <View style={{backgroundColor:"white", margin:15, padding:12, borderRadius:10, elevation:2}}>
+                <View style={{backgroundColor:"white", margin:15, padding:10, borderRadius:10, elevation:2}}>
                     <Text style={{color:'black', fontFamily:"Poppins-Medium"}}>{Fdata.officename}</Text>
                     <Text style={{color:'black', fontFamily:"Poppins-Regular", }}>{Fdata.office}</Text>
                     <TouchableOpacity onPress={handleAddressPress}>
@@ -47,11 +47,24 @@ const FlagScreen = ({ navigation,route }) => {
                     <Text style={{color:"green"}}>{Fdata.email}</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{marginHorizontal:15}}>
+                   <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>Latest News for  Immigartion</Text>
+                </View>
+                <View>
+                    <View style={{backgroundColor:'white', padding:20}}>
+                        <Text style={{color:'black', fontFamily:'Poppins-Bold'}}>
+                            {Fdata.titlenews}
+                        </Text>
+                        <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>
+                            {Fdata.news}
+                        </Text>
                 <TouchableOpacity onPress={handlePhonePress}>
-                <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end', marginVertical:300,right:25}}>
-                    <Image source={require('./Tabicon/contact.png')}  style={{width:40, height:40}}/>
+                <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end',right:1}}>
+                    <Image source={require('./Tabicon/contact.png')}  style={{width:36, height:36}}/>
                 </View>
                 </TouchableOpacity>
+                    </View>
+                </View>
         </ScrollView>
     );
 };

@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}) => {
     let re = /\$+@\$+\.\$+/;
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     setEmail(text);
-    if (re.test(text) || regex.test(text)) {
+    if (re.test(text) || regex.test(text)){
       setCheckValidEmail(false);
     } else {
       setCheckValidEmail(true);
@@ -86,10 +86,8 @@ const HomeScreen = ({navigation}) => {
     const timeout = setTimeout(() => {
       setLoading(false);
     }, 2000);
-
     return () => clearTimeout(timeout);
   }, []);
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -113,7 +111,7 @@ const HomeScreen = ({navigation}) => {
               flexDirection:'row',
               backgroundColor:'white'
             }}>
-            <Image source={Fdata.image} style={{width: 20, height: 10}} />
+            <Image source={Fdata.image} style={{width: 20, height: 10}}/>
             <Text style={{textAlign: 'center', color: COLORS.primary, fontSize: 11, fontFamily:'Poppins-Bold'}}>
               {Fdata.name}
             </Text>
@@ -178,7 +176,7 @@ const HomeScreen = ({navigation}) => {
       <SafeAreaView style={styles.container}>
       <View style={styles.card}>
         <View style={styles.content}>
-          <Image source={Visa.image} style={styles.image} />
+          <Image source={Visa.image} style={styles.image}/>
           <View style={styles.textContainer}>
             <Text style={styles.title}>{Visa.title}</Text>
           </View>
@@ -202,7 +200,7 @@ const HomeScreen = ({navigation}) => {
           elevation: 10,
         }}>
           <View style={styles.header}>
-            <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
+            <StatusBar translucent backgroundColor="rgba(0,0,0,0)" color={'red'}/>
             <View>
               <View style={{gap:-4}}>
                 <View style={{flexDirection: 'row'}}></View>
@@ -215,10 +213,8 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
       </View>
-
       <View style={{top:-27,backgroundColor:'white', borderTopLeftRadius:26, borderTopRightRadius:26}}>
 <ScrollView>
-
       <View style={{marginTop: 14, }}>
         <FlatList
           snapToInterval={width - 20}
@@ -264,7 +260,7 @@ const HomeScreen = ({navigation}) => {
           horizontal
           data={Fdata}
           renderItem={({item}) => (
-            <Nation Fdata={item} navigation={navigation} />
+            <Nation Fdata={item} navigation={navigation}/>
             )}
         />
       </View>
@@ -280,7 +276,7 @@ const HomeScreen = ({navigation}) => {
           horizontal
           data={Visa}
           renderItem={({item}) => (
-            <Services Visa={item} navigation={navigation} />
+            <Services Visa={item} navigation={navigation}/>
             )}
             />
       </View>

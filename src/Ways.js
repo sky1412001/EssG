@@ -7,25 +7,21 @@ import COLORS from "./COLORS";
 const Ways = ({navigation}) =>{
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // Simulate loading delay for 2 seconds
     const timeout = setTimeout(() => {
       setLoading(false);
     }, 2000);
-
     return () => clearTimeout(timeout);
   }, []);
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="large" color={COLORS.primary}/>
       </View>
     );
   }
   const Stack = createNativeStackNavigator()
-    return(
+    return (
       <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
-        <StatusBar backgroundColor={COLORS.primary}/>
           <View style={styles.header}>
           <Image source={imail} style={styles.headerImg} />
           <Text style={styles.title}>
@@ -40,10 +36,12 @@ const Ways = ({navigation}) =>{
            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={{borderRadius:10,backgroundColor:'#B21E35', width:'50%', height:50, alignItems:'center', justifyContent:'center'}}>
             <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Login with Gmail</Text>
            </TouchableOpacity>
+           <TouchableOpacity onPress={()=>navigation.navigate('Guide')} style={{borderRadius:10,backgroundColor:'#B21E35', width:'50%', height:50, alignItems:'center', justifyContent:'center'}}>
+            <Text style={{color:'white', fontSize:15, fontFamily:'Poppins-Bold'}}>Guide</Text>
+           </TouchableOpacity>
            <View style={{flexDirection:'row', justifyContent:'space-evenly', alignItems:'flex-end', marginTop:180, gap:40}}>
            <TouchableOpacity onPress={()=>navigation.navigate('Chat')} style={{flexDirection:'row',borderWidth:1.6,borderColor:COLORS.primary,borderRadius:10,backgroundColor:'white', width:'35%', height:50, alignItems:'center', justifyContent:'space-evenly'}}>
           <View style={{alignItems:'center',justifyContent:'center'}} >
-
            <Image source={require('./Home/com.png')} style={{width:20, height:20}} />
           </View>
             <Text style={{color:COLORS.primary, fontSize:13, fontFamily:'Poppins-Bold'}}>Contact us</Text>

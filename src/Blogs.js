@@ -48,53 +48,57 @@ const Blogs = ({ navigation }) => {
         );
     };
     return (
+            <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <SafeAreaView style={styles.container}>
+            
             <View style={styles.header}>
                 <Text style={styles.headerText}>Our Blogs</Text>
+                <Text style={{fontFamily:'Poppins-Regular', color:COLORS.primary}}>About Overseas Study Visa</Text>
             </View>
-            <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <FlatList
                     keyExtractor={(item) => item.id}
                     data={BlogD}
                     renderItem={({ item }) => <BlogData BlogD={item}/>}
                 />
-            </ScrollView>
         </SafeAreaView>
+            </ScrollView>
     );
 };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:"rgb(250, 249, 246)"
+
     },
     header: {
-      borderBottomLeftRadius:20,
-      borderBottomRightRadius:20,
-        backgroundColor: COLORS.primary,
+      padding:25,
         height: 90,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor:"rgb(250, 249, 246)"
+
+       
     },
     headerText: {
-        color: 'white',
-        fontSize: 16,
+        color: COLORS.primary,
+        fontSize: 22,
         fontFamily:'Poppins-Bold'
     },
     scrollViewContent: {
-        paddingVertical: 20,  
+        paddingVertical:7,  
     },
     blogContainer: {
-        marginTop: 10,
+        marginTop: 2,
         borderRadius:25,
         marginHorizontal: windowWidth * 0.05,
+        padding:3,
     },
     imageContainer: {
         width: windowWidth * 0.9,
-        height: windowWidth * 0.5,
+        height: windowWidth * 0.4,
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 1,
-        borderRadius:15
+        borderRadius:15,
+        elevation:1
     },
     image: {
         width: '100%',
@@ -102,14 +106,14 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
     },
     detailsContainer: {
-        elevation: 1,
         backgroundColor: 'white',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderBottomLeftRadius:25,
-        borderBottomRightRadius:25
+        borderBottomRightRadius:25,
+        elevation:1
     },
     textContainer: {
         flex: 1,
@@ -117,6 +121,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily:"Poppins-Bold",
         fontSize: 16,
+        color:COLORS.primary
     },
     about: {
         color: 'black',

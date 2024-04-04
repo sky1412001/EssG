@@ -1,14 +1,12 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from './HomeScreen';
-import {Image, Pressable, SafeAreaView, Text, View} from 'react-native';
+import {Image} from 'react-native';
 import Form from './Form';
 import Services from './Services';
 import COLORS from './COLORS';
-import Profile from './Profile';
-import Login from '../Auth/Login';
+
 import Ways from './Ways';
 import { Blogs } from '.';
 const home = require('./Tabicon/home.png');

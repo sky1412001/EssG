@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
-  SafeAreaView,
-  StatusBar,
   StyleSheet,
   View,
-  Image,
   ScrollView,
   Text,
-  TextInput,
   FlatList,
   TouchableOpacity,
   ImageBackground,

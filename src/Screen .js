@@ -20,20 +20,12 @@ const Screen = ({navigation, route}) => {
   }
   const Offices = route.params;
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
-      <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
+    <SafeAreaView style={{flex: 1}}>
+      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'}/>
         <Image source={Offices.image} style={{width:'100%', height:220, marginTop:30}}/>
         <View style={style.header}>
         <View style={style.imageDetails}>
-          <Text
-            style={{
-              width: '70%',
-              fontSize: 30,
-              fontWeight: 'bold',
-              color: COLORS.primary,
-              marginBottom: 20,
-            }}> 
-          </Text>
+         
           <View style={{flexDirection: 'row'}}>
             <Text
               style={{color: COLORS.white, fontWeight:'bold', fontSize: 20}}>
@@ -57,7 +49,7 @@ const Screen = ({navigation, route}) => {
        <Text style={{color:'white', fontWeight:"700", textDecorationLine:'underline', fontSize:20}}>{Offices.rate}</Text>
         </View>
         <TouchableOpacity>
-        <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>CALL NOW</Text></View>
+        <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>Register NOW</Text></View>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

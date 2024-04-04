@@ -27,7 +27,7 @@ const About = ({navigation}) => {
                     </Text>
                 </View>
                 <View style={styles.card}>
-                    <Text style={styles.cardText}>
+                   <Text style={styles.cardText}>
                         ESS Global has been at the forefront of revolutionising overseas education and immigration since its inception in 2013. With a widespread presence spanning various regions of the country, our 15 branches across India and four branches overseas—Australia, Canada and Dubai—stand as testaments to our unwavering commitment to excellence.
                     </Text>
                 </View>

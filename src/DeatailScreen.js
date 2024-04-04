@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Linking
 } from 'react-native';
 import COLORS from './COLORS';
 import {Rating} from 'react-native-stock-star-rating';
@@ -18,7 +19,11 @@ const DeatailScreen = ({navigation, route}) => {
   const giveLike = () => {
     setLike(!like)
   }
+  const handlePhonePress = () => {
+    Linking.openURL(`tel:${Fdata.phoneno}`);
+  };
  const Data = route.params;
+ const Fdata = route.params;
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
@@ -56,7 +61,7 @@ const DeatailScreen = ({navigation, route}) => {
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
        <Text style={{color:'white', fontWeight:"700", textDecorationLine:'underline', fontSize:20}}>{Data.rate}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePhonePress}>
         <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>CALL NOW</Text></View>
         </TouchableOpacity>
       </View>

@@ -9,6 +9,7 @@ import Chat from "./Chat";
 import About from "./About";
 import Blogs from "./Blogs";
 import BlogScreen from "./BlogScreen";
+import Guide from "./Guide";
 export  {
     HomeScreen,
     DeatailScreen,
@@ -19,6 +20,7 @@ export  {
     Chat, 
     About,
     Blogs,
-    BlogScreen
+    BlogScreen,
+    Guide
     
 }

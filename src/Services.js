@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     height: 190,
-    // Add styling for the image background
   },
   cardListContainer: {
     marginTop: 10,

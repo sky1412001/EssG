@@ -7,19 +7,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
   Alert,
-  TouchableWithoutFeedback,
-  Keyboard,
   SafeAreaView,
-  form,
   StatusBar,
-  ScrollView,
   TextInput,
-  Pressable,
   ImageBackground,
   Modal,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView
 } from 'react-native';
 import COLORS from "./COLORS";
 import {Picker} from '@react-native-picker/picker';
@@ -33,7 +28,6 @@ const Form = () =>{
   const [value, setValue] = useState('');
   const [pickerValue, setPickerValue] = useState('');
   const [selectCounrty, setSelectCountry] = useState('');
-  const [date, setDate] = useState('')
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const data = {firstname, lastname, mobileNo, pickerValue,selectCounrty, email};
@@ -60,14 +54,11 @@ const Form = () =>{
   };
  
   useEffect(() => {
-    // Simulate loading delay for 2 seconds
     const timeout = setTimeout(() => {
       setLoading(false);
     }, 2000);
-
     return () => clearTimeout(timeout);
   }, []);
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -97,14 +88,16 @@ const Form = () =>{
     }
   };
   return(
-    <SafeAreaView style={{flex: 1, backgroundColor: '#e8ecf4'}}>
-      <StatusBar translucent backgroundColor={COLORS.primary} />
+    <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor: '#e8ecf4'}}>
+      <ScrollView>
+      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
             Book <Text style={{fontFamily:'Poppins-Bold',color: 'white',color:COLORS.primary, textDecorationStyle:'dotted'}}>an Appointment</Text>
           </Text>
           <Text style={styles.subtitle}>How can we help you ?</Text>
+          <Text style={{fontFamily:'Poppins-Regular', fontSize:13, color:'#222'}}>Share your details with us and our team will contact you for assessment shortly.</Text>
         </View>
         <View style={styles.form}>
           {/*FIRST  NAME*/}
@@ -148,16 +141,16 @@ const Form = () =>{
           </View>
             {/*QUERY TYPE SELECTOR*/}
           <View style={styles.input}>
-            <View  style={{width:wp('84%'), height:50,backgroundColor:'#fff',
+            <View  style={{width:wp('83%'), height:50,backgroundColor:'#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
-<Picker
-style={{width:wp('85%')}}
+        <Picker
+        style={{width:wp('81%'), color:'#222'}}
         dropdownIconColor={COLORS.primary}
         selectedValue={pickerValue}
         onValueChange={(itemValue, itemIndex) => {
           setPickerValue(itemValue);
         }}
-        itemStyle={{ fontSize: 16, color: 'blue' }} // Adjust font size and color here
+        itemStyle={{ fontSize: 16, color: 'blue' }} 
       >
         <Picker.Item label="Select Your Query" value=""  style={{color:'grey', fontSize:15}}/>
         <Picker.Item label="Study Visa" value="1"   style={{color:'#222'}}/>
@@ -170,17 +163,17 @@ style={{width:wp('85%')}}
             </View>
           </View>
           <View style={styles.input}>
-            <View   style={{width:wp('84%'), height:50,backgroundColor: '#fff',
+            <View   style={{width:wp('83%'), height:50,backgroundColor: '#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
           <Picker
-          style={{width:wp('85%')}}
+          style={{width:wp('81%'), color:'#222', fontFamily:'Poppins-Regular'}}
          dropdownIconColor={COLORS.primary}
           selectedValue={selectCounrty}
           onValueChange={(itemValue, itemIndex) => {
             setSelectCountry(itemValue);
           }} 
          >
-          <Picker.Item label="Select Country " value="" style={{color:'grey', fontSize:15,fontWeight:'600'}}/>
+          <Picker.Item label="Select Country " value="" style={{color:'grey', fontSize:15}}/>
           <Picker.Item label="Austrlia" value="17"  style={{color:'#222'}}/>
           <Picker.Item label="Canada" value="18"  style={{color:'#222'}}/>
           <Picker.Item label="U.S.A" value="19"  style={{color:'#222'}}/>
@@ -209,7 +202,7 @@ style={{width:wp('85%')}}
         styles.btn,
         { backgroundColor: (firstname === '' || lastname === '' || pickerValue === ''|| checkValidEmail) ? COLORS.primary : 'green' }
     ]}>    
-    <Image source={require('./Blog/plane.png')} style={{width:28, height:28}}/>
+    <Image source={require('./Blog/plane.png')} style={{width:26, height:26}}/>
               </View>
             </TouchableOpacity>
           </View> 
@@ -226,10 +219,10 @@ style={{width:wp('85%')}}
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+      </ScrollView>
+    </ImageBackground>
   )
 }
-
  export default Form;
 const styles = StyleSheet.create({
   container: {
@@ -239,17 +232,15 @@ const styles = StyleSheet.create({
     flexBasis: 0,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily:'Poppins-Bold',
     color: COLORS.primary,
     marginBottom: 3,
-    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     fontFamily:'Poppins-Regular',
     color:'#222',
-    textAlign: 'center',
   },
   header: {
     marginVertical:10,
@@ -257,10 +248,11 @@ const styles = StyleSheet.create({
   headerImg: {
     width: 60,
     height: 60,
-    alignSelf: 'center',
   },
   form: {
-    padding:10,
+    height:hp('70%'),
+    padding:13,
+    opacity:0.9,
     backgroundColor: '#EDF2FB',
     marginBottom: 16,
     flexGrow: 1,
@@ -269,9 +261,7 @@ const styles = StyleSheet.create({
     elevation:2,
     borderRadius:10
   },
-  formAction: {
-    marginVertical: 1,
-  },
+
   formFooter: {
     fontSize: 17,
     fontWeight: '600',
@@ -294,18 +284,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 15,
     fontWeight: '500',
-borderRadius:8,
+    borderRadius:8,
     color: 'grey',
   },
-  /* Button */
   btn: {
+    marginBottom:5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
     paddingVertical: 20,
-    width:68,
-    height:68,
+    width:65,
+    height:65,
     alignSelf:'center',
     borderRadius:50
   },
@@ -321,7 +311,7 @@ borderRadius:8,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-    backgroundColor: 'white', // Transparent background
+    backgroundColor: 'white',
   },
   modalView: {
     margin: 20,

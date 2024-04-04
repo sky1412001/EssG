@@ -48,7 +48,7 @@ const PostLandingForm = ({navigation, route}) => {
     }
   };
   return (
-      <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
+      <ImageBackground  source={require('./Postdata/formBack.png')} style={{flex:1, backgroundColor:'white'}}>
       <StatusBar translucent backgroundColor={COLORS.primary} />
     <ScrollView style={{flex:1}}> 
       <View
@@ -140,7 +140,7 @@ const PostLandingForm = ({navigation, route}) => {
       </View>
     </View>
     </ScrollView>
-      </SafeAreaView>
+      </ImageBackground>
   );
 };
 export default PostLandingForm;

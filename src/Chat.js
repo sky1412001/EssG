@@ -27,9 +27,7 @@ const Chat = ({navigation}) => {
         <StatusBar backgroundColor={COLORS.primary}/>
         <View style={{height:50, marginTop:20, color:'white', flexDirection:'row', padding:10, gap:20, borderColor:'#ccc', alignItems:'center', justifyContent:'flex-start'}}>
          <TouchableOpacity onPress={()=>navigation.goBack()}>
-
           <View style={{alignItems:"center", justifyContent:'center'}}>
-
           <Image source={require('./Logo/backon.png')} style={{width:20, height:20}}/>
           </View>
          </TouchableOpacity>
