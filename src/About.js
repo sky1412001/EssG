@@ -13,7 +13,7 @@ const About = ({navigation}) => {
                 <View style={{alignItems:'center', justifyContent:"center"}}>
             <TouchableOpacity onPress={navigation.goBack}>
 
-            <Image source={require('./Logo/back.png')} style={{width:25, height:25}}/>
+            <Image source={require('./Logo/backon.png')} style={{width:28, height:28}}/>
           </TouchableOpacity>
                 </View>
           <View style={{alignItems:'center', justifyContent:'center'}}>
@@ -67,16 +67,15 @@ const styles = StyleSheet.create({
         padding:25,
         flexDirection:'row',
         justifyContent:'flex-start',
-        backgroundColor:COLORS.primary,
         gap:10,
         borderBottomLeftRadius:30,
         borderBottomRightRadius:30
     },
     headerText: {
-        fontSize: 20,
-        color: 'white',
+        fontSize: 23,
+        color:COLORS.primary,
         fontFamily:'Poppins-Bold',
-        marginTop:10
+        marginTop:5
     },
     scrollViewContent: {
         paddingVertical: 20,

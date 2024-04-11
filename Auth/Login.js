@@ -19,7 +19,6 @@ const imail = require('./icons/lock.png');
 const eyes = require('./icons/eye.png');
 const hiden = require('./icons/hiden.png');
 
-
 const Login = ({navigation},props) => {
   const baseUrl = 'http://10.0.2.2:9000/api/user/login';
   const [name, setName] = useState('');
@@ -73,8 +72,13 @@ const Login = ({navigation},props) => {
   };
   return (
       <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{flex: 1}} keyboardDismissMode="interactive">
       <StatusBar translucent />
+      <View>
+        <TouchableOpacity onPress={()=>navigation.goBack()}>
+        <Image source={require('../src/Logo/backon.png')} style={{width:25, height:25, marginTop:30, left:20}} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.container}>
         <View style={styles.header}>
          <Image source={imail}  style={{width:55, height:55, alignSelf:'center'}} />
@@ -210,7 +214,6 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'center',
   },
-  /** Form */
   form: {
     marginBottom: 24,
     flexGrow: 1,

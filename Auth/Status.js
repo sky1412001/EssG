@@ -40,7 +40,7 @@ const Status =()=>{
             buttonPositive: 'OK',
           }
         );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED){
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           console.log('Camera permission granted');
           if (mediaType === 'profile'){
             openCamera('profile');
@@ -129,16 +129,6 @@ const Status =()=>{
       }
     });
   };
-  const ClearAsyncStorageButton = () => {
-    const clearAsyncStorage = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log('AsyncStorage cleared successfully!');
-      } catch (error) {
-        console.error('Error clearing AsyncStorage:', error);
-      }
-    };
-  }
   const openImageModal = (imageUri) => {
     setSelectedImage([{ url: imageUri }]);
     setModalVisible(true);
@@ -222,7 +212,6 @@ const style = StyleSheet.create({
   detailsContainer: {
     top: -30,
     borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingVertical: 25,
     paddingHorizontal: 15,
     backgroundColor: COLORS.white,
@@ -244,7 +233,7 @@ const style = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.og,
     height: 70,
     justifyContent: 'space-between',
     alignItems: 'center',

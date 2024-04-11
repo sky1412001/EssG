@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -16,6 +16,7 @@ const heart1 = require('./Logo/heart1.png')
 const heart2 = require('./Logo/heart2.png')
 const DeatailScreen = ({navigation, route}) => {
   const [like, setLike] =useState(false);
+  const [loading, setLoading] = useState(true);
   const giveLike = () => {
     setLike(!like)
   }
@@ -34,16 +35,7 @@ const DeatailScreen = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <View style={style.imageDetails}>
-          <Text
-            style={{
-              width: '70%',
-              fontSize: 30,
-              fontFamily:'Poppins-Bold',
-              color: COLORS.primary,
-              marginBottom: 20,
-            }}> 
-            {Data.name}
-          </Text>
+         
         </View>
       </ImageBackground>
       <View style={style.detailsContainer}>
@@ -52,7 +44,16 @@ const DeatailScreen = ({navigation, route}) => {
           <Image  source={like ? heart1 : heart2} style={{width:30, height:30}}/>
           </TouchableOpacity>
         </View>
-        <Text style={{marginTop: 20, lineHeight: 22, fontFamily:'Poppins-Bold', color:COLORS.primary}}>{Data.about}</Text>
+        <Text
+            style={{
+              width: '70%',
+              fontSize: 30,
+              fontFamily:'Poppins-Bold',
+              color: COLORS.primary,
+            }}> 
+            {Data.name}
+          </Text>
+        <Text style={{ lineHeight: 20, fontFamily:'Poppins-Bold', color:COLORS.primary}}>{Data.about}</Text>
         <Rating stars={Data.rating} maxStars={5} size={16} color={'#0466C8'}/>
         <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>{Data.description}</Text>
         <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>{Data.detail}</Text>
@@ -63,11 +64,14 @@ const DeatailScreen = ({navigation, route}) => {
         </View>
         <TouchableOpacity onPress={handlePhonePress}>
         <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>CALL NOW</Text></View>
+       
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
+
+
 const style = StyleSheet.create({
   bookNowBtn: {
     height: 50,
@@ -121,6 +125,83 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  header: {
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  imageBackgroundSkeleton: {
+    flex: 0.7,
+    backgroundColor: '#d0d0d0', // Placeholder color
+  },
+  imageDetails: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    position: 'absolute',
+    bottom: 30,
+  },
+  imageDetailsTextSkeleton: {
+    width: '70%',
+    height: 30,
+    backgroundColor: '#d0d0d0', 
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  detailsContainer: {
+    top: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+    backgroundColor: COLORS.white,
+    flex: 0.3,
+  },
+  iconContainerSkeleton: {
+    height: 60,
+    width: 60,
+    position: 'absolute',
+    top: -30,
+    backgroundColor: COLORS.white,
+    borderRadius: 30,
+    right: 20,
+    elevation: 10,
+  },
+  textSkeletonContainer: {
+    marginTop: 20,
+  },
+  textSkeleton: {
+    width: '100%',
+    height: 22,
+    backgroundColor: '#d0d0d0',
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  footer: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.primary,
+    height: 70,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  footerLeftSkeleton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerRightSkeleton: {
+    backgroundColor: COLORS.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 20,
   },
 });
 export default DeatailScreen;

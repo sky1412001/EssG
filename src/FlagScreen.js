@@ -48,7 +48,7 @@ const FlagScreen = ({ navigation,route }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{marginHorizontal:15}}>
-                   <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>Latest News for  Immigartion</Text>
+                   <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>Latest News for Immigartion</Text>
                 </View>
                 <View>
                     <View style={{backgroundColor:'white', padding:20}}>
@@ -57,6 +57,9 @@ const FlagScreen = ({ navigation,route }) => {
                         </Text>
                         <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>
                             {Fdata.news}
+                        </Text>
+                        <Text style={{color:'black', fontFamily:'Poppins-Bold', textDecorationLine:'underline', fontSize:12}}>
+                            {Fdata.time}
                         </Text>
                 <TouchableOpacity onPress={handlePhonePress}>
                 <View style={{borderRadius:50,width:65, height:65, backgroundColor:COLORS.primary, justifyContent:'center', alignItems:'center', alignSelf:'flex-end',right:1}}>

@@ -33,7 +33,7 @@ const Chat = ({navigation}) => {
          </TouchableOpacity>
             <Image source={user} style={{width:36, height:36}}/>
             <View style={{alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:15, color:'grey'}}>Admin</Text>
+                <Text style={{fontSize:15, color:COLORS.primary, fontFamily:'Poppins-Bold'}}>ESS GLOBAL</Text>
             </View>
         </View>
       <ScrollView style={styles.chatContainer}>

@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Pressable
+  Pressable,
+  ImageBackground
 } from 'react-native';
 import COLORS from './COLORS';
 import {Rating} from 'react-native-stock-star-rating';
@@ -21,11 +22,14 @@ const Screen = ({navigation, route}) => {
   const Offices = route.params;
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'}/>
-        <Image source={Offices.image} style={{width:'100%', height:220, marginTop:30}}/>
+      <StatusBar translucent  backgroundColor={"white"}/>
+        <ImageBackground source={Offices.image} style={{width:'100%', height:220, marginTop:30}}>
+<TouchableOpacity onPress={()=>navigation.goBack()}>
+        <Image source={require('./Logo/backon.png')} style={{width:30, height:20, left:20, top:20}}/>
+</TouchableOpacity>
+        </ImageBackground>
         <View style={style.header}>
         <View style={style.imageDetails}>
-         
           <View style={{flexDirection: 'row'}}>
             <Text
               style={{color: COLORS.white, fontWeight:'bold', fontSize: 20}}>

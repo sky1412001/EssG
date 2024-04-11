@@ -73,7 +73,7 @@ const Signup = ({navigation}) => {
     let re = /\$+@\$+\.\$+/;
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     setEmail(text);
-    if (re.test(text) || regex.test(text)) {
+    if (re.test(text) || regex.test(text)){
       setCheckValidEmail(false);
     } else {
       setCheckValidEmail(true);

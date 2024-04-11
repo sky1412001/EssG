@@ -6,7 +6,7 @@ const Data = [
         rating:4.8,
         rate:'59$',
         timing:'11:30AM - 1:00PM',
-        image:require('./Home/fatima.jpg'),
+        image:require('./Home/two.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
     },
     {
@@ -36,7 +36,7 @@ const Data = [
         rating:2.5,
         rate:'23$',
         timing:'11:30AM - 1:00PM',
-        image:require('./Home/two.jpg'),
+        image:require('./Home/fatima.jpg'),
         description:'An immigration consultant is an advisor that assists people who want to emigrate from one country to another, and supports their legal and documentation processes.'
     }, 
 ]

@@ -26,7 +26,7 @@ const Guide = ({navigation}) =>{
                     </Text>
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                         1. Passport & Visa:
                     </Text>
                 </View>
@@ -41,7 +41,7 @@ const Guide = ({navigation}) =>{
                     </Text>
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                         2.Important Documents:
                     </Text>
                 </View>
@@ -65,7 +65,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                         3.Basic First Aid Kit & Medication Prescriptions:
                     </Text>
                 </View>
@@ -82,7 +82,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                         4.Local Currency
                     </Text>
                 </View>
@@ -100,7 +100,7 @@ const Guide = ({navigation}) =>{
                 </View>
 
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                    5. Essential Toiletries
                     </Text>
                 </View>
@@ -124,7 +124,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                    6. Power Adapters & Converters
                     </Text>
                 </View>
@@ -134,7 +134,7 @@ const Guide = ({navigation}) =>{
                     </Text>
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                    7.Basic School Supplies:
                     </Text>
                 </View>
@@ -156,7 +156,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                   8.  Quality Backpack & Day Bag
                     </Text>
                 </View>
@@ -173,7 +173,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                   9. Versatile Clothing:
                     </Text>
                 </View>
@@ -190,7 +190,7 @@ const Guide = ({navigation}) =>{
                    
                 </View>
                 <View style={{padding:10}}>
-                    <Text style={{fontFamily:'Poppins-Bold', color:'black'}}>
+                    <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
                   10. Learn About the Culture
                     </Text>
                 </View>

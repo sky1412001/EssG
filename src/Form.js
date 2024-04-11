@@ -53,19 +53,7 @@ const Form = () =>{
     }
   };
  
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(timeout);
-  }, []);
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator  size="large" color={COLORS.primary} />
-      </View>
-    );
-  }
+ 
   const postData = async () => {
     try {
       console.warn({firstname, lastname, email, mobileNo, pickerValue, selectCounrty})
@@ -76,7 +64,7 @@ const Form = () =>{
       refreshData();
     } catch (error){
       console.error('Error during POST request:', error);
-      if (error.response) {
+      if (error.response){
         setValue(error.response.data.msg || 'Invalid User and Password');
       } else if (error.request){
         console.error('No response received:', error.request);
@@ -87,6 +75,16 @@ const Form = () =>{
       }
     }
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, []);
+  if (loading) {
+    return <Skelton />;
+  }
   return(
     <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor: '#e8ecf4'}}>
       <ScrollView>
@@ -100,7 +98,6 @@ const Form = () =>{
           <Text style={{fontFamily:'Poppins-Regular', fontSize:13, color:'#222'}}>Share your details with us and our team will contact you for assessment shortly.</Text>
         </View>
         <View style={styles.form}>
-          {/*FIRST  NAME*/}
           <View style={styles.input}>
             <TextInput
               mode="outlined"
@@ -114,7 +111,6 @@ const Form = () =>{
               onChangeText={(text)=>setFirstName(text)}
             />
           </View>
-         {/*LAST  NAME*/}
           <View style={styles.input}>
             <TextInput
               mode="outlined"
@@ -139,7 +135,6 @@ const Form = () =>{
               value={mobileNo}
             />
           </View>
-            {/*QUERY TYPE SELECTOR*/}
           <View style={styles.input}>
             <View  style={{width:wp('83%'), height:50,backgroundColor:'#fff',
            color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
@@ -224,7 +219,35 @@ const Form = () =>{
   )
 }
  export default Form;
+
+ const Skelton = () =>{
+  return(
+    <SafeAreaView>
+  <View style={styles.headers}>
+      <View style={styles.titleSkeleton} />
+      <View style={styles.subtitleSkeleton} />
+      <View style={styles.descriptionSkeleton} />
+    </View>
+    <View style={styles.forms}>
+    <View style={styles.inputControlSkeleton} />
+      <View style={styles.inputControlSkeleton} />
+      <View style={styles.inputControlSkeleton} />
+      <View style={styles.inputControlSkeleton} />
+      <View style={styles.inputControlSkeleton} /> 
+      <View style={styles.inputControlSkeleton} />
+    </View>
+    </SafeAreaView>
+  )
+ }
 const styles = StyleSheet.create({
+  inputs: {
+    gap:30
+  },
+  inputControlSkeleton: {
+    height: 50,
+    backgroundColor: '#d0d0d0', 
+    borderRadius: 8,
+  },
   container: {
     padding: 20,
     flexGrow: 1,
@@ -249,6 +272,18 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  forms:{
+    margin:10,
+    gap:25,
+    height:hp('70%'),
+    padding:13,
+    opacity:0.9,
+    marginBottom: 16,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    borderRadius:10
+  },
   form: {
     height:hp('70%'),
     padding:13,
@@ -261,14 +296,12 @@ const styles = StyleSheet.create({
     elevation:2,
     borderRadius:10
   },
-
   formFooter: {
     fontSize: 17,
     fontWeight: '600',
     color: '#222',
     textAlign: 'center',
     letterSpacing: 0.15,
-    
   },
   input: {
     marginBottom: 20,
@@ -348,5 +381,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  headers: {
+    marginVertical: 10,
+    margin:10
+  },
+  titleSkeleton: {
+    width: 200, 
+    height: 30, 
+    backgroundColor: '#d0d0d0', 
+    borderRadius: 5, 
+    marginBottom: 5, 
+  },
+  subtitleSkeleton: {
+    width: 150, // Adjust width as needed
+    height: 20, // Adjust height as needed
+    backgroundColor: '#d0d0d0', // Placeholder color
+    borderRadius: 5, // Adjust border radius as needed
+    marginBottom: 5, // Adjust margin as needed
+  },
+  descriptionSkeleton: {
+    width: 250, // Adjust width as needed
+    height: 80, // Adjust height as needed
+    backgroundColor: '#d0d0d0', // Placeholder color
+    borderRadius: 5, // Adjust border radius as needed
   },
 });
