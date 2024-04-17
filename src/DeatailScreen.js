@@ -134,7 +134,7 @@ const style = StyleSheet.create({
   },
   imageBackgroundSkeleton: {
     flex: 0.7,
-    backgroundColor: '#d0d0d0', // Placeholder color
+    backgroundColor: '#d0d0d0',
   },
   imageDetails: {
     padding: 20,

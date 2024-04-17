@@ -152,7 +152,7 @@ const Status =()=>{
       <View style={style.detailsContainer}>
         <TouchableOpacity onPress={() => openImageModal(profilePicture)}>
         <View style={style.iconContainer}>
-            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{ width: 65, height: 65, borderRadius: 100 }} />
+            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 65, height: 65, borderRadius: 100 }} />
         </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>requestCameraPermission("cover")}>

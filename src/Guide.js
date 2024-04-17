@@ -201,10 +201,7 @@ const Guide = ({navigation}) =>{
                     </Text>
                     <Text style={{color:'black', fontFamily:'Poppins-Regular', fontSize:12}}>
                   ii. This knowledge will help you avoid cultural faux pas and enhance your immersion experience
-                    </Text>
-                   
-                  
-                   
+                    </Text>                       
                 </View>
             </ScrollView>
         </SafeAreaView>

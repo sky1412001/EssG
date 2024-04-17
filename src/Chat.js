@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-native';
 import COLORS from './COLORS';
+import { SafeAreaFrameContext } from 'react-native-safe-area-context';
 const user = require('../Auth/icons/camera.png')
 const Chat = ({navigation}) => {
   const [message, setMessage] = useState('');
@@ -23,7 +24,7 @@ const Chat = ({navigation}) => {
     }
   }, [chatMessages]);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={COLORS.primary}/>
         <View style={{height:50, marginTop:20, color:'white', flexDirection:'row', padding:10, gap:20, borderColor:'#ccc', alignItems:'center', justifyContent:'flex-start'}}>
          <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -55,7 +56,7 @@ const Chat = ({navigation}) => {
           <Text style={styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
     maxWidth: '80%',           
   },
   userMessage: {
-    
     alignSelf: 'flex-end',
     backgroundColor: 'skyblue',
   },

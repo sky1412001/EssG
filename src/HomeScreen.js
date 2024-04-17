@@ -396,12 +396,12 @@ const Skelton = () => {
   return (
  <SafeAreaView style={{padding:3}}>
 <Animated.View
-  style={[{
+  style={{
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     elevation: 10,
     backgroundColor: '#d0d0d0',
-  },{opacity}]}>
+  }}>
   <Animated.View style={[styles.headers,{opacity}]}>
     <Animated.View>
       <Animated.View style={{ gap: -4 }}>
@@ -416,13 +416,13 @@ const Skelton = () => {
   </Animated.View>
 </Animated.View>
 <Animated.View
-        style={[{
+        style={{
           top: -27,
           backgroundColor: 'white',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           padding:2
-        },{opacity}]}>
+        }}>
 
       <Animated.View style={{ width: Dimensions.get('window').width - 20,
     height: 120, backgroundColor:'#d0d0d0', alignSelf:'center', borderRadius:10 , marginTop:10}}>
@@ -432,12 +432,12 @@ const Skelton = () => {
           </Animated.View>
     <Animated.View style={{flexDirection:"row", marginTop:20}}>
 <Animated.View
-        style={[{
+        style={{
           backgroundColor: 'white',
           borderRadius: 10,
           flexDirection:"row"
-        },{opacity}]}>
-    <Animated.View style={styles.cardSkeleton}>
+        }}>
+    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
       <Animated.View style={styles.content}>
         <Animated.View style={styles.imageSkeleton} />
         <Animated.View style={styles.textContainer}>
@@ -446,11 +446,11 @@ const Skelton = () => {
       </Animated.View>
       <Animated.View style={styles.subtitleButtonContainer}>
         
-        <Animated.View style={styles.subtitleSkeleton} />
+        <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
         <TouchableOpacity style={styles.addButtonSkeleton} />
       </Animated.View>
     </Animated.View>
-    <Animated.View style={styles.cardSkeleton}>
+    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
       <Animated.View style={styles.content}>
         <Animated.View style={styles.imageSkeleton} />
         <Animated.View style={styles.textContainer}>
@@ -462,7 +462,7 @@ const Skelton = () => {
         <TouchableOpacity style={styles.addButtonSkeleton}/>
       </Animated.View>
     </Animated.View>
-    <Animated.View style={styles.cardSkeleton}>
+    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
       <Animated.View style={styles.content}>
         <Animated.View style={styles.imageSkeleton}/>
         <Animated.View style={styles.textContainer}>
@@ -476,7 +476,7 @@ const Skelton = () => {
     </Animated.View>
 </Animated.View>
     </Animated.View>
-    <Animated.View style={[{flexDirection: 'row', justifyContent: 'space-between',backgroundColor:'rgba(0,0,0,0)', height:40},{opacity}]}>
+    <Animated.View style={{flexDirection: 'row', justifyContent: 'space-between', height:40, backgroundColor:"#d0d0d0"}}>
             <Text style={styles.sectionTwo}></Text>
           </Animated.View>
           <Animated.View style={{padding: 3, marginTop:30}}>
@@ -489,9 +489,10 @@ const Skelton = () => {
               justifyContent: 'space-around',
               marginTop: 3,
               flexDirection: 'row',
-              backgroundColor: 'white',
+              backgroundColor: '#d0d0d0',
+              elevation:1
             },{opacity}]}>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'#d0d0d0'}}/>
+            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}}/>
             <Text
               style={{
                 textAlign: 'center',
@@ -499,10 +500,10 @@ const Skelton = () => {
                 fontFamily: 'Poppins-Bold',
               }}>
             </Text>
-            <Animated.View style={{backgroundColor: "#d0d0d0", width: wp('5%')}}>
+            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
               <Text style={{textAlign: 'center', color: 'white'}}></Text>
             </Animated.View>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'#d0d0d0'}} />
+            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}}/>
             <Text
               style={{
                 textAlign: 'center',
@@ -510,18 +511,12 @@ const Skelton = () => {
                 fontFamily: 'Poppins-Bold',
               }}>
             </Text>
-            <Animated.View style={{backgroundColor: "#d0d0d0", width: wp('5%')}}>
+            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
               <Text style={{textAlign: 'center', color: 'white'}}></Text>
             </Animated.View>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'#d0d0d0'}} />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 11,
-                fontFamily: 'Poppins-Bold',
-              }}>
-            </Text>
-            <Animated.View style={{backgroundColor: "#d0d0d0", width: wp('5%')}}>
+            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}} />
+           
+            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
               <Text style={{textAlign: 'center', color: 'white'}}></Text>
             </Animated.View>
           </Animated.View>
@@ -724,7 +719,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 10,
     marginBottom: 10,
-    elevation: 3,
+    elevation: 1,
   },
   contents: {
     flexDirection: 'row',
@@ -762,7 +757,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 6,
     marginBottom: 10,
-    elevation: 3,
     width:160
   },
   content: {

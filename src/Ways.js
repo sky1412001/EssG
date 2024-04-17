@@ -42,7 +42,7 @@ const Ways = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={{marginTop:30}}>
-          <Text style={{fontSize:24, fontFamily:'Poppins-Bold', color:'white'}}>{getTimeOfDay()}</Text>
+          <Text style={{fontSize:24, fontFamily:'Poppins-Regular', color:'white'}}>{getTimeOfDay()}</Text>
           <Text style={styles.title}>ESS GLOBAL</Text>
           <Text style={styles.subtitle}>FIND A NEW LIFE IN OVERSEAS</Text>
         </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     height: 360,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomLeftRadius:50,
+    borderBottomLeftRadius:40,
     alignItems:'center'
   },
   title: {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: 'white',
-    borderTopRightRadius: 50,
+    borderTopRightRadius: 40,
     padding: 10,
     paddingTop: 30,
   },
@@ -239,6 +239,7 @@ const Skeleton = () => {
     };
   }, [opacity]);
 
+
   return (
     <Animated.View style={[styles.loadingContainer, {opacity}]}>
       <Animated.View style={[styles.sHeader,{opacity}]}>
@@ -270,7 +271,6 @@ const Skeleton = () => {
           <Animated.View style={[{backgroundColor:'white', width:60, height:10},{opacity}]}></Animated.View>
           </Animated.View>
         </Animated.View>
-        <Animated.View></Animated.View>
       </Animated.View>
     </Animated.View>
   );

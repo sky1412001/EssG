@@ -52,7 +52,7 @@ const Screen = ({navigation, route}) => {
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
        <Text style={{color:'white', fontWeight:"700", textDecorationLine:'underline', fontSize:20}}>{Offices.rate}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Signup')}>
         <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>Register NOW</Text></View>
         </TouchableOpacity>
       </View>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect,useRef} from "react";
 import  {widthPercentageToDP as wp , heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from "axios";
 import {
@@ -14,10 +14,13 @@ import {
   ImageBackground,
   Modal,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  Animated
 } from 'react-native';
 import COLORS from "./COLORS";
 import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 const Form = () =>{
   const baseUrl = '';
   const [firstname, setFirstName] = useState('');
@@ -30,6 +33,10 @@ const Form = () =>{
   const [selectCounrty, setSelectCountry] = useState('');
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isPickerShow, setIsPickerShow] = useState(false);
+  const [date, setDate] = useState(new Date(Date.now()));
+  const [showTextInput, setShowTextInput] = useState(false);
+  const [textInputValue, setTextInputValue] = useState('');
   const data = {firstname, lastname, mobileNo, pickerValue,selectCounrty, email};
   
   const refreshData = () => {
@@ -43,9 +50,7 @@ const Form = () =>{
   const handleCheckEmail = text => {
     let re = /\$+@\$+\.\$+/;
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
     setEmail(text);
-
     if (re.test(text) || regex.test(text)){
       setCheckValidEmail(false);
     } else {
@@ -56,7 +61,6 @@ const Form = () =>{
  
   const postData = async () => {
     try {
-      console.warn({firstname, lastname, email, mobileNo, pickerValue, selectCounrty})
       const response = await axios.post(baseUrl, data);
       setMobileNo(true)
       console.log('POST Response:', response.data);
@@ -75,7 +79,6 @@ const Form = () =>{
       }
     }
   };
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -85,8 +88,44 @@ const Form = () =>{
   if (loading) {
     return <Skelton />;
   }
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0); 
+    const minDate = today; // Current date
+    const clampedDate = new Date(Math.min(Math.max(currentDate, minDate), maxDate)); // Clamp date within range
+    
+    setDate(clampedDate);
+    setTextInputValue(formatDate(clampedDate)); // Format the date to display in TextInput
+  
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false); // Hide picker on Android after selecting
+    } else {
+      setIsPickerShow(false); // Hide picker on iOS after selecting
+    }
+  };
+  
+  const formatDate = (date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+  };
+  
+  const onTextInputFocus = () => {
+    setIsPickerShow(true);
+    setShowTextInput(false);
+  };
+  
+  
+  
+  
   return(
-    <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor: '#e8ecf4'}}>
+    <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor:'#e8ecf4'}}>
       <ScrollView>
       <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
       <View style={styles.container}>
@@ -136,19 +175,48 @@ const Form = () =>{
             />
           </View>
           <View style={styles.input}>
-            <View  style={{width:wp('83%'), height:50,backgroundColor:'#fff',
-           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
+            <View style={[styles.inputControl , {flexDirection:'row', justifyContent:"space-between"}]}>
+            <TextInput
+              mode="outlined"
+              editable={false}
+              value={textInputValue}
+              onFocus={onTextInputFocus}
+              onChangeText={text => setMobileNo(text)}
+              placeholder="DD/MM/YY"
+              placeholderTextColor="#6b7280"
+              style={{color:'grey',   fontWeight: '700', fontSize:14}}
+            />
+            <View style={{justifyContent:'center', alignItems:"center"}}>
+             <TouchableOpacity onPress={showPicker}>
+            <Image source={require('./Home/caemder.png')} style={{width:28, height:28}}/>
+            </TouchableOpacity>
+          {isPickerShow && (
+           <DateTimePicker
+           value={date}
+           mode="date"
+           display="default"
+           onChange={handleDateChange}
+           />
+           )}
+            </View>
+            </View>
+          </View>
+          <View style={[styles.input, {justifyContent:'center', alignItems:"center"}]}>
+            <View  style={{width:wp('80.9%'), height:50,backgroundColor:'#fff',
+           borderRadius:8}}>
         <Picker
-        style={{width:wp('81%'), color:'#222'}}
+        style={{width:wp('78%'), color:'#222'}}
         dropdownIconColor={COLORS.primary}
+        placeholderTextColor={COLORS.primary}
         selectedValue={pickerValue}
+        label="we"
         onValueChange={(itemValue, itemIndex) => {
           setPickerValue(itemValue);
         }}
         itemStyle={{ fontSize: 16, color: 'blue' }} 
       >
-        <Picker.Item label="Select Your Query" value=""  style={{color:'grey', fontSize:15}}/>
-        <Picker.Item label="Study Visa" value="1"   style={{color:'#222'}}/>
+        <Picker.Item label="--Select Your Query--"  style={{color:'grey', fontSize:15,fontWeight: '500',}}/>
+        <Picker.Item label="Study Visa" value="1"   style={{color:'#222', fontWeight:'800'}}/>
         <Picker.Item label="Work Visa" value="2"   style={{color:'#222'}}/>
         <Picker.Item label="Tourist Visa" value="3"  style={{color:'#222'}}/>
         <Picker.Item label="Permanent Residency" value="4"  style={{color:'#222'}}/>
@@ -157,19 +225,19 @@ const Form = () =>{
       </Picker>
             </View>
           </View>
-          <View style={styles.input}>
-            <View   style={{width:wp('83%'), height:50,backgroundColor: '#fff',
-           color: '#222', fontSize: 20, fontFamily:'Poppins-Regular', borderRadius:8}}>
+          <View style={[styles.input,{justifyContent:'center', alignItems:'center'}]}>
+            <View  style={{width:wp('80.9%'), height:50,backgroundColor: '#fff',
+            borderRadius:8}}>
           <Picker
-          style={{width:wp('81%'), color:'#222', fontFamily:'Poppins-Regular'}}
-         dropdownIconColor={COLORS.primary}
+          style={{width:wp('78%'), color:'#222', fontFamily:'Poppins-Regular'}}
+          dropdownIconColor={COLORS.primary}
           selectedValue={selectCounrty}
           onValueChange={(itemValue, itemIndex) => {
             setSelectCountry(itemValue);
           }} 
          >
-          <Picker.Item label="Select Country " value="" style={{color:'grey', fontSize:15}}/>
-          <Picker.Item label="Austrlia" value="17"  style={{color:'#222'}}/>
+          <Picker.Item label="--Select Country-- " value="" style={{color:'grey', fontSize:15}}/>
+          <Picker.Item label="Austrlia" value="17" />
           <Picker.Item label="Canada" value="18"  style={{color:'#222'}}/>
           <Picker.Item label="U.S.A" value="19"  style={{color:'#222'}}/>
           <Picker.Item label="U.K" value="20"  style={{color:'#222'}}/>     
@@ -192,10 +260,10 @@ const Form = () =>{
           <View style={styles.formAction}>
             <TouchableOpacity
               onPress={postData}
-              disabled={email === '' || lastname === '' || mobileNo === '' || pickerValue === ''   || selectCounrty === "" || checkValidEmail} >
+              disabled={email === ''|| lastname === ''|| mobileNo === '' || pickerValue === ''|| selectCounrty === "" || checkValidEmail} >
               <View  style={[
         styles.btn,
-        { backgroundColor: (firstname === '' || lastname === '' || pickerValue === ''|| checkValidEmail) ? COLORS.primary : 'green' }
+        { backgroundColor: (firstname === '' || lastname === '' || pickerValue === '' || checkValidEmail) ? COLORS.primary : 'green' }
     ]}>    
     <Image source={require('./Blog/plane.png')} style={{width:26, height:26}}/>
               </View>
@@ -221,21 +289,47 @@ const Form = () =>{
  export default Form;
 
  const Skelton = () =>{
+  const opacity = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const animateSkeleton = () => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(opacity, {
+            toValue: 0.5,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacity, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+        ]),
+        { iterations: -1 }
+      ).start();
+    };
+
+    animateSkeleton();
+
+    return () => {
+      opacity.stopAnimation();
+    };
+  }, [opacity]);
   return(
     <SafeAreaView>
-  <View style={styles.headers}>
-      <View style={styles.titleSkeleton} />
-      <View style={styles.subtitleSkeleton} />
-      <View style={styles.descriptionSkeleton} />
-    </View>
-    <View style={styles.forms}>
-    <View style={styles.inputControlSkeleton} />
-      <View style={styles.inputControlSkeleton} />
-      <View style={styles.inputControlSkeleton} />
-      <View style={styles.inputControlSkeleton} />
-      <View style={styles.inputControlSkeleton} /> 
-      <View style={styles.inputControlSkeleton} />
-    </View>
+<Animated.View style={[styles.headers,{opacity}]}>
+<Animated.View style={[styles.titleSkeleton,{opacity}]} />
+<Animated.View style={[styles.subtitleSkeleton,{opacity}]} />
+<Animated.View style={[styles.descriptionSkeleton,{opacity}]} />
+</Animated.View>
+<Animated.View style={styles.forms}>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
+</Animated.View>
     </SafeAreaView>
   )
  }
@@ -285,7 +379,7 @@ const styles = StyleSheet.create({
     borderRadius:10
   },
   form: {
-    height:hp('70%'),
+    height:hp('80%'),
     padding:13,
     opacity:0.9,
     backgroundColor: '#EDF2FB',
@@ -314,7 +408,7 @@ const styles = StyleSheet.create({
   inputControl: {
     height: 50,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 18,
     fontSize: 15,
     fontWeight: '500',
     borderRadius:8,

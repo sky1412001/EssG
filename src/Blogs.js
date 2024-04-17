@@ -8,16 +8,42 @@ const heart2 = require('./Logo/heart2.png');
 const windowWidth = Dimensions.get('window').width;
 
 const Skeleton = () => {
+  const opacity = useRef(new Animated.Value(1)).current;
 
+  useEffect(() => {
+    const animateSkeleton = () => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(opacity, {
+            toValue: 0.5,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacity, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+        ]),
+        { iterations: -1 }
+      ).start();
+    };
+
+    animateSkeleton();
+
+    return () => {
+      opacity.stopAnimation();
+    };
+  }, [opacity]);
    
   return (
-    <View style={styles.skeletonContainer}>
-      <View style={styles.skeletonImage} />
-      <View style={styles.skeletonDetails}>
-        <View style={styles.skeletonText} />
-        <View style={styles.skeletonText} />
-      </View>
-    </View>
+    <Animated.View style={[styles.skeletonContainer,{opacity}]}>
+    <Animated.View style={[styles.skeletonImage,{opacity}]} />
+    <Animated.View style={[styles.skeletonDetails,{opacity}]}>
+      <Animated.View style={[styles.skeletonText,{opacity}]} />
+      <Animated.View style={[styles.skeletonText,{opacity}]} />
+    </Animated.View>
+    </Animated.View>
   );
 };
 
@@ -49,9 +75,7 @@ const Blogs = ({ navigation }) => {
                         <Text style={styles.title}>{BlogD.title}</Text>
                         <Text style={styles.about}>{BlogD.About}</Text>
                     </View>
-                    <TouchableOpacity onPress={giveLike}>
-                        <Image source={like ? heart1 : heart2} style={styles.heartIcon}/>
-                    </TouchableOpacity>
+                   
                 </View>
             </View>
         );

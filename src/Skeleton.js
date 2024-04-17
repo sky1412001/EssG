@@ -18,7 +18,6 @@ const Skelton = () => {
         <Animated.View style={{ flexDirection: 'row', marginBottom: 10 }}>
           <Animated.View style={{ width: 100, height: 20, backgroundColor: '#d0d0d0' }} />
         </Animated.View>
-      
       </Animated.View>
     </Animated.View>
   </Animated.View>
