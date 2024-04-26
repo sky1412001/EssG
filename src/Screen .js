@@ -22,8 +22,8 @@ const Screen = ({navigation, route}) => {
   const Offices = route.params;
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar translucent  backgroundColor={"white"}/>
-        <ImageBackground source={Offices.image} style={{width:'100%', height:220, marginTop:30}}>
+      <StatusBar translucent  backgroundColor={COLORS.primary}/>
+        <ImageBackground source={Offices.image} style={{width:'100%', height:220, marginTop:20}}>
 <TouchableOpacity onPress={()=>navigation.goBack()}>
         <Image source={require('./Logo/backon.png')} style={{width:30, height:20, left:20, top:20}}/>
 </TouchableOpacity>
@@ -38,11 +38,6 @@ const Screen = ({navigation, route}) => {
         </View>
         </View>
       <View style={style.detailsContainer}>
-        <View style={style.iconContainer}>
-          <TouchableOpacity onPress={giveLike}>
-          <Image  source={like ? heart1 : heart2} style={{width:30, height:30}}/>
-          </TouchableOpacity>
-        </View>
         <Text style={{marginTop: 20, lineHeight: 22, fontFamily:'Poppins-Bold', color:COLORS.primary}}>{Offices.about}</Text>
         <Rating stars={Offices.rating} maxStars={5} size={18} color={'#0466C8'}/>
         <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>{Offices.description}</Text>
@@ -82,8 +77,6 @@ const style = StyleSheet.create({
   },
   detailsContainer: {
     top: -32,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: COLORS.white,

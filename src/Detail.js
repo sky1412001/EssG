@@ -103,7 +103,7 @@ const Styles = StyleSheet.create({
       color: 'black',
     },
     rmCardImage: {
-        screenwidth:screenWidth*2,
+      screenwidth:screenWidth*2,
       height: 120,
       marginRight: 20,
       borderRadius: 10,

@@ -34,8 +34,9 @@ const Onboard = ({ navigation }) => {
         bottomBarColor='white'
         onSkip={goToLogin}
         onDone={goToLogin}
-        skipLabel={<Text style={{ fontFamily: 'Poppins-Bold', color:COLORS.primary}}>SKIP</Text>}
-        nextLabel={<Text style={{fontFamily: 'Poppins-Bold', color: COLORS.primary, }}>NEXT</Text>}
+        skipLabel={<Text style={{ fontFamily: 'Poppins-Regular', color:COLORS.primary}}>SKIP</Text>}
+        nextLabel={<Text style={{fontFamily: 'Poppins-Regular', color: COLORS.primary, }}>NEXT</Text>}
+        
         pages={[
           {
             backgroundColor: 'white',
@@ -44,7 +45,7 @@ const Onboard = ({ navigation }) => {
               <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>STUDY</Text>
             ),
             subtitle: (
-              <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
+              <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: 'black' }}>
                 Get Ready for your Student<Text style={{ fontFamily: "Poppins-Bold", color: '#0466C8' }}> Visa</Text>
               </Text>
             ),
@@ -56,7 +57,7 @@ const Onboard = ({ navigation }) => {
               <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>WORK</Text>
             ),
             subtitle: (
-              <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
+              <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: 'black' }}>
                 Your work visa story begins<Text style={{ fontFamily: "Poppins-Bold", color: COLORS.primary }}> NOW!</Text>
               </Text>
             ),
@@ -68,7 +69,7 @@ const Onboard = ({ navigation }) => {
               <Text style={{ fontSize: 40, color: '#0466C8', fontFamily:'Poppins-Bold' }}>Settle</Text>
             ),
             subtitle: (
-              <Text style={{ fontSize: 17, fontFamily: 'Poppins-Medium', color: 'black' }}>
+              <Text style={{ fontSize: 18, fontFamily: 'Poppins-Medium', color: 'black' }}>
                 Your Citizenship visa story begins!
               </Text>
             ),

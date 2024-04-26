@@ -15,7 +15,8 @@ import {
   Dimensions,
   FlatList,
   ImageBackground,
-  Animated
+  Animated,
+  RefreshControl
 } from 'react-native';
 import {Rating} from 'react-native-stock-star-rating';
 const currentDate = new Date();
@@ -47,10 +48,23 @@ const HomeScreen = ({navigation}) => {
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get('window').width;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [email, setEmail] = useState('');
-  const [checkValidEmail, setCheckValidEmail] = useState('');
-
-  
+  const [scrollY] = useState(new Animated.Value(0));
+ 
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, 450], // Adjust as needed
+    outputRange: [200, 100], // Initial height and collapsed height
+    extrapolate: 'clamp', // Prevent overstretching
+  });
+  const textHeight = scrollY.interpolate({
+    inputRange: [0, 100], // Adjust as needed
+    outputRange: [20, 0], // Initial height and collapsed height
+    extrapolate: 'clamp', // Prevent overstretching
+  });
+  const textHeights = scrollY.interpolate({
+    inputRange: [0, 100], // Adjust as needed
+    outputRange: [0, 120], // Initial height and collapsed height
+    extrapolate: 'clamp', // Prevent overstretching
+  });
   useEffect(() => {
     let interval = setInterval(() => {
       const nextIndex = (activeIndex + 1) % Slider.length;
@@ -72,16 +86,6 @@ const HomeScreen = ({navigation}) => {
     const index = Math.floor(scrollPosition / screenWidth);
     setActiveIndex(index);
   };
-  const handleCheckEmail = text => {
-    let re = /\$+@\$+\.\$+/;
-    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    setEmail(text);
-    if (re.test(text) || regex.test(text)){
-      setCheckValidEmail(false);
-    } else {
-      setCheckValidEmail(true);
-    }
-  };
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -90,7 +94,6 @@ const HomeScreen = ({navigation}) => {
   }, []);
   if (loading) {
     return <Skelton />;
-    
   }
   const Nation = ({Fdata}) => {
     return (
@@ -108,7 +111,7 @@ const HomeScreen = ({navigation}) => {
               flexDirection: 'row',
               backgroundColor: 'white',
             }}>
-            <Image source={Fdata.image} style={{width: 20, height: 10}} />
+            <Image source={Fdata.image} style={{width: 55, height: 40}} />
             <Text
               style={{
                 textAlign: 'center',
@@ -140,12 +143,12 @@ const HomeScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             width: wp('38%'),
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-between',
           }}>
           <View>
             <Image
               source={Dataco.image}
-              style={{width: wp('17%'), height: hp('9%'), borderRadius: hp('3%')}}
+              style={{width: wp('17%'), height: hp('9%'), borderRadius: hp('4%')}}
             />
           </View>
           <View>
@@ -245,40 +248,33 @@ const HomeScreen = ({navigation}) => {
     );
   };
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
-      <View
-        style={{
-          borderBottomLeftRadius: 15,
-          borderBottomRightRadius: 15,
-          elevation: 10,
-        }}>
-        <View style={styles.header}>
-          <StatusBar
-            translucent
-            backgroundColor="rgba(0,0,0,0)"
-            color={'red'}
-          />
-          <View>
+            <ScrollView
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    { useNativeDriver: false } // Required for opacity animation
+                  )}
+                  scrollEventThrottle={16}
+            >
+        <Animated.View style={{
+          padding:20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: COLORS.primary,height:headerHeight}}>
             <View>
               <View style={{flexDirection: 'column', justifyContent:"space-between"}}>
-              <Text style={{fontFamily:"Poppins-Bold", color:'white', marginTop:10}}>Today {`${monthName} ${date}`}</Text>
+              <Animated.Text style={{fontFamily:"Poppins-Bold", color:'white', marginTop:40, fontSize:textHeight}}>Today {`${monthName} ${date}`}</Animated.Text>
               </View>
-              <View style={{flexDirection: 'column', gap: -9, marginTop: 1}}>
-                <Text style={styles.heading}>Find your</Text>
-                <Text style={styles.heading}>Immigration Consultant</Text>
+              <View style={{flexDirection: 'column', gap: -9, marginTop: 5}}>
+                <Animated.Text style={[styles.heading,{fontSize:textHeight, marginRight:textHeight}]}>Find your</Animated.Text>
+                <Animated.Text style={[styles.heading,{fontSize:textHeight}]}>Immigration Consultant</Animated.Text>
               </View>
+                
+                <Animated.Image source={require('./Logo/ess.png')} style={{width:textHeights, height:textHeights, marginTop:10}}/>
             </View>
-          </View>
-        </View>
-      </View>
-      <View
-        style={{
-          top: -23,
-          backgroundColor: 'white',
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
-        }}>
+        </Animated.View>
+    <View style={{top:-20, backgroundColor:'white', borderTopLeftRadius:25, borderTopRightRadius:25}}>
         <ScrollView>
+
           <View style={{marginTop: 24}}>
             <FlatList
               snapToInterval={width - 20}
@@ -357,9 +353,9 @@ const HomeScreen = ({navigation}) => {
               )}
             />
           </View>
+          </ScrollView>
+          </View>
         </ScrollView>
-      </View>
-    </SafeAreaView>
   );
 };
 export default HomeScreen;
@@ -375,6 +371,7 @@ const Skelton = () => {
             toValue: 0.5,
             duration: 500,
             useNativeDriver: true,
+            width:20
           }),
           Animated.timing(opacity, {
             toValue: 1,
@@ -445,7 +442,7 @@ const Skelton = () => {
         </Animated.View>
       </Animated.View>
       <Animated.View style={styles.subtitleButtonContainer}>
-        
+
         <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
         <TouchableOpacity style={styles.addButtonSkeleton} />
       </Animated.View>
@@ -515,7 +512,6 @@ const Skelton = () => {
               <Text style={{textAlign: 'center', color: 'white'}}></Text>
             </Animated.View>
             <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}} />
-           
             <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
               <Text style={{textAlign: 'center', color: 'white'}}></Text>
             </Animated.View>
@@ -542,7 +538,6 @@ const Skelton = () => {
             },{opacity}]}>
             <Text style={styles.subtitle}></Text>
             <TouchableOpacity
-              
               style={{backgroundColor: '#d0d0d0', width: 21}}>
               <Text style={{color: COLORS.light, textAlign: 'center'}}></Text>
             </TouchableOpacity>
@@ -562,14 +557,12 @@ const Skelton = () => {
             }}>
             <Text style={styles.subtitle}></Text>
             <TouchableOpacity
-              
               style={{backgroundColor: '#d0d0d0', width: 21}}>
               <Text style={{color: COLORS.light, textAlign: 'center'}}></Text>
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
         </Animated.View>
-       
       </Animated.View>
           </Animated.View>
  </SafeAreaView>
@@ -577,13 +570,7 @@ const Skelton = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    height: hp('19%'),
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: COLORS.primary,
-  },
+  
   date: {
     marginTop: 5,
     fontSize: 14,
@@ -592,7 +579,6 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: 'Poppins-Bold',
-    fontSize: hp('2.1%'),
     color: 'white',
   },
   sectionOne: {
@@ -649,7 +635,7 @@ const styles = StyleSheet.create({
   },
   rmCardImage: {
     width: Dimensions.get('window').width - 20,
-    height: 145,
+    height: 160,
     marginRight: 20,
     borderRadius: 10,
     overflow: 'hidden',
@@ -683,7 +669,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     width: wp('40%'), // adjust as needed
-    height: hp('12%'), // adjust as needed
+    height: hp('11%'), // adjust as needed
     padding: wp('2%'),
     borderRadius: wp('2%'),
     elevation: 1,

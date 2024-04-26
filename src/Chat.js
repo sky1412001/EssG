@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-native';
 import COLORS from './COLORS';
-import { SafeAreaFrameContext } from 'react-native-safe-area-context';
 const user = require('../Auth/icons/camera.png')
 const Chat = ({navigation}) => {
   const [message, setMessage] = useState('');

@@ -155,7 +155,7 @@ const Status =()=>{
             <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 65, height: 65, borderRadius: 100 }} />
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>requestCameraPermission("cover")}>
+        <TouchableOpacity onPress={()=>requestCameraPermission("profile")}>
         <Image source={require('./icons/plus.png')} style={{width:25, height:25,left:85}}/>
         </TouchableOpacity>
         <Text style={{marginTop: 40, lineHeight: 32, fontFamily:'Poppins-Bold', color:COLORS.primary}}>Ess Global</Text>

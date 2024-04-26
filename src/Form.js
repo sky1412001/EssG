@@ -13,7 +13,6 @@ import {
   TextInput,
   ImageBackground,
   Modal,
-  ActivityIndicator,
   ScrollView,
   Animated
 } from 'react-native';
@@ -57,8 +56,6 @@ const Form = () =>{
       setCheckValidEmail(true);
     }
   };
- 
- 
   const postData = async () => {
     try {
       const response = await axios.post(baseUrl, data);
@@ -98,36 +95,28 @@ const Form = () =>{
     const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0); 
     const minDate = today; // Current date
     const clampedDate = new Date(Math.min(Math.max(currentDate, minDate), maxDate)); // Clamp date within range
-    
     setDate(clampedDate);
     setTextInputValue(formatDate(clampedDate)); // Format the date to display in TextInput
-  
     if (Platform.OS === 'android') {
       setIsPickerShow(false); // Hide picker on Android after selecting
     } else {
       setIsPickerShow(false); // Hide picker on iOS after selecting
     }
   };
-  
   const formatDate = (date) => {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
     return `${day}/${month}/${year}`;
   };
-  
   const onTextInputFocus = () => {
     setIsPickerShow(true);
     setShowTextInput(false);
   };
-  
-  
-  
-  
   return(
     <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor:'#e8ecf4'}}>
       <ScrollView>
-      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
+      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'}/>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
@@ -209,13 +198,12 @@ const Form = () =>{
         dropdownIconColor={COLORS.primary}
         placeholderTextColor={COLORS.primary}
         selectedValue={pickerValue}
-        label="we"
         onValueChange={(itemValue, itemIndex) => {
           setPickerValue(itemValue);
         }}
         itemStyle={{ fontSize: 16, color: 'blue' }} 
       >
-        <Picker.Item label="--Select Your Query--"  style={{color:'grey', fontSize:15,fontWeight: '500',}}/>
+        <Picker.Item label="Select Your Query"  style={{color:'grey', fontSize:15,}}/>
         <Picker.Item label="Study Visa" value="1"   style={{color:'#222', fontWeight:'800'}}/>
         <Picker.Item label="Work Visa" value="2"   style={{color:'#222'}}/>
         <Picker.Item label="Tourist Visa" value="3"  style={{color:'#222'}}/>
@@ -236,11 +224,11 @@ const Form = () =>{
             setSelectCountry(itemValue);
           }} 
          >
-          <Picker.Item label="--Select Country-- " value="" style={{color:'grey', fontSize:15}}/>
-          <Picker.Item label="Austrlia" value="17" />
-          <Picker.Item label="Canada" value="18"  style={{color:'#222'}}/>
-          <Picker.Item label="U.S.A" value="19"  style={{color:'#222'}}/>
-          <Picker.Item label="U.K" value="20"  style={{color:'#222'}}/>     
+          <Picker.Item label="Select Country" value="" style={{color:'grey', fontSize:15}}/>
+          <Picker.Item label="Austrlia" value="Austrlia" />
+          <Picker.Item label="Canada" value="Canada"  style={{color:'#222'}}/>
+          <Picker.Item label="U.S.A" value="U.S.A"  style={{color:'#222'}}/>
+          <Picker.Item label="U.K" value="U.K"  style={{color:'#222'}}/>     
         </Picker>              
             </View>
           </View>
@@ -263,7 +251,7 @@ const Form = () =>{
               disabled={email === ''|| lastname === ''|| mobileNo === '' || pickerValue === ''|| selectCounrty === "" || checkValidEmail} >
               <View  style={[
         styles.btn,
-        { backgroundColor: (firstname === '' || lastname === '' || pickerValue === '' || checkValidEmail) ? COLORS.primary : 'green' }
+        { backgroundColor: (email === '' || firstname === '' || lastname === '' || pickerValue === '' || checkValidEmail) ? COLORS.primary : 'green' }
     ]}>    
     <Image source={require('./Blog/plane.png')} style={{width:26, height:26}}/>
               </View>

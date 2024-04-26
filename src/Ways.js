@@ -31,7 +31,7 @@ const Ways = ({navigation}) => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) {
       return 'GOOD MORNING';
-    } else if (hour >= 12 && hour < 17) {
+    } else if (hour >= 12 && hour < 17){
       return 'GOOD AFTERNOON';
     } else {
       return 'GOOD EVENING';
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     height: 360,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomLeftRadius:40,
+    borderBottomLeftRadius:50,
     alignItems:'center'
   },
   title: {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: 'white',
-    borderTopRightRadius: 40,
+    borderTopRightRadius: 50,
     padding: 10,
     paddingTop: 30,
   },

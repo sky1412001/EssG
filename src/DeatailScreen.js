@@ -34,9 +34,6 @@ const DeatailScreen = ({navigation, route}) => {
             <Image source={require('./Logo/backon.png')} style={{width:25, height:25}}/>
           </TouchableOpacity>
         </View>
-        <View style={style.imageDetails}>
-         
-        </View>
       </ImageBackground>
       <View style={style.detailsContainer}>
         <View style={style.iconContainer}>

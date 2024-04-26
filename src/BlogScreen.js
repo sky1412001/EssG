@@ -31,8 +31,8 @@ const BlogScreen = ({navigation, route}) =>{
           </View>
         </ImageBackground>
         <View style={style.detailsContainer}>
-          <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>{Data.title}</Text>
-          <Text style={{marginTop: 20, lineHeight: 22,fontFamily:'Poppins-Regular', color:COLORS.primary, }}>{Data.About}</Text>
+          <Text style={{color:COLORS.primary, fontFamily:'Poppins-Bold'}}>{Data.title}</Text>
+          <Text style={{marginTop: 20, lineHeight: 22,fontWeight:'700', color:COLORS.primary, }}>{Data.About}</Text>
           <Text style={{color:'black', fontFamily:'Poppins-Regular', fontSize:12}}>{Data.message}</Text>
         </View>
         <View style={style.footer}>
