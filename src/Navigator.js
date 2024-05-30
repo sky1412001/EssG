@@ -1,78 +1,137 @@
 import React from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
-import {Image} from 'react-native';
+import { Text, Image } from 'react-native';
 import Form from './Form';
-import Services from './Services';
+import Blogs from './Blogs';
 import COLORS from './COLORS';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Ways from './Ways';
-import { Blogs } from '.';
-const home = require('./Tabicon/home.png');
-const commu = require('./Tabicon/commu.png');
-const files = require('./Tabicon/files.png');
-const profile = require('./Tabicon/profile.png');
-const contact = require('./Tabicon/contact.png');
-const Stack = createNativeStackNavigator();
+import Status from '../Auth/Status'; // Ensure this is correctly imported
+import { useAuth } from './AuthContext'; // Ensure this is correctly imported
+
+const Tab = createBottomTabNavigator();
+
 const Navigator = () => {
-  const Tab = createMaterialBottomTabNavigator();
+  const { isAuthenticated } = useAuth();
+
   return (
-       <Tab.Navigator
-      initialRouteName="HomeScreen"
-      barStyle={{ backgroundColor: 'white',height:60}}
-      inactiveColor='rgba(0,0,0,0)'
-      activeColor="rgba(0,0,0,0)"
-      activeIndicatorStyle={{
-      height:60,
-      width:65,
-      backgroundColor:'rgba(0,0,0,0)',
-      borderTopWidth:7,
-      borderColor:COLORS.primary,
-      borderRadius:0,
-      }}
+    <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
-          height: 30  
+          position: 'absolute',
+          height: 55,
+          padding: 14,
         },
-      }}>
-      <Tab.Screen  options={{ tabBarIcon: () => (
-      <Image source={home} style={{width: 30, height: 30}}/>  
+      }}
+      initialRouteName="HomeScreen"
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            focused ? 
+           
+            <Image  source={require('./Tab/hom.png')} style =  {{width:focused ? 22 :22, height:focused ?22:22}}/>
+            :
+            <Icon
+            name="home"
+            size={focused ? 25 : 22} 
+            color={focused ? COLORS.primary : 'grey'}
+          /> 
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: focused ? 8 : 10,
+                color: 'black',
+              }}
+            >
+              Home
+            </Text>
           ),
         }}
-        name="HomeScreen"
-        component={HomeScreen}
       />
       <Tab.Screen
-        options={{
-          tabBarIcon: () => (
-            <Image source={commu} style={{width: 30, height: 30}}/>
-          ),
-        }}
         name="Blogs"
         component={Blogs}
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            focused ? <Image source={require('./Tab/blogg.png')} style={{width:focused ? 27 :22, height:focused ?  27:22}}/>
+           : <Icon
+              name={ "file" }
+              size={focused ? 25 : 22}
+              color={focused ? COLORS.primary : 'grey'}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: focused ? 8 : 10,
+                color: 'black',
+              }}
+            >
+              Blogs
+            </Text>
+          ),
+        }}
       />
       <Tab.Screen
-        options={{
-          tabBarIcon: () => (
-            <Image source={contact} style={{width: 30, height: 30}}/>
-          ),
-        }}
         name="Contact"
         component={Form}
-      />
-        <Tab.Screen
         options={{
-          tabBarIcon: () => (
-          <Image source={profile} style={{width:30, height:30}}/>
+          tabBarIcon: ({ color, focused }) => (
+            focused ? <Image source={require('./Tab/form.png')} style={{width:focused ? 27 :22, height:focused ?27:22}} />
+         :   <Icon
+              name={"phone"}
+              size={focused ? 25 : 24}
+              color={focused ? COLORS.primary : 'grey'}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: focused ? 8 : 10,
+                color: 'black',
+              }}
+            >
+              Contact us
+            </Text>
           ),
         }}
-        name="Ways"
-        component={Ways}
-      />  
-    </Tab.Navigator> 
+      />
+      <Tab.Screen
+        name="Profile"
+        component={isAuthenticated ? Status : Ways}
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            focused ? <Image source={require('./Tab/uss.png')} style={{width:focused ? 27 :22, height:focused ?27:22}}/>
+            :<Icon
+              name={"users" }
+              size={focused ? 25 : 22}
+              color={focused ? COLORS.primary : 'grey'}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: focused ? 8 : 10,
+                color: 'black',
+              }}
+            >
+              User
+            </Text>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
+
 export default Navigator;
-
-

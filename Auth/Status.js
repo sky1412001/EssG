@@ -1,32 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, PermissionsAndroid, Platform, Image, ImageBackground, StyleSheet, SafeAreaView , StatusBar, Modal} from 'react-native';
+import { View, TouchableOpacity, Text, PermissionsAndroid, Platform, Image, ActivityIndicator, ImageBackground, StyleSheet, SafeAreaView , StatusBar, Modal} from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import COLORS from "../src/COLORS";
+import axios from 'axios';
+import { useAuth } from '../src/AuthContext';
+import Services from '../src/Services';
 const y = require('./icons/y.png')
 const camera = require('./icons/camera.png')
-const Status =()=>{
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const Status = ({ navigation }) => {
+  const {logout} = useAuth()
   const [profilePicture, setProfilePicture] = useState(null);
-  const [coverPicture, setCoverPicture] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [branch, setBranch] = useState('');
+  const [email, setEmail] = useState("");
+  const [phoneNO , setPhoneNo] = useState('');
+  const [dob, setDob] = useState("");
+  const [country , setCountry] = useState('');
+  const [file, setFile] = useState('');
+  const [status, setStatus] = useState('');
+  const [show, setShow] = useState('')
+  
+
+
+  const Logout =()=>{
+    logout()
+  }
   useEffect(() => {
-    const getImages = async () => {
+    const fetchUserData = async () => {
       try {
-        const profileUri = await AsyncStorage.getItem('profilePicture');
-        const coverUri = await AsyncStorage.getItem('coverPicture');
-        if (profileUri !== null) {
-          setProfilePicture(profileUri);
-        }
-        if (coverUri !== null) {
-          setCoverPicture(coverUri);
+        const storedUserData = await AsyncStorage.getItem('userData');
+        console.log('Stored User Data:', storedUserData);
+
+        if (storedUserData) {
+          const userData = JSON.parse(storedUserData);
+          setUserName(userData.data.app_name);
+          setBranch(userData.data.branch);
+          setEmail(userData.data.email)
+          setPhoneNo(userData.data.phone_one);
+          setDob(userData.data.dob)
+          setCountry(userData.data.country)
+          setFile(userData.data.ess_file_open_date)
+          setStatus(userData.data.main_status)
         }
       } catch (error) {
-        console.log('Error retrieving images:', error);
+        console.error('Error retrieving user data:', error);
       }
     };
-    getImages();
-  }, []); 
+    fetchUserData(); 
+  }, []);
   const requestCameraPermission = async (mediaType) => {
     try {
       if (Platform.OS === 'android') {
@@ -40,7 +65,7 @@ const Status =()=>{
             buttonPositive: 'OK',
           }
         );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED){
           console.log('Camera permission granted');
           if (mediaType === 'profile'){
             openCamera('profile');
@@ -95,97 +120,116 @@ const Status =()=>{
       }
     });
   };
-  const openGallery = (mediaType) => {
-    const options = {
-      mediaType: 'photo',
-      maxWidth: 800,
-      maxHeight: 600,
-      quality: 1.5,
-    };
-    launchImageLibrary(options, async (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled gallery');
-      } else if (response.errorCode) {
-        console.log('Gallery error:', response.errorMessage);
-      } else {
-        console.log('Gallery photo:', response.assets[0]);
-        if (mediaType === 'profile') {
-          setProfilePicture(response.assets[0].uri);
-          try {
-            await AsyncStorage.setItem('profilePicture', response.assets[0].uri);
-            console.log('Profile picture stored successfully');
-          } catch (error) {
-            console.log('Error storing profile picture:', error);
-          }
-        } else if (mediaType === 'cover') {
-          setCoverPicture(response.assets[0].uri);
-          try {
-            await AsyncStorage.setItem('coverPicture', response.assets[0].uri);
-            console.log('Cover picture stored successfully');
-          } catch (error) {
-            console.log('Error storing cover picture:', error);
-          }
-        }
-      }
-    });
-  };
   const openImageModal = (imageUri) => {
     setSelectedImage([{ url: imageUri }]);
     setModalVisible(true);
   };
+
   const closeModal = () => {
     setSelectedImage(null);
     setModalVisible(false);
   };
-    return(
- <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+
+  return(
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
-      <ImageBackground style={{flex: 0.7,backgroundColor:'lightblue'}} source={{uri: coverPicture}}> 
-        <View style={style.header}>
-        </View>
+      <View style={{flex: 0.6,backgroundColor:COLORS.primary, alignItems:'center', justifyContent:"center"}}> 
         <View style={style.imageDetails}>
-        <TouchableOpacity onPress={()=>requestCameraPermission("cover")}>
-         <Image source={require('./icons/camera.png')} style={{width:20, height:20,}}/>
-        </TouchableOpacity>
-        </View>
-      </ImageBackground>
-      <View style={style.detailsContainer}>
-        <TouchableOpacity onPress={() => openImageModal(profilePicture)}>
-        <View style={style.iconContainer}>
-            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 65, height: 65, borderRadius: 100 }} />
-        </View>
-        </TouchableOpacity>
+          <View style={style.iconContainer}>
+            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 75,height: 75, borderRadius: 100 }} />
+          </View>
         <TouchableOpacity onPress={()=>requestCameraPermission("profile")}>
-        <Image source={require('./icons/plus.png')} style={{width:25, height:25,left:85}}/>
+          <Image source={require('./icons/plus.png')} style={{width:25, height:25,alignSelf:"center", top:-10}}/>
         </TouchableOpacity>
-        <Text style={{marginTop: 40, lineHeight: 32, fontFamily:'Poppins-Bold', color:COLORS.primary}}>Ess Global</Text>
-        <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>File .no : 5473534</Text>
-        <Text style={{color:'black', fontFamily:'Poppins-Regular'}}>Passport no : U536427</Text>
-      </View>
-      <View style={style.footer}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-       <Text style={{color:'white', fontWeight:"700", textDecorationLine:'underline', fontSize:20}}>Active</Text>
+        <Text style={{marginTop:2, fontFamily:'Poppins-Bold', color:COLORS.light,fontSize:25, textAlign:"center"}}>{userName.replace(/[*()\[\]]/g, '')}</Text>
         </View>
-        <TouchableOpacity>
-        <View style={{backgroundColor:"white", alignItems:'center', justifyContent:'center', padding:10, borderRadius:20}}><Text style={{fontSize:16, fontWeight:"700", color:COLORS.primary}}>LOG OUT</Text></View>
-        </TouchableOpacity>  
       </View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-      >
-        <View style={style.centeredView}>
-          <TouchableOpacity onPress={()=>setModalVisible(false)}>
-        <View style={{marginBottom:20}}><Text style={{color:'white', fontSize:20}}>Close</Text></View>
-          </TouchableOpacity>
-            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width:150, height:150}}/>
+      <View style={style.detailsContainer}>
+        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center', elevation:5, backgroundColor:"white", marginTop:10,}}>
+        <Icon.Button
+              name="location-arrow"
+              size={25}
+              color="green"
+              backgroundColor="transparent"
+            />
+        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Branch : {branch}</Text>
         </View>
-      </Modal>
+        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
+        <Icon.Button
+              name="at"
+              size={20}
+              color="blue"
+              backgroundColor="transparent"
+            />
+        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>{email}</Text>
+        </View>
+        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
+        <Icon.Button
+              name="phone"
+              size={20}
+              color="red"
+              backgroundColor="transparent"
+            />
+        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Phone : {phoneNO}</Text>
+        </View>
+        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
+        <Icon.Button
+              name="globe"
+              size={20}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
+        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Country : {country}</Text>
+        </View>
+        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
+        <Icon.Button
+              name="signal"
+              size={20}
+              color="orange"
+              backgroundColor="transparent"
+            />
+        <Text style={{color:'green', fontFamily:'Poppins-Bold'}}>Status : {status}</Text>
+        </View>
+      {
+        status === "V-G" ? (
+          <Services />
+        ):(
+          <Text style={{color:"black", textAlign:"center"}}>Postlanding Services is not Available For you Right Now</Text>
+        )
+      }
+      <View style={{justifyContent:'space-around', flexDirection:"row", bottom:60}}>
+
+        <TouchableOpacity onPress={Logout}>
+      <View  style={{alignSelf:'flex-start',flexDirection:'row', justifyContent:'flex-start', alignItems:'center', backgroundColor:COLORS.primary, width:150, marginBottom:10, borderRadius:10,height:50}}>
+      <Icon.Button
+              name="gear"
+              size={20}
+              color="white"
+              backgroundColor="transparent"
+            />
+        <Text style={{fontSize:10, fontWeight:"700", color:'white'}}>Logout</Text>
+      </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('Chat')}>
+      <View  style={{alignSelf:'flex-start',flexDirection:'row', justifyContent:'flex-start', alignItems:'center', backgroundColor:"red", width:150, marginBottom:10, borderRadius:10,height:50}}>
+      <Icon.Button
+              name="comment"
+              size={20}
+              color="white"
+              backgroundColor="transparent"
+            />
+        <Text style={{fontSize:10, fontWeight:"700", color:'white'}}>Report a problem</Text>
+      </View>
+      </TouchableOpacity>
+      </View>
+      </View>
+     
     </SafeAreaView>
-    )
+  )
 }
+
 export default Status;
+
 const style = StyleSheet.create({
   bookNowBtn: {
     height: 50,
@@ -196,40 +240,27 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   iconContainer: {
-    height: 80,
-    width: 80,
-    position: 'absolute',
-    top: -60,
+    height: 85,
+    width: 85,
     backgroundColor: COLORS.white,
     borderRadius: 50,
-    left:27,
-    elevation: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor:COLORS.primary,
-    borderWidth:1
+    borderWidth:1,
+    alignSelf:'center',
   },
   detailsContainer: {
-    top: -30,
     borderTopLeftRadius: 30,
-    paddingVertical: 25,
-    paddingHorizontal: 15,
     backgroundColor: COLORS.white,
     flex: 1.5,
+    padding:5
+    
   },
-  header: {
-    marginTop: 70,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20, 
-  },
+
   imageDetails: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  
     width: '100%',
-    position: 'absolute',
-    bottom: 30,
   },
   footer: {
     flexDirection: 'row',
@@ -241,46 +272,47 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 1, 0.8)', 
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    centeredView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 1, 0.8)', 
-    },
-    modalView: {
-      margin: 20,
-      backgroundColor: 'white',
-      borderRadius: 20,
-      padding: 35,
-      alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    openButton: {
-      backgroundColor: '#F194FF',
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2,
-    },
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: 'center',
-    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  openButton: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  
 });

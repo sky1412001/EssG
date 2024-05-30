@@ -22,7 +22,7 @@ const PostLandingForm = ({navigation, route}) => {
     let re = /\$+@\$+\.\$+/;
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     setEmail(text);
-    if (re.test(text) || regex.test(text)) {
+    if (re.test(text) || regex.test(text)){
       setCheckValidEmail(false);
     } else {
       setCheckValidEmail(true);
@@ -65,9 +65,9 @@ const PostLandingForm = ({navigation, route}) => {
           />
         </View>
       </View>
-      <View style={{backgroundColor:'#EDF2FB', margin:15, padding:10, elevation:2, borderRadius:20}}>
+      <View style={{backgroundColor:'white', margin:10, padding:10, elevation:3,borderRadius:20}}>
         <Text
-          style={{
+          style={{ 
             fontSize: 19,
             textAlign: 'center',
             color:COLORS.primary,

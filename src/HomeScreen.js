@@ -16,15 +16,19 @@ import {
   FlatList,
   ImageBackground,
   Animated,
-  RefreshControl
+  RefreshControl,
+  TextInput,
 } from 'react-native';
 import {Rating} from 'react-native-stock-star-rating';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const currentDate = new Date();
 import COLORS from './COLORS';
 import Dataco from './Data';
 import Slider from './Slider';
 import Fdata from './Fdata';
 import Visa from './Visa';
+import {FadeIn} from 'react-native-reanimated';
 const date = currentDate.getDate();
 const {width} = Dimensions.get('screen');
 const monthNames = [
@@ -45,26 +49,24 @@ const monthIndex = currentDate.getMonth();
 const monthName = monthNames[monthIndex];
 const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [data, setData] = useState([]); // Your components data
+  const [filteredData, setFilteredData] = useState([]); // Filtered data
   const flatlistRef = useRef();
   const screenWidth = Dimensions.get('window').width;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollY] = useState(new Animated.Value(0));
- 
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 450], // Adjust as needed
-    outputRange: [200, 100], // Initial height and collapsed height
-    extrapolate: 'clamp', // Prevent overstretching
-  });
-  const textHeight = scrollY.interpolate({
-    inputRange: [0, 100], // Adjust as needed
-    outputRange: [20, 0], // Initial height and collapsed height
-    extrapolate: 'clamp', // Prevent overstretching
-  });
-  const textHeights = scrollY.interpolate({
-    inputRange: [0, 100], // Adjust as needed
-    outputRange: [0, 120], // Initial height and collapsed height
-    extrapolate: 'clamp', // Prevent overstretching
-  });
+  const windowWidth = Dimensions.get('window').width;
+
+  const handleSearch = text => {
+    const filteredData = data.filter(item => {
+      const itemData = item.name.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    setSearchQuery(text);
+    setData(filteredData);
+  };
+
   useEffect(() => {
     let interval = setInterval(() => {
       const nextIndex = (activeIndex + 1) % Slider.length;
@@ -98,32 +100,48 @@ const HomeScreen = ({navigation}) => {
   const Nation = ({Fdata}) => {
     return (
       <TouchableOpacity
+        activeOpacity={0.7}
         onPress={() => navigation.navigate('FlagScreen', Fdata)}>
-        <View style={{padding: 6}}>
+        <View
+          style={{
+            width: 120,
+            height: 90,
+            padding: 5,
+            backgroundColor: 'white',
+            margin: 5,
+            borderRadius: 10,
+          }}>
           <View
             style={{
-              gap: 7,
-              padding: 15,
-              borderRadius: 10,
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginTop: 3,
               flexDirection: 'row',
-              backgroundColor: 'white',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}>
-            <Image source={Fdata.image} style={{width: 55, height: 40}} />
+            <Image source={Fdata.image} style={{width: 33, height: 20}} />
+
+            <Icon.Button
+              name="angle-right"
+              size={33}
+              color={COLORS.dark}
+              backgroundColor="transparent"
+            />
+          </View>
+          <View>
             <Text
               style={{
-                textAlign: 'center',
-                color: COLORS.primary,
-                fontSize: 11,
+                fontSize: 12,
+                color: 'black',
                 fontFamily: 'Poppins-Bold',
               }}>
               {Fdata.name}
             </Text>
-            <View style={{backgroundColor: COLORS.primary, width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}>+</Text>
-            </View>
+            <Text
+              style={{
+                fontSize: 10,
+                color: 'grey',
+                fontFamily: 'Poppins-Regular',
+              }}>
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -138,31 +156,38 @@ const HomeScreen = ({navigation}) => {
           margin: wp('1.5%'),
           elevation: 1,
           borderRadius: 10,
+          width: Dimensions.get('window').width - 40,
+          height: 100,
+          flexDirection: 'row',
         }}>
         <View
           style={{
             flexDirection: 'row',
-            width: wp('38%'),
             justifyContent: 'space-between',
+            width: '60%',
           }}>
           <View>
             <Image
               source={Dataco.image}
-              style={{width: wp('17%'), height: hp('9%'), borderRadius: hp('4%')}}
+              style={{
+                width: wp('18%'),
+                height: hp('9%'),
+                borderRadius: hp('5%'),
+              }}
             />
           </View>
           <View>
             <Text
               style={{
-                fontSize: hp('1.4%'),
+                fontSize: hp('1.7%'),
                 color: '#222',
-                fontFamily: 'Poppins-Bold',
+                fontFamily: 'Poppins-Regular',
               }}>
               {Dataco.name}
             </Text>
             <Text
               style={{
-                fontSize: hp('1.2%'),
+                fontSize: hp('1.3%'),
                 color: '#222',
                 fontFamily: 'Poppins-Regular',
               }}>
@@ -171,38 +196,45 @@ const HomeScreen = ({navigation}) => {
             <Rating
               stars={Dataco.rating}
               maxStars={5}
-              size={12}
+              size={14}
               color={'#0466C8'}
             />
+          </View>
+          <View>
+            <Text></Text>
           </View>
         </View>
         <View
           style={{
-            flexDirection: 'row',
+            width: '40%',
+            alignItems: 'flex-end',
             justifyContent: 'space-between',
-            padding: 5,
           }}>
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: COLORS.primary, fontWeight: '700'}}>
-              {Dataco.rate}
-            </Text>
-          </View>
+          <Text style={{color: 'green', fontWeight: '700'}}>{Dataco.rate}</Text>
+          <Text
+            style={{
+              color: COLORS.primary,
+              fontSize: 11,
+              fontWeight: '600',
+              textDecorationLine: 'underline',
+            }}>
+            9:00AM TO 1:00PM
+          </Text>
           <View
             style={{
-              borderWidth: 1,
-              padding: 3,
-              borderColor: COLORS.primary,
-              borderRadius: 4,
+              backgroundColor: COLORS.primary,
+              padding: 4,
+              borderRadius: 5,
             }}>
             <TouchableOpacity
               onPress={() => navigation.navigate('DeatailScreen', Dataco)}>
               <Text
                 style={{
-                  color: COLORS.primary,
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 12,
+                  fontFamily: 'Poppins-Bold',
+                  color: COLORS.light,
+                  fontSize: 10,
                 }}>
-                See more
+                View Profile
               </Text>
             </TouchableOpacity>
           </View>
@@ -215,66 +247,100 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity onPress={() => navigation.navigate('Screen', Slider)}>
         <ImageBackground
           style={styles.rmCardImage}
-          source={Slider.image}>
-          </ImageBackground>
+          source={Slider.image}></ImageBackground>
       </TouchableOpacity>
     );
   };
   const Services = ({Visa}) => {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.card}>
-          <View style={styles.content}>
-            <Image source={Visa.image} style={styles.image} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{Visa.title}</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('PostLandingForm', Visa)}>
+          <View style={styles.card}>
+            <View style={styles.content}>
+              <Image source={Visa.image} style={styles.image} />
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{Visa.title}</Text>
+              </View>
             </View>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.subtitle}>{Visa.sub}</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PostLandingForm', Visa)}
-              style={{backgroundColor: COLORS.primary, width: 21}}>
-              <Text style={{color: COLORS.light, textAlign:'center'}}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   };
   return (
-            <ScrollView
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                    { useNativeDriver: false } // Required for opacity animation
-                  )}
-                  scrollEventThrottle={16}
-            >
-        <Animated.View style={{
-          padding:20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: COLORS.primary,height:headerHeight}}>
-            <View>
-              <View style={{flexDirection: 'column', justifyContent:"space-between"}}>
-              <Animated.Text style={{fontFamily:"Poppins-Bold", color:'white', marginTop:40, fontSize:textHeight}}>Today {`${monthName} ${date}`}</Animated.Text>
-              </View>
-              <View style={{flexDirection: 'column', gap: -9, marginTop: 5}}>
-                <Animated.Text style={[styles.heading,{fontSize:textHeight, marginRight:textHeight}]}>Find your</Animated.Text>
-                <Animated.Text style={[styles.heading,{fontSize:textHeight}]}>Immigration Consultant</Animated.Text>
-              </View>
-                
-                <Animated.Image source={require('./Logo/ess.png')} style={{width:textHeights, height:textHeights, marginTop:10}}/>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#F5F5F5 '}}>
+      <ImageBackground
+        source={require('./OnLogo/backicon.png')}
+        style={{padding: 25}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              marginTop: 7,
+            }}>
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                color: 'white',
+                fontSize: 16,
+              }}>
+              Today {`${monthName} ${date}`}
+            </Text>
+            <View style={{flexDirection: 'column', gap: -9, marginTop: 5}}>
+              <Text style={[styles.heading, {fontSize: 15}]}>Find your</Text>
+              <Text style={[styles.heading, {fontSize: 15}]}>
+                Immigration Consultant
+              </Text>
             </View>
-        </Animated.View>
-    <View style={{top:-20, backgroundColor:'white', borderTopLeftRadius:25, borderTopRightRadius:25}}>
-        <ScrollView>
-
+          </View>
+          <View
+            style={{
+              backgroundColor: 'white',
+              width: 36,
+              height: 36,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+              marginTop:10
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Notification')}>
+              <Image
+                source={require('./OnLogo/bell.png')}
+                style={{width: 30, height: 30}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            backgroundColor: '#FBFFFF',
+            borderRadius: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            top: 10,
+            width: wp('88%'),
+            height: wp('11.1%'),
+          }}>
+          <View style={{marginLeft: 13}}>
+            <Image
+              source={require('./OnLogo/find.png')}
+              style={{width: 25, height: 25}}
+            />
+          </View>
+          <TextInput
+            placeholderTextColor="#6b7280"
+            placeholder="Search..."
+            style={{fontWeight: '700', width: 135, color: 'grey'}}
+            onChange={handleSearch}
+            value={searchQuery.text}
+          />
+        </View>
+      </ImageBackground>
+      <ScrollView>
+        <View>
           <View style={{marginTop: 24}}>
             <FlatList
               snapToInterval={width - 20}
@@ -289,23 +355,37 @@ const HomeScreen = ({navigation}) => {
               renderItem={({item}) => <RecommendedCard Slider={item} />}
             />
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View
+            style={{
+              borderLeftWidth: 7,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.light,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
             <Text style={styles.sectionTwo}>Popular Consultant</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Consultant')}>
+              <Text style={[styles.sectionTwo, {color: COLORS.primary}]}>
+                See More
+              </Text>
+            </TouchableOpacity>
           </View>
-          <View style={{backgroundColor: '#EDF2FB'}}>
-            <FlatList
-              snapToInterval={width - 45}
-              keyExtractor={item => item.id}
-              contentContainerStyle={{paddingLeft: 11, paddingBottom: 2}}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              data={Dataco}
-              renderItem={({item}) => (
-                <Consultant Dataco={item} navigation={navigation}/>
-              )}
-            />
+          <View
+            style={{
+              backgroundColor: '#EDF2FB',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {Dataco.slice(0, 2).map(item => (
+              <Consultant key={item.id} Dataco={item} navigation={navigation} />
+            ))}
           </View>
-          <View>
+          <View
+            style={{
+              borderLeftWidth: 7,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.light,
+            }}>
             <Text
               style={{
                 marginHorizontal: 15,
@@ -325,11 +405,16 @@ const HomeScreen = ({navigation}) => {
               horizontal
               data={Fdata}
               renderItem={({item}) => (
-                <Nation Fdata={item} navigation={navigation}/>
+                <Nation Fdata={item} navigation={navigation} />
               )}
             />
           </View>
-          <View>
+          <View
+            style={{
+              borderLeftWidth: 7,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.light,
+            }}>
             <Text
               style={{
                 marginHorizontal: 15,
@@ -340,7 +425,7 @@ const HomeScreen = ({navigation}) => {
               Our Services
             </Text>
           </View>
-          <View style={{backgroundColor: '#EDF2FB', elevation:1}}>
+          <View style={{backgroundColor: '#EDF2FB', elevation: 1}}>
             <FlatList
               snapToInterval={width - 20}
               keyExtractor={item => item.id}
@@ -349,13 +434,14 @@ const HomeScreen = ({navigation}) => {
               horizontal
               data={Visa}
               renderItem={({item}) => (
-                <Services Visa={item} navigation={navigation}/>
+                <Services Visa={item} navigation={navigation} />
               )}
             />
           </View>
-          </ScrollView>
-          </View>
-        </ScrollView>
+        </View>
+        <View style={{height: 60}}></View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 export default HomeScreen;
@@ -371,7 +457,7 @@ const Skelton = () => {
             toValue: 0.5,
             duration: 500,
             useNativeDriver: true,
-            width:20
+            width: 20,
           }),
           Animated.timing(opacity, {
             toValue: 1,
@@ -379,198 +465,231 @@ const Skelton = () => {
             useNativeDriver: true,
           }),
         ]),
-        { iterations: -1 }
+        {iterations: -1},
       ).start();
     };
-
     animateSkeleton();
-
     return () => {
       opacity.stopAnimation();
     };
   }, [opacity]);
 
   return (
- <SafeAreaView style={{padding:3}}>
-<Animated.View
-  style={{
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    elevation: 10,
-    backgroundColor: '#d0d0d0',
-  }}>
-  <Animated.View style={[styles.headers,{opacity}]}>
-    <Animated.View>
-      <Animated.View style={{ gap: -4 }}>
-        <Animated.View style={{ flexDirection: 'row', marginBottom: 10 }}>
-          <Animated.View style={{ flex: 1, backgroundColor: '#d0d0d0', height: 1 }} />
-        </Animated.View>
-        <Animated.View style={{ flexDirection: 'row', marginBottom: 10 }}>
-          <Animated.View style={{ width: 100, height: 20, backgroundColor: '#d0d0d0' }} />
+    <SafeAreaView style={{padding: 3}}>
+      <Animated.View
+        style={{
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15,
+          elevation: 1,
+          backgroundColor: '#d0d0d0',
+        }}>
+        <Animated.View style={[styles.headers, {opacity}]}>
+          <Animated.View>
+            <Animated.View style={{gap: -4}}>
+              <Animated.View style={{flexDirection: 'row', marginBottom: 10}}>
+                <Animated.View
+                  style={{flex: 1, backgroundColor: '#d0d0d0', height: 1}}
+                />
+              </Animated.View>
+              <Animated.View style={{flexDirection: 'row', marginBottom: 10}}>
+                <Animated.View
+                  style={{width: 100, height: 20, backgroundColor: '#d0d0d0'}}
+                />
+              </Animated.View>
+            </Animated.View>
+          </Animated.View>
         </Animated.View>
       </Animated.View>
-    </Animated.View>
-  </Animated.View>
-</Animated.View>
-<Animated.View
+      <Animated.View
         style={{
           top: -27,
           backgroundColor: 'white',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
-          padding:2
+          padding: 2,
         }}>
-
-      <Animated.View style={{ width: Dimensions.get('window').width - 20,
-    height: 120, backgroundColor:'#d0d0d0', alignSelf:'center', borderRadius:10 , marginTop:10}}>
-    </Animated.View>
-    <Animated.View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.sectionTwo}></Text>
-          </Animated.View>
-    <Animated.View style={{flexDirection:"row", marginTop:20}}>
-<Animated.View
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 10,
-          flexDirection:"row"
-        }}>
-    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-      <Animated.View style={styles.content}>
-        <Animated.View style={styles.imageSkeleton} />
-        <Animated.View style={styles.textContainer}>
-          <Animated.View style={styles.titleSkeleton} />
+        <Animated.View
+          style={{
+            width: Dimensions.get('window').width - 20,
+            height: 120,
+            backgroundColor: '#d0d0d0',
+            alignSelf: 'center',
+            borderRadius: 10,
+            marginTop: 10,
+          }}></Animated.View>
+        <Animated.View
+          style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text style={styles.sectionTwo}></Text>
         </Animated.View>
-      </Animated.View>
-      <Animated.View style={styles.subtitleButtonContainer}>
-
-        <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
-        <TouchableOpacity style={styles.addButtonSkeleton} />
-      </Animated.View>
-    </Animated.View>
-    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-      <Animated.View style={styles.content}>
-        <Animated.View style={styles.imageSkeleton} />
-        <Animated.View style={styles.textContainer}>
-          <Animated.View style={styles.titleSkeleton} />
-        </Animated.View>
-      </Animated.View>
-      <Animated.View style={styles.subtitleButtonContainer}>
-        <Animated.View style={styles.subtitleSkeleton} />
-        <TouchableOpacity style={styles.addButtonSkeleton}/>
-      </Animated.View>
-    </Animated.View>
-    <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-      <Animated.View style={styles.content}>
-        <Animated.View style={styles.imageSkeleton}/>
-        <Animated.View style={styles.textContainer}>
-          <Animated.View style={styles.titleSkeleton}/>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View style={styles.subtitleButtonContainer}>
-        <Animated.View style={styles.subtitleSkeleton} />
-        <TouchableOpacity style={styles.addButtonSkeleton}/>
-      </Animated.View>
-    </Animated.View>
-</Animated.View>
-    </Animated.View>
-    <Animated.View style={{flexDirection: 'row', justifyContent: 'space-between', height:40, backgroundColor:"#d0d0d0"}}>
-            <Text style={styles.sectionTwo}></Text>
-          </Animated.View>
-          <Animated.View style={{padding: 3, marginTop:30}}>
-          <Animated.View
-            style={[{
-              gap: 7,
-              padding: 15,
-              borderRadius: 10,
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              marginTop: 3,
-              flexDirection: 'row',
-              backgroundColor: '#d0d0d0',
-              elevation:1
-            },{opacity}]}>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}}/>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 11,
-                fontFamily: 'Poppins-Bold',
-              }}>
-            </Text>
-            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}}/>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 11,
-                fontFamily: 'Poppins-Bold',
-              }}>
-            </Text>
-            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-            <Animated.View style={{width: 20, height: 10, backgroundColor:'white'}} />
-            <Animated.View style={{backgroundColor: "white", width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-          </Animated.View>
-        </Animated.View>
-          </Animated.View>
-          <Animated.View style={[{flexDirection: 'row', justifyContent: 'space-between', backgroundColor:"#d0d0d0"},{opacity}]}>
-            <Text style={styles.sectionTwo}></Text>
-          </Animated.View>
-          <Animated.View style={{flexDirection:'row'}}>
-          <Animated.View style={styles.container}>
-            <Animated.View style={{flexDirection:'row', justifyContent:'space-between'}}>
-        <Animated.View style={styles.card}>
-          <Animated.View style={styles.content}>
-            <Animated.View style={styles.textContainer}>
-              <Text style={styles.title}></Text>
-            </Animated.View>
-          </Animated.View>
-          <Animated.View
-            style={[{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            },{opacity}]}>
-            <Text style={styles.subtitle}></Text>
-            <TouchableOpacity
-              style={{backgroundColor: '#d0d0d0', width: 21}}>
-              <Text style={{color: COLORS.light, textAlign: 'center'}}></Text>
-            </TouchableOpacity>
-          </Animated.View>
-            </Animated.View>
-        <Animated.View style={styles.card}>
-          <Animated.View style={styles.content}>
-            <Animated.View style={styles.textContainer}>
-              <Text style={styles.title}></Text>
-            </Animated.View>
-          </Animated.View>
+        <Animated.View style={{flexDirection: 'row', marginTop: 20}}>
           <Animated.View
             style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
               flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
             }}>
-            <Text style={styles.subtitle}></Text>
-            <TouchableOpacity
-              style={{backgroundColor: '#d0d0d0', width: 21}}>
-              <Text style={{color: COLORS.light, textAlign: 'center'}}></Text>
-            </TouchableOpacity>
+            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
+              <Animated.View style={styles.content}>
+                <Animated.View style={styles.imageSkeleton} />
+                <Animated.View style={styles.textContainer}>
+                  <Animated.View style={styles.titleSkeleton} />
+                </Animated.View>
+              </Animated.View>
+              <Animated.View style={styles.subtitleButtonContainer}>
+                <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
+                <TouchableOpacity style={styles.addButtonSkeleton} />
+              </Animated.View>
+            </Animated.View>
+            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
+              <Animated.View style={styles.content}>
+                <Animated.View style={styles.imageSkeleton} />
+                <Animated.View style={styles.textContainer}>
+                  <Animated.View style={styles.titleSkeleton} />
+                </Animated.View>
+              </Animated.View>
+              <Animated.View style={styles.subtitleButtonContainer}>
+                <Animated.View style={styles.subtitleSkeleton} />
+                <TouchableOpacity style={styles.addButtonSkeleton} />
+              </Animated.View>
+            </Animated.View>
+            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
+              <Animated.View style={styles.content}>
+                <Animated.View style={styles.imageSkeleton} />
+                <Animated.View style={styles.textContainer}>
+                  <Animated.View style={styles.titleSkeleton} />
+                </Animated.View>
+              </Animated.View>
+              <Animated.View style={styles.subtitleButtonContainer}>
+                <Animated.View style={styles.subtitleSkeleton} />
+                <TouchableOpacity style={styles.addButtonSkeleton} />
+              </Animated.View>
+            </Animated.View>
           </Animated.View>
         </Animated.View>
+        <Animated.View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            height: 40,
+            backgroundColor: '#d0d0d0',
+          }}>
+          <Text style={styles.sectionTwo}></Text>
+        </Animated.View>
+        <Animated.View style={{padding: 3, marginTop: 30}}>
+          <Animated.View
+            style={[
+              {
+                gap: 7,
+                padding: 15,
+                borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                marginTop: 3,
+                flexDirection: 'row',
+                backgroundColor: '#d0d0d0',
+                elevation: 1,
+              },
+              {opacity},
+            ]}>
+            <Animated.View
+              style={{width: 20, height: 10, backgroundColor: 'white'}}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 11,
+                fontFamily: 'Poppins-Bold',
+              }}></Text>
+            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
+              <Text style={{textAlign: 'center', color: 'white'}}></Text>
+            </Animated.View>
+            <Animated.View
+              style={{width: 20, height: 10, backgroundColor: 'white'}}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 11,
+                fontFamily: 'Poppins-Bold',
+              }}></Text>
+            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
+              <Text style={{textAlign: 'center', color: 'white'}}></Text>
+            </Animated.View>
+            <Animated.View
+              style={{width: 20, height: 10, backgroundColor: 'white'}}
+            />
+            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
+              <Text style={{textAlign: 'center', color: 'white'}}></Text>
+            </Animated.View>
+          </Animated.View>
         </Animated.View>
       </Animated.View>
+      <Animated.View
+        style={[
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: '#d0d0d0',
+          },
+          {opacity},
+        ]}>
+        <Text style={styles.sectionTwo}></Text>
+      </Animated.View>
+      <Animated.View style={{flexDirection: 'row'}}>
+        <Animated.View style={styles.container}>
+          <Animated.View
+            style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Animated.View style={styles.card}>
+              <Animated.View style={styles.content}>
+                <Animated.View style={styles.textContainer}>
+                  <Text style={styles.title}></Text>
+                </Animated.View>
+              </Animated.View>
+              <Animated.View
+                style={[
+                  {
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  },
+                  {opacity},
+                ]}>
+                <Text style={styles.subtitle}></Text>
+                <TouchableOpacity
+                  style={{backgroundColor: '#d0d0d0', width: 21}}>
+                  <Text
+                    style={{color: COLORS.light, textAlign: 'center'}}></Text>
+                </TouchableOpacity>
+              </Animated.View>
+            </Animated.View>
+            <Animated.View style={styles.card}>
+              <Animated.View style={styles.content}>
+                <Animated.View style={styles.textContainer}>
+                  <Text style={styles.title}></Text>
+                </Animated.View>
+              </Animated.View>
+              <Animated.View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text style={styles.subtitle}></Text>
+                <TouchableOpacity
+                  style={{backgroundColor: '#d0d0d0', width: 21}}>
+                  <Text
+                    style={{color: COLORS.light, textAlign: 'center'}}></Text>
+                </TouchableOpacity>
+              </Animated.View>
+            </Animated.View>
           </Animated.View>
- </SafeAreaView>
+        </Animated.View>
+      </Animated.View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  
   date: {
     marginTop: 5,
     fontSize: 14,
@@ -606,7 +725,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     marginHorizontal: 15,
     color: 'grey',
-    
   },
 
   Timming: {
@@ -743,7 +861,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 6,
     marginBottom: 10,
-    width:160
+    width: 160,
   },
   content: {
     flexDirection: 'row',
@@ -782,11 +900,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#d0d0d0', // Color of add button skeleton
     borderRadius: 10.5, // Border radius of add button skeleton
   },
-  headers:{
+  headers: {
     height: hp('19%'),
     padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#d0d0d0'
-  }
+    backgroundColor: '#d0d0d0',
+  },
 });

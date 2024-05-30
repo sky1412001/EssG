@@ -5,12 +5,7 @@ import BlogD from "./BlogD";
 import { Rating } from 'react-native-stock-star-rating';
 import Dataj from "./Dataj";
 
-const heart1 = require('./Logo/heart1.png');
-const heart2 = require('./Logo/heart2.png');
 const windowWidth = Dimensions.get('window').width;
-
-  
-  
 
 const Blogs = ({ navigation }) => {
   const [like, setLike] = useState(false);
@@ -57,9 +52,7 @@ const Blogs = ({ navigation }) => {
         { iterations: -1 }
       ).start();
     };
-  
     animateSkeleton();
-  
     return () => {
       opacity.stopAnimation();
       translateX.stopAnimation();
@@ -67,7 +60,7 @@ const Blogs = ({ navigation }) => {
   }, [opacity, translateX]);
   const Data = ({ Dataj }) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('BlogScreen', Dataj)}>
+      <TouchableOpacity onPress={() => navigation.navigate('BlogScreen', Dataj)} activeOpacity={0.9}>
         <View style={styles.containers}>
           <View style={styles.imageContainers}>
             <Image source={Dataj.image} style={styles.image} />
@@ -83,7 +76,7 @@ const Blogs = ({ navigation }) => {
 
   const BlogData = ({ BlogD }) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('BlogScreen', BlogD)}>
+      <TouchableOpacity onPress={() => navigation.navigate('BlogScreen', BlogD)} activeOpacity={0.9}>
         <ImageBackground source={BlogD.image} style={styles.rmCardImage}>
           <View style={{ backgroundColor:"rgba(0,0,0,0.3)",height:'100%', flexDirection:"column", justifyContent:"space-between" }}>
             <View style={{padding:10}}>
@@ -211,6 +204,9 @@ const Blogs = ({ navigation }) => {
           renderItem={({ item }) => <Data Dataj={item} />}
           showsVerticalScrollIndicator={true}
         />
+        <View style={{height:50}}>
+
+        </View>
       </View>
     </ScrollView>
       </SafeAreaView>
@@ -220,10 +216,12 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     flex: 1,
+    backgroundColor:'#F5FFFA'
   },
   header: {
     padding: 5,
     height: 80,
+    marginTop:20
   },
   headers: {
     padding: 10,
@@ -334,6 +332,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 8,
     width: Dimensions.get('window').width - 30,
+    elevation:1
   },
   imageContainers: {
     width: 80,

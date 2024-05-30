@@ -11,32 +11,83 @@ import {
   TextInput,
   ImageBackground
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useAuth } from '../src/AuthContext';
 import axios from 'axios';
 import COLORS from '../src/COLORS';
 const lockIcon = require('./icons/lock.png');
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const Student = ({ navigation }) => {
   const [fileNo, setFileNo] = useState('');
-  const [passportNo, setPassportNo] = useState('');
+  const [isPickerShow, setIsPickerShow] = useState(false);
+  const [date, setDate] = useState(new Date(Date.now()));
+  const [showTextInput, setShowTextInput] = useState(false);
+  const [dob, setdob] = useState('')
+  const [value, setValue] =useState('')
   const baseUrl = "https://essglobal.com/ionicApi/api.php?tag=login";
+  const { login } = useAuth();
+ 
+  
+  
   const postData = async () => {
+    login();
     try {
-      const response = await axios.post(baseUrl, { fileNo, passportNo });
-      console.log('POST Response:', response.data);
-      if (response.data.success) {
-        Alert.alert('Login successful');
+      const response = await axios.post(baseUrl, {fileNo,  dob });
+      console.log('POST Response:', response);
+  
+      if (response.status === 200 && response.data && response.data.msg === "Login successfully !") {
+        // If status is 200 and response data indicates successful login
+        Alert.alert('Login successfully');
+        
+        // Store response data in AsyncStorage
+        await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+        
+        // Navigate to the home screen
+        navigation.navigate('Status');
         refreshData();
       } else {
-        Alert.alert('Invalid User and Password');
+        // If status is not 200 or response data indicates unsuccessful login
+        setValue(response.data.msg || 'Invalid User and Password');
       }
     } catch (error) {
       console.error('Error during POST request:', error);
-      Alert.alert('Error', 'Failed to login. Please try again later.');
-    }
-  };
+      if (error.response) {
+        setValue(error.response.data.msg || 'Invalid User and Password');
+      } else if (error.request) {
+        console.error('Internet Connection Failed:', error.request);
+        setValue('Internet connection failed!');
+      } else {
+        console.error('Error setting up the request:', error.message);
+        setValue('Error setting up the request');
+      }
+    }};
   const refreshData = () => {
     setFileNo('');
-    setPassportNo('');
+    setdob('')
   };
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setdob(formatDate(currentDate));
+    setIsPickerShow(false); // Hide picker after selecting
+  };
+  const formatDate = date => {
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const onTextInputFocus = () => {
+    setIsPickerShow(true);
+    setShowTextInput(false);
+  };
+
   return (
     <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
     <ScrollView style={styles.container}>
@@ -45,7 +96,7 @@ const Student = ({ navigation }) => {
       <View>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
 
-        <Image source={require('../src/Logo/backon.png')} style={{width:25, height:25, marginTop:30}} />
+        <Image source={require('../src/Logo/backon.png')} style={{width:25, height:25, marginTop:30}}/>
         </TouchableOpacity>
       </View>
       <View>
@@ -57,8 +108,9 @@ const Student = ({ navigation }) => {
           <Text style={styles.subtitle}>FIND NEW LIFE IN OVERSEAS</Text>
         </View>
         <View style={styles.form}>
-          <View style={styles.inputContainer}>
+          <View style={[styles.inputContainer,{flexDirection:"row", justifyContent:"space-between"}]}>
             <Text style={styles.inputLabel}>Enter your File.no</Text>
+            <Text style={{color:"red", fontWeight:"900"}}>{value ? "Invaild user" : ""}</Text>
           </View>
           <View style={styles.inputContainer}>
             <TextInput
@@ -70,24 +122,45 @@ const Student = ({ navigation }) => {
               onChangeText={(text) => setFileNo(text)}
             />
           </View>
+            <Text style={[styles.inputLabel]}>Passport number</Text>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Passport number</Text>
+            <TouchableOpacity onPress={showPicker} style={{flexDirection:"row",justifyContent:"space-between",backgroundColor: '#e8ecf4',borderRadius:15}}>
             <TextInput
-              style={styles.inputControl}
-              autoCorrect={false}
-              placeholder="***6355"
+              mode="outlined"
+              editable={false}
+              value={dob}
+              onFocus={onTextInputFocus}
+              onChangeText={text => setdob(text)}
+              placeholder="YY-MM-DD"
               placeholderTextColor="#6b7280"
-              value={passportNo}
-              onChangeText={(text) => setPassportNo(text)}
+              style={styles.inputControl}
             />
+              <Icon.Button
+                name="calendar"
+                size={25}
+                color={COLORS.primary}
+                backgroundColor="transparent"
+                />
+            </TouchableOpacity>
+                <View>
+              </View>
+            {Platform.OS === 'android' && isPickerShow && (
+              <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+              />
+            )}
           </View>
-          <TouchableOpacity onPress={()=>navigation.navigate('Status')}>
+          <TouchableOpacity onPress={postData} disabled={fileNo === "" || dob === ""}>
             <View style={styles.btn}>
               <Text style={styles.btnText}>Log In</Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
+    
     </ScrollView>
     </ImageBackground>
   );
@@ -95,7 +168,6 @@ const Student = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     padding: 22,
   },
   header: {

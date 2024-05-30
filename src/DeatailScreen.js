@@ -44,7 +44,7 @@ const DeatailScreen = ({navigation, route}) => {
         <Text
             style={{
               width: '70%',
-              fontSize: 30,
+              fontSize: 22,
               fontFamily:'Poppins-Bold',
               color: COLORS.primary,
             }}> 

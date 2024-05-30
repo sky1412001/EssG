@@ -1,6 +1,9 @@
-import React, {useState, useEffect,useRef} from "react";
-import  {widthPercentageToDP as wp , heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import axios from "axios";
+import React, {useState, useEffect, useRef} from 'react';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import axios from 'axios';
 import {
   View,
   Text,
@@ -11,16 +14,15 @@ import {
   SafeAreaView,
   StatusBar,
   TextInput,
-  ImageBackground,
   Modal,
   ScrollView,
-  Animated
+  Animated,
 } from 'react-native';
-import COLORS from "./COLORS";
-import {Picker} from '@react-native-picker/picker';
+import COLORS from './COLORS';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-const Form = () =>{
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Dropdown from './Dropdown';
+const Form = () => {
   const baseUrl = '';
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
@@ -28,7 +30,6 @@ const Form = () =>{
   const [email, setEmail] = useState('');
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [value, setValue] = useState('');
-  const [pickerValue, setPickerValue] = useState('');
   const [selectCounrty, setSelectCountry] = useState('');
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,8 +37,39 @@ const Form = () =>{
   const [date, setDate] = useState(new Date(Date.now()));
   const [showTextInput, setShowTextInput] = useState(false);
   const [textInputValue, setTextInputValue] = useState('');
-  const data = {firstname, lastname, mobileNo, pickerValue,selectCounrty, email};
-  
+  const [pickerValue, setPickerValue] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState(null);
+  const options = [
+    { label: 'Australia', value: '1' },
+    { label: 'Canada', value: '2' },
+    { label: 'Europe', value: '3' },
+    { label: 'USA', value: '4' },
+    { label: 'The U.K', value: '5' },
+    { label: 'Other', value: '6' },
+  ];
+  const queries = [
+    { label: 'Bussiness query', value: '1' },
+    { label: 'Permanent Residency', value: '2' },
+    { label: 'Citizenship', value: '3' },
+    { label: 'By Investment', value: '4' },
+    { label: 'Tourist Visa', value: '5' },
+  ];
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
+  const handleSelects = (option) => {
+    setSelectedOptions(option);
+  };
+  const data = {
+    firstname,
+    lastname,
+    mobileNo,
+    pickerValue,
+    selectCounrty,
+    email,
+  };
+
   const refreshData = () => {
     setFirstName('');
     setLastName('');
@@ -50,7 +82,7 @@ const Form = () =>{
     let re = /\$+@\$+\.\$+/;
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     setEmail(text);
-    if (re.test(text) || regex.test(text)){
+    if (re.test(text) || regex.test(text)) {
       setCheckValidEmail(false);
     } else {
       setCheckValidEmail(true);
@@ -59,15 +91,15 @@ const Form = () =>{
   const postData = async () => {
     try {
       const response = await axios.post(baseUrl, data);
-      setMobileNo(true)
+      setMobileNo(true);
       console.log('POST Response:', response.data);
       Alert.alert('Sussesfully added');
       refreshData();
-    } catch (error){
+    } catch (error) {
       console.error('Error during POST request:', error);
-      if (error.response){
+      if (error.response) {
         setValue(error.response.data.msg || 'Invalid User and Password');
-      } else if (error.request){
+      } else if (error.request) {
         console.error('No response received:', error.request);
         setValue('No response received');
       } else {
@@ -92,9 +124,11 @@ const Form = () =>{
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     const today = new Date();
-    const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0); 
+    const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
     const minDate = today; // Current date
-    const clampedDate = new Date(Math.min(Math.max(currentDate, minDate), maxDate)); // Clamp date within range
+    const clampedDate = new Date(
+      Math.min(Math.max(currentDate, minDate), maxDate),
+    ); // Clamp date within range
     setDate(clampedDate);
     setTextInputValue(formatDate(clampedDate)); // Format the date to display in TextInput
     if (Platform.OS === 'android') {
@@ -103,29 +137,45 @@ const Form = () =>{
       setIsPickerShow(false); // Hide picker on iOS after selecting
     }
   };
-  const formatDate = (date) => {
+  const formatDate = date => {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
-    return `${day}/${month}/${year}`;
+    return `${day}-${month}-${year}`;
   };
   const onTextInputFocus = () => {
     setIsPickerShow(true);
     setShowTextInput(false);
   };
-  return(
-    <ImageBackground source={require('./Postdata/formBack.png')} style={{flex: 1, backgroundColor:'#e8ecf4'}}>
+  return (
+    <SafeAreaView>
       <ScrollView>
-      <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'}/>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>
-            Book <Text style={{fontFamily:'Poppins-Bold',color: 'white',color:COLORS.primary, textDecorationStyle:'dotted'}}>an Appointment</Text>
-          </Text>
-          <Text style={styles.subtitle}>How can we help you ?</Text>
-          <Text style={{fontFamily:'Poppins-Regular', fontSize:13, color:'#222'}}>Share your details with us and our team will contact you for assessment shortly.</Text>
-        </View>
-        <View style={styles.form}>
+        <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              Book{' '}
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                  color: COLORS.primary,
+                  textDecorationStyle: 'dotted',
+                }}>
+                an Appointment
+              </Text>
+            </Text>
+            <Text style={styles.subtitle}>How can we help you ?</Text>
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: 13,
+                color: '#222',
+              }}>
+              Share your details with us and our team will contact you for
+              assessment shortly.
+            </Text>
+          </View>
           <View style={styles.input}>
             <TextInput
               mode="outlined"
@@ -136,7 +186,14 @@ const Form = () =>{
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={firstname}
-              onChangeText={(text)=>setFirstName(text)}
+              onChangeText={text => setFirstName(text)}
+              require
+            />
+            <Icon.Button
+              name="user"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
             />
           </View>
           <View style={styles.input}>
@@ -148,7 +205,13 @@ const Form = () =>{
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={lastname}
-              onChangeText={(text)=>setLastName(text)}
+              onChangeText={text => setLastName(text)}
+            />
+            <Icon.Button
+              name="plus"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
             />
           </View>
           <View style={styles.input}>
@@ -162,121 +225,83 @@ const Form = () =>{
               style={styles.inputControl}
               value={mobileNo}
             />
+            <Icon.Button
+              name="phone"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
           </View>
+            <TouchableOpacity onPress={showPicker}>
           <View style={styles.input}>
-            <View style={[styles.inputControl , {flexDirection:'row', justifyContent:"space-between"}]}>
             <TextInput
               mode="outlined"
               editable={false}
               value={textInputValue}
               onFocus={onTextInputFocus}
-              onChangeText={text => setMobileNo(text)}
-              placeholder="DD/MM/YY"
+              onChangeText={text => setTextInputValue(text)}
+              placeholder="DD-MM-YY"
               placeholderTextColor="#6b7280"
-              style={{color:'grey',   fontWeight: '700', fontSize:14}}
+              style={{
+                color: 'grey',
+                fontSize: 13,
+                fontFamily:'Poppins-Regular',
+                marginLeft: 8,
+                width:wp('40%')
+              }}
             />
-            <View style={{justifyContent:'center', alignItems:"center"}}>
-             <TouchableOpacity onPress={showPicker}>
-            <Image source={require('./Home/caemder.png')} style={{width:28, height:28}}/>
+              <View>
+              <Icon.Button
+                name="calendar"
+                size={25}
+                color={COLORS.primary}
+                backgroundColor="transparent"
+              />
+              </View>
+            {Platform.OS === 'android' && isPickerShow && (
+              <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+              />
+            )}
+          </View>
             </TouchableOpacity>
-          {isPickerShow && (
-           <DateTimePicker
-           value={date}
-           mode="date"
-           display="default"
-           onChange={handleDateChange}
-           />
-           )}
-            </View>
-            </View>
-          </View>
-          <View style={[styles.input, {justifyContent:'center', alignItems:"center"}]}>
-            <View  style={{width:wp('80.9%'), height:50,backgroundColor:'#fff',
-           borderRadius:8}}>
-        <Picker
-        style={{width:wp('78%'), color:'#222'}}
-        dropdownIconColor={COLORS.primary}
-        placeholderTextColor={COLORS.primary}
-        selectedValue={pickerValue}
-        onValueChange={(itemValue, itemIndex) => {
-          setPickerValue(itemValue);
-        }}
-        itemStyle={{ fontSize: 16, color: 'blue' }} 
-      >
-        <Picker.Item label="Select Your Query"  style={{color:'grey', fontSize:15,}}/>
-        <Picker.Item label="Study Visa" value="1"   style={{color:'#222', fontWeight:'800'}}/>
-        <Picker.Item label="Work Visa" value="2"   style={{color:'#222'}}/>
-        <Picker.Item label="Tourist Visa" value="3"  style={{color:'#222'}}/>
-        <Picker.Item label="Permanent Residency" value="4"  style={{color:'#222'}}/>
-        <Picker.Item label="Business query" value="5"  style={{color:'#222'}}/>
-        <Picker.Item label="Citizenship by investment" value="6"  style={{color:'#222'}}/>
-      </Picker>
-            </View>
-          </View>
-          <View style={[styles.input,{justifyContent:'center', alignItems:'center'}]}>
-            <View  style={{width:wp('80.9%'), height:50,backgroundColor: '#fff',
-            borderRadius:8}}>
-          <Picker
-          style={{width:wp('78%'), color:'#222', fontFamily:'Poppins-Regular'}}
-          dropdownIconColor={COLORS.primary}
-          selectedValue={selectCounrty}
-          onValueChange={(itemValue, itemIndex) => {
-            setSelectCountry(itemValue);
-          }} 
-         >
-          <Picker.Item label="Select Country" value="" style={{color:'grey', fontSize:15}}/>
-          <Picker.Item label="Austrlia" value="Austrlia" />
-          <Picker.Item label="Canada" value="Canada"  style={{color:'#222'}}/>
-          <Picker.Item label="U.S.A" value="U.S.A"  style={{color:'#222'}}/>
-          <Picker.Item label="U.K" value="U.K"  style={{color:'#222'}}/>     
-        </Picker>              
-            </View>
-          </View>
-          <View style={styles.input}>
+      <Dropdown options={options} onSelect={handleSelect} placeholder='Select Your Country'/>
+      <Dropdown options={queries} onSelect={handleSelects} placeholder='Select Your query'/>
+      <View style={styles.input}>
             <TextInput
               mode="outlined"
-              label="Enter your email"
-              autoCapitalize="none"
               autoCorrect={false}
-              onChangeText={text => handleCheckEmail(text)}
-              placeholder="Enter your Email"
+              onChangeText={text => setEmail(text)}
+              placeholder="Email"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={email}
-            />   
+            />
+            <Icon.Button
+              name="at"
+              size={27}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
           </View>
-          <View style={styles.formAction}>
-            <TouchableOpacity
-              onPress={postData}
-              disabled={email === ''|| lastname === ''|| mobileNo === '' || pickerValue === ''|| selectCounrty === "" || checkValidEmail} >
-              <View  style={[
-        styles.btn,
-        { backgroundColor: (email === '' || firstname === '' || lastname === '' || pickerValue === '' || checkValidEmail) ? COLORS.primary : 'green' }
-    ]}>    
-    <Image source={require('./Blog/plane.png')} style={{width:26, height:26}}/>
-              </View>
-            </TouchableOpacity>
-          </View> 
-        </View>
-      </View>
-      <Modal
-        animationType="slide"
-        visible={modalVisible}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Your Information has been submitted</Text>
-            <Image source={require('./Blog/done.png')} style={{width:58, height:58}}/>
-          </View>
-        </View>
-      </Modal>
-      </ScrollView>
-    </ImageBackground>
-  )
-}
- export default Form;
+<TouchableOpacity>
 
- const Skelton = () =>{
+          <View style={{width:wp('80%'), height:hp('6%'), backgroundColor:COLORS.primary, alignSelf:'center', justifyContent:'center', alignItems:'center', borderRadius:5}}>
+            <Text style={{color:'white', fontFamily:"Poppins-Bold"}}>BOOK NOW!</Text>
+          </View>
+</TouchableOpacity>
+        </View>
+      
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+export default Form;
+
+const Skelton = () => {
   const opacity = useRef(new Animated.Value(1)).current;
   useEffect(() => {
     const animateSkeleton = () => {
@@ -293,7 +318,7 @@ const Form = () =>{
             useNativeDriver: true,
           }),
         ]),
-        { iterations: -1 }
+        {iterations: -1},
       ).start();
     };
 
@@ -303,80 +328,81 @@ const Form = () =>{
       opacity.stopAnimation();
     };
   }, [opacity]);
-  return(
+  return (
     <SafeAreaView>
-<Animated.View style={[styles.headers,{opacity}]}>
-<Animated.View style={[styles.titleSkeleton,{opacity}]} />
-<Animated.View style={[styles.subtitleSkeleton,{opacity}]} />
-<Animated.View style={[styles.descriptionSkeleton,{opacity}]} />
-</Animated.View>
-<Animated.View style={styles.forms}>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-<Animated.View style={[styles.inputControlSkeleton,{opacity}]}/>
-</Animated.View>
+      <Animated.View style={[styles.headers, {opacity}]}>
+        <Animated.View style={[styles.titleSkeleton, {opacity}]} />
+        <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
+        <Animated.View style={[styles.descriptionSkeleton, {opacity}]} />
+      </Animated.View>
+      <Animated.View style={styles.forms}>
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
+      </Animated.View>
     </SafeAreaView>
-  )
- }
+  );
+};
 const styles = StyleSheet.create({
   inputs: {
-    gap:30
+    gap: 30,
   },
   inputControlSkeleton: {
     height: 50,
-    backgroundColor: '#d0d0d0', 
+    backgroundColor: '#d0d0d0',
     borderRadius: 8,
+    padding:5
   },
   container: {
-    padding: 20,
+    padding: 10,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
   },
   title: {
-    fontSize: 22,
-    fontFamily:'Poppins-Bold',
+    fontSize: 21,
+    fontFamily: 'Poppins-Bold',
     color: COLORS.primary,
     marginBottom: 3,
   },
   subtitle: {
-    fontSize: 16,
-    fontFamily:'Poppins-Regular',
-    color:'#222',
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
+    color: '#222',
   },
   header: {
-    marginVertical:10,
+    marginVertical: 20,
   },
   headerImg: {
     width: 60,
     height: 60,
   },
-  forms:{
-    margin:10,
-    gap:25,
-    height:hp('70%'),
-    padding:13,
-    opacity:0.9,
+  forms: {
+    margin: 10,
+    gap: 25,
+    height: hp('70%'),
+    padding: 13,
+    opacity: 0.9,
     marginBottom: 16,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    borderRadius:10
+    borderRadius: 10,
   },
   form: {
-    height:hp('80%'),
-    padding:13,
-    opacity:0.9,
+    height: hp('80%'),
+    padding: 13,
+    opacity: 0.9,
     backgroundColor: '#EDF2FB',
     marginBottom: 16,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    elevation:2,
-    borderRadius:10
+    elevation: 2,
+    borderRadius: 10,
   },
   formFooter: {
     fontSize: 17,
@@ -387,6 +413,12 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 20,
+    flexDirection: 'row',
+    backgroundColor: '#e8ecf4',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius:10,
+    elevation:2
   },
   inputLabel: {
     fontSize: 17,
@@ -395,26 +427,24 @@ const styles = StyleSheet.create({
   },
   inputControl: {
     height: 50,
-    backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    fontSize: 15,
-    fontWeight: '500',
-    borderRadius:8,
+    width:wp('40%'),
+    paddingHorizontal: 14,
+    fontSize: 13,
+    fontFamily:'Poppins-Regular',
+    borderRadius: 8,
     color: 'grey',
   },
   btn: {
-    marginBottom:5,
+    
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
     paddingVertical: 20,
-    width:65,
-    height:65,
-    alignSelf:'center',
-    borderRadius:50
+    height: 45,
+    alignSelf: 'center',
   },
-  
+
   containers: {
     flex: 1,
     justifyContent: 'center',
@@ -457,7 +487,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    color:'#222'
+    color: '#222',
   },
   loadingContainer: {
     flex: 1,
@@ -466,14 +496,14 @@ const styles = StyleSheet.create({
   },
   headers: {
     marginVertical: 10,
-    margin:10
+    margin: 10,
   },
   titleSkeleton: {
-    width: 200, 
-    height: 30, 
-    backgroundColor: '#d0d0d0', 
-    borderRadius: 5, 
-    marginBottom: 5, 
+    width: 200,
+    height: 30,
+    backgroundColor: '#d0d0d0',
+    borderRadius: 5,
+    marginBottom: 5,
   },
   subtitleSkeleton: {
     width: 150, // Adjust width as needed

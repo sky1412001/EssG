@@ -4,7 +4,7 @@ import COLORS from "./COLORS";
 const BlogScreen = ({navigation, route}) =>{
     const Data = route.params
     return(
-        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+        <SafeAreaView style={{flex: 1, backgroundColor:'#FBFFFF'}}>
         <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
         <ImageBackground style={{flex: 0.7}} source={Data.image}>
           <View style={style.header}>
@@ -23,11 +23,7 @@ const BlogScreen = ({navigation, route}) =>{
               }}> 
               {Data.name}
             </Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text
-                style={{color: COLORS.white, fontWeight:'bold', fontSize: 20}}>
-              </Text>
-            </View>
+          
           </View>
         </ImageBackground>
         <View style={style.detailsContainer}>

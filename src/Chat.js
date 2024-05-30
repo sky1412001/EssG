@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-native';
 import COLORS from './COLORS';
-const user = require('../Auth/icons/camera.png')
-const Chat = ({navigation}) => {
+const user = require('../Auth/icons/camera.png');
+
+const Chat = ({ navigation }) => {
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const scrollViewRef = useRef();
 
   const handleSend = () => {
     if (message.trim() !== '') {
@@ -12,34 +14,40 @@ const Chat = ({navigation}) => {
       setMessage('');
     }
   };
+
   useEffect(() => {
     if (chatMessages.length > 0 && chatMessages[chatMessages.length - 1].fromUser) {
       setTimeout(() => {
-        setChatMessages([
-          ...chatMessages,
+        setChatMessages((prevMessages) => [
+          ...prevMessages,
           { text: "Thank you for reaching out to us regarding the problem you encountered with our App of ESS Global. We truly appreciate your proactive approach in bringing this matter to our attention.", fromUser: false }
         ]);
       }, 1000);
     }
   }, [chatMessages]);
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  }, [chatMessages]);
+
   return (
     <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={COLORS.primary}/>
-        <View style={{height:50, marginTop:20, color:'white', flexDirection:'row', padding:10, gap:20, borderColor:'#ccc', alignItems:'center', justifyContent:'flex-start'}}>
-         <TouchableOpacity onPress={()=>navigation.goBack()}>
-          <View style={{alignItems:"center", justifyContent:'center'}}>
-          <Image source={require('./Logo/backon.png')} style={{width:20, height:20}}/>
+      <StatusBar backgroundColor={COLORS.primary} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View style={styles.backButton}>
+            <Image source={require('./Logo/backon.png')} style={styles.backImage} />
           </View>
-         </TouchableOpacity>
-            <Image source={user} style={{width:36, height:36}}/>
-            <View style={{alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:15, color:COLORS.primary, fontFamily:'Poppins-Bold'}}>ESS GLOBAL</Text>
-            </View>
+        </TouchableOpacity>
+        <Image source={user} style={styles.userImage} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>ESS GLOBAL</Text>
         </View>
-      <ScrollView style={styles.chatContainer}>
+      </View>
+      <ScrollView ref={scrollViewRef} style={styles.chatContainer}>
         {chatMessages.map((chat, index) => (
           <View key={index} style={[styles.messageContainer, chat.fromUser && styles.userMessage]}>
-            <Text style={{color:'white'}}>{chat.text}</Text>
+            <Text style={styles.messageText}>{chat.text}</Text>
           </View>
         ))}
       </ScrollView>
@@ -58,10 +66,43 @@ const Chat = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  header: {
+    height: 50,
+    marginTop: 20,
+    color: 'white',
+    flexDirection: 'row',
+    padding: 10,
+    gap: 20,
+    borderColor: '#ccc',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  backButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backImage: {
+    width: 20,
+    height: 20,
+  },
+  userImage: {
+    width: 36,
+    height: 36,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 15,
+    color: COLORS.primary,
+    fontFamily: 'Poppins-Bold',
   },
   chatContainer: {
     flex: 1,
@@ -71,11 +112,14 @@ const styles = StyleSheet.create({
     marginBottom: 9,
     borderRadius: 5,
     backgroundColor: COLORS.primary,
-    maxWidth: '80%',           
+    maxWidth: '80%',
   },
   userMessage: {
     alignSelf: 'flex-end',
     backgroundColor: 'skyblue',
+  },
+  messageText: {
+    color: 'white',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -86,7 +130,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color:'black',
+    color: 'black',
     height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -105,4 +149,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 export default Chat;

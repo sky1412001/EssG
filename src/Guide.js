@@ -70,7 +70,6 @@ const Guide = ({navigation}) =>{
                     <Text style={{color:'black', fontFamily:'Poppins-Bold', fontSize:12}}>
                     4. Address of your accommodation
                     </Text>
-                   
                 </Animated.View>
                 <View style={{padding:10}}>
                     <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>
@@ -170,7 +169,6 @@ const Guide = ({navigation}) =>{
                 <View style={{backgroundColor:COLORS.og, padding:17}}>
                     <Text style={{color:'#222', fontFamily:'Poppins-Regular', fontSize:12}}>
                    i. Pack clothes suitable for different weather conditions.
-
                     </Text>
                     <Text style={{color:'black', fontFamily:'Poppins-Regular', fontSize:12}}>
                   ii. Consider layering options and versatile pieces that can mix and match.
@@ -184,7 +182,6 @@ const Guide = ({navigation}) =>{
                 <View style={{backgroundColor:COLORS.og, padding:17}}>
                     <Text style={{color:'#222', fontFamily:'Poppins-Regular', fontSize:12}}>
                    i. Understand the local culture, history, geography, economy, and government.
-
                     </Text>
                     <Text style={{color:'black', fontFamily:'Poppins-Regular', fontSize:12}}>
                   ii. This knowledge will help you avoid cultural faux pas and enhance your immersion experience

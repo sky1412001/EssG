@@ -116,7 +116,7 @@ const Signup = ({navigation}) => {
                 <Text style={{color: 'red', textAlign: 'right'}}>
                   Invalid Email format
                 </Text>
-              ) : <></>}
+              ) : <> </>}
             </View>
             </View>
             <TextInput

@@ -10,6 +10,9 @@ import About from "./About";
 import Blogs from "./Blogs";
 import BlogScreen from "./BlogScreen";
 import Guide from "./Guide";
+import Notification from "./Notification";
+import Consultant from "./Consultant";
+import { AuthProvider } from "./AuthContext";
 export  {
     HomeScreen,
     DeatailScreen,
@@ -21,6 +24,8 @@ export  {
     About,
     Blogs,
     BlogScreen,
-    Guide
-    
+    Guide,
+    Notification,
+    Consultant,
+    AuthProvider
 }
