@@ -92,10 +92,8 @@ const Student = ({ navigation }) => {
     <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLORS.primary} />
-      
       <View>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
-
         <Image source={require('../src/Logo/backon.png')} style={{width:25, height:25, marginTop:30}}/>
         </TouchableOpacity>
       </View>

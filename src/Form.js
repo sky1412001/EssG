@@ -169,7 +169,7 @@ const Form = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: 13,
+                fontSize: 12,
                 color: '#222',
               }}>
               Share your details with us and our team will contact you for
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: 'Poppins-Regular',
     color: '#222',
   },
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
     paddingVertical: 20,
-    height: 45,
+    height: 40,
     alignSelf: 'center',
   },
 

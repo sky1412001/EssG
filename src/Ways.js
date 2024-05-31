@@ -336,13 +336,13 @@ const Skeleton = () => {
       Animated.loop(
         Animated.sequence([
           Animated.timing(opacity, {
-            toValue: 0.5,
-            duration: 500,
+            toValue: 0.9,
+            duration: 1000,
             useNativeDriver: true,
           }),
           Animated.timing(opacity, {
             toValue: 1,
-            duration: 500,
+            duration: 1000,
             useNativeDriver: true,
           }),
         ]),
@@ -358,102 +358,149 @@ const Skeleton = () => {
   }, [opacity]);
 
   return (
-    <Animated.View style={[styles.loadingContainer, {opacity}]}>
-      <Animated.View style={[styles.sHeader, {opacity}]}>
-        <Animated.View style={[styles.sText, {opacity}]}></Animated.View>
-        <Animated.View style={[styles.sSubtitle, {opacity}]}></Animated.View>
+    <View>
+    <View
+      style={styles.header}
+      >
+      <Animated.View
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundColor: COLORS.primary,
+          opacity: 0.8,
+          justifyContent: 'flex-end',
+          padding: 10,
+        }}>
+        <Animated.View style={{ marginBottom: 40 }}>
+          {/* Clear the text for skeleton */}
+          {/* <Text style={{ fontSize: 20, fontFamily: 'Poppins-Bold', color: 'white' }}>
+            {getTimeOfDay()}
+          </Text> */}
+        </Animated.View>
       </Animated.View>
-      <Animated.View style={[styles.sContext, {opacity}]}>
-        <Animated.View style={[styles.row, {opacity}]}>
-          <Animated.View style={[styles.sCard, {opacity}]}>
+    </View>
+    <Animated.View style={{ top: -20, backgroundColor: '#FFFFFF', borderTopLeftRadius: 20, borderTopRightRadius: 20, height: 490, }}>
+      <Animated.View
+        style={{
+          flexDirection: 'row',
+          marginTop: 50,
+          justifyContent: "space-around"
+        }}>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Student')}>
+          <Animated.View style={{ gap: 10 }}>
             <Animated.View
-              style={[
-                {
-                  backgroundColor: 'white',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                },
-                {opacity},
-              ]}></Animated.View>
-            <Animated.View
-              style={[
-                {backgroundColor: 'white', width: 60, height: 10},
-                {opacity},
-              ]}></Animated.View>
+              style={{
+                width: 80,
+                height: 80,
+                backgroundColor: '#ccc',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 70,
+                 opacity
+              }}
+            >
+             
+            </Animated.View>
+            <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              {/* Clear the text for skeleton */}
+              {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark }}>
+                Student login
+              </Text> */}
+            </Animated.View>
           </Animated.View>
-          <Animated.View style={[styles.sCard, {opacity}]}>
-            <Animated.View
-              style={[
-                {
-                  backgroundColor: 'white',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                },
-                {opacity},
-              ]}></Animated.View>
-            <Animated.View
-              style={[
-                {backgroundColor: 'white', width: 60, height: 10},
-                {opacity},
-              ]}></Animated.View>
-          </Animated.View>
-          <Animated.View style={[styles.sCard, {opacity}]}>
-            <Animated.View
-              style={[
-                {
-                  backgroundColor: 'white',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                },
-                {opacity},
-              ]}></Animated.View>
-            <Animated.View
-              style={[
-                {backgroundColor: 'white', width: 60, height: 10},
-                {opacity},
-              ]}></Animated.View>
+        </TouchableOpacity>
+        <Animated.View style={styles.divider}></Animated.View>
+        <Animated.View style={{ gap: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 80,
+              height: 80,
+              backgroundColor: '#ccc',
+              borderRadius: 60,
+            }}>
+
+           
+          </TouchableOpacity>
+          <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            {/* Clear the text for skeleton */}
+            {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
+              Login
+            </Text> */}
           </Animated.View>
         </Animated.View>
-        <Animated.View style={[styles.row, {opacity}]}>
-          <Animated.View style={[styles.sCard, {opacity}]}>
+      </Animated.View>
+      <Animated.View
+        style={{
+          flexDirection: 'row',
+          marginTop: 20,
+          justifyContent: "space-around"
+        }}>
+
+          <Animated.View style={{ gap: 10 }}>
             <Animated.View
-              style={[
-                {
-                  backgroundColor: 'white',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                },
-                {opacity},
-              ]}></Animated.View>
-            <Animated.View
-              style={[
-                {backgroundColor: 'white', width: 60, height: 10},
-                {opacity},
-              ]}></Animated.View>
+              style={{
+                width: 80,
+                height: 80,
+                backgroundColor: '#ccc',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 70
+              }}
+            >
+            
+            </Animated.View>
+            <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              {/* Clear the text for skeleton */}
+              {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark }}>
+                Student Guide
+              </Text> */}
+            </Animated.View>
           </Animated.View>
-          <Animated.View style={[styles.sCard, {opacity}]}>
-            <Animated.View
-              style={[
-                {
-                  backgroundColor: 'white',
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                },
-                {opacity},
-              ]}></Animated.View>
-            <Animated.View
-              style={[
-                {backgroundColor: 'white', width: 60, height: 10},
-                {opacity},
-              ]}></Animated.View>
+        <Animated.View style={{ gap: 10 }}>
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 80,
+              height: 80,
+              backgroundColor: '#ccc',
+              borderRadius: 60,
+            }}
+          >
+          
+          </TouchableOpacity>
+          <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            {/* Clear the text for skeleton */}
+            {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
+              Contact us
+            </Text> */}
           </Animated.View>
+        </Animated.View>
+      </Animated.View>
+      <Animated.View style={{ gap: 10, alignSelf: 'center', marginTop: 30 }}>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 80,
+            height: 80,
+            backgroundColor: '#ccc',
+            borderRadius: 60,
+          }}
+        >
+        
+        </TouchableOpacity>
+        <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          {/* Clear the text for skeleton */}
+          {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
+            About us
+          </Text> */}
         </Animated.View>
       </Animated.View>
     </Animated.View>
+  </View>
   );
 };

@@ -122,7 +122,7 @@ const HomeScreen = ({navigation}) => {
             <Icon.Button
               name="angle-right"
               size={33}
-              color={COLORS.dark}
+              color={'green'}
               backgroundColor="transparent"
             />
           </View>
@@ -247,7 +247,9 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity onPress={() => navigation.navigate('Screen', Slider)}>
         <ImageBackground
           style={styles.rmCardImage}
-          source={Slider.image}></ImageBackground>
+          source={Slider.image}>
+           
+          </ImageBackground>
       </TouchableOpacity>
     );
   };
@@ -757,8 +759,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderRadius: 10,
     overflow: 'hidden',
-    padding: 10,
     backgroundColor: 'white',
+    justifyContent:"flex-end"
   },
   redDotsContainer: {
     flexDirection: 'row',

@@ -13,7 +13,6 @@ import {
   Image
 } from 'react-native';
 import axios from 'axios';
-import Profile from '../src/Profile';
 import COLORS from '../src/COLORS';
 const imail = require('./icons/lock.png');
 const eyes = require('./icons/eye.png');
