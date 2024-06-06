@@ -40,34 +40,18 @@ const Ways = ({navigation}) => {
   const Stack = createNativeStackNavigator();
   return (
     <SafeAreaView style={styles.container}>
-      <View>
         <ImageBackground
           style={styles.header}
           source={require('./Tabicon/post.jpg')}>
-          <View
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: COLORS.primary,
-              opacity: 0.8,
-              justifyContent: 'flex-end',
-              padding: 10,
-            }}>
-            <View style={{marginBottom: 40}}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: 'Poppins-Bold',
-                  color: 'white',
-                }}>
-                {getTimeOfDay()}
-              </Text>
-            </View>
-          </View>
+      <View style={{backgroundColor:COLORS.primary, opacity:0.6, width:'100%', height:'100%'}}>
+
+         <Text style={{fontSize:20, fontFamily:'Poppins-Bold', color:'white', marginLeft:15, marginTop:20}}>{getTimeOfDay()}</Text>
+           
+      </View>
         </ImageBackground>
    
-      </View>
-      <View style={{top:-20, backgroundColor:'#FFFFFF', borderTopLeftRadius:20, borderTopRightRadius:20, height:490}}>
+      <View style={{top:-20, backgroundColor:'#FFF', borderTopLeftRadius:20, borderTopRightRadius:20, height:490}}>
+
 
       <View
         style={{
@@ -82,17 +66,18 @@ const Ways = ({navigation}) => {
     style={{
       width: 80,
       height: 80,
-      backgroundColor: 'green',
+      backgroundColor: COLORS.primary,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius:70
+      borderRadius:15,
+      elevation:15
     }}
-  >
+    >
     <Icon
       name="user"
       size={34}
       color="white"
-    />
+      />
   </View>
   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
     <Text
@@ -101,129 +86,27 @@ const Ways = ({navigation}) => {
         fontSize: 12,
         color: COLORS.dark,
       }}
-    >
+      >
       Student login
     </Text>
   </View>
 </View>
           </TouchableOpacity>
-          <View style={styles.divider}></View>
-          <View style={{ gap: 10 }}>
-      <TouchableOpacity onPress={()=>navigation.navigate("Login")}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 80,
-          height: 80,
-          backgroundColor: 'red',
-          borderRadius: 60,
-        }}
        
-      >
-        <Icon
-          name="lock"
-          size={36}
-          color="white"
-        />
-      </TouchableOpacity>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text
-          style={{
-            fontFamily: 'Poppins-Bold',
-            fontSize: 12,
-            color: COLORS.dark,
-            textAlign: 'center',
-          }}
-        >
-          Login
-        </Text>
-      </View>
-    </View>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: 20,
-          justifyContent:"space-around"
-        }}>
+    <View style={{flexDirection:'column', gap:10}}>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('Guide')}>
-          <View style={{ gap: 10 }}>
-  <View
-    style={{
-      width: 80,
-      height: 80,
-      backgroundColor:COLORS.primary,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius:70
-    }}
-  >
-    <Icon
-      name="tag"
-      size={34}
-      color="white"
-    />
-  </View>
-  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-    <Text
-      style={{
-        fontFamily: 'Poppins-Bold',
-        fontSize: 12,
-        color: COLORS.dark,
-      }}
-    >
-      Student Guide
-    </Text>
-  </View>
-</View>
-          </TouchableOpacity>
-          <View style={{ gap: 10 }}>
-      <TouchableOpacity
+    <TouchableOpacity
         style={{
           alignItems: 'center',
           justifyContent: 'center',
           width: 80,
           height: 80,
-          backgroundColor: 'orange',
-          borderRadius: 60,
-        }}
-        onPress={() =>navigation.navigate('Chat')}
-      >
-        <Icon
-          name="comment"
-          size={36}
-          color="white"
-        />
-      </TouchableOpacity>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text
-          style={{
-            fontFamily: 'Poppins-Bold',
-            fontSize: 12,
-            color: COLORS.dark,
-            textAlign: 'center',
-          }}
-        >
-          Contact us
-        </Text>
-      </View>
-    </View>
- 
-      </View>
-      
-      <View style={{ gap: 10, alignSelf:'center', marginTop:30 }}>
-      <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 80,
-          height: 80,
-          backgroundColor: 'pink',
-          borderRadius: 60,
+          backgroundColor: COLORS.primary,
+          borderRadius: 15,
+          elevation:15
         }}
         onPress={() =>navigation.navigate('About')}
-      >
+        >
         <Icon
           name="star"
           size={36}
@@ -244,6 +127,115 @@ const Ways = ({navigation}) => {
       </View>
     </View>
       </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 20,
+          justifyContent:"space-around"
+        }}>
+
+          <TouchableOpacity onPress={()=>navigation.navigate('Guide')}>
+          <View style={{ gap: 10 }}>
+  <View
+    style={{
+      width: 80,
+      height: 80,
+      backgroundColor:COLORS.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius:15,
+      elevation:16
+    }}
+  >
+    <Icon
+      name="tag"
+      size={34}
+      color="white"
+      />
+  </View>
+  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <Text
+      style={{
+        fontFamily: 'Poppins-Bold',
+        fontSize: 12,
+        color: COLORS.dark,
+      }}
+      >
+      Student Guide
+    </Text>
+  </View>
+</View>
+          </TouchableOpacity>
+          <View style={{ gap: 10 }}>
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 80,
+          height: 80,
+          backgroundColor:COLORS.primary,
+          borderRadius: 15,
+          elevation:15,
+        }}
+        onPress={() =>navigation.navigate('Chat')}
+        >
+        <Icon
+          name="comment"
+          size={36}
+          color="white"
+          />
+      </TouchableOpacity>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Bold',
+            fontSize: 12,
+            color: COLORS.dark,
+            textAlign: 'center',
+          }}
+          >
+          Contact us
+        </Text>
+      </View>
+    </View>
+ 
+      </View>
+      <View style={{ gap: 10 }}>
+      <TouchableOpacity onPress={()=>navigation.navigate("Login")}
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 80,
+          height: 80,
+          backgroundColor: COLORS.primary,
+          borderRadius: 15,elevation:15, alignSelf:'center', marginTop:20
+        }}
+        
+      >
+        <Icon
+          name="lock"
+          size={36}
+          color="white"
+        />
+      </TouchableOpacity>
+      <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Bold',
+            fontSize: 12,
+            color: COLORS.dark,
+            textAlign: 'center',
+          }}
+          >
+          Login
+        </Text>
+      </View>
+    </View>
+      
+      <View style={{ gap: 10, alignSelf:'center', marginTop:30 }}>
+   
+    </View>
+      </View>
      
     </SafeAreaView>
   );
@@ -260,7 +252,8 @@ const styles = StyleSheet.create({
   header: {
     height: 250,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
+    justifyContent:"flex-start",
     borderBottomLeftRadius: 30,
   },
   title: {

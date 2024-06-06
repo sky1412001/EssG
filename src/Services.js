@@ -123,12 +123,7 @@ const Services = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
-      <View style={{justifyContent:"space-evenly", flexDirection:'row', alignItems:'center',}}>
-        <View style={{width:80, borderWidth:0.7, borderTopWidth:0, borderLeftWidth:0, borderRightWidth:0}}></View>
-        <View>
-
-        </View>
-      </View>
+     
      
           </View>
         </View>

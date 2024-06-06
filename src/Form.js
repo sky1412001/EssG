@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, Dimensions} from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -148,7 +148,6 @@ const Form = () => {
     setShowTextInput(false);
   };
   return (
-    <SafeAreaView>
       <ScrollView>
         <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
         <View style={styles.container}>
@@ -169,20 +168,21 @@ const Form = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: 12,
+                fontSize: 13,
                 color: '#222',
               }}>
               Share your details with us and our team will contact you for
               assessment shortly.
             </Text>
           </View>
+          <Text style={[styles.inputLabel]}>FirstName</Text>
           <View style={styles.input}>
             <TextInput
               mode="outlined"
               label="Enter your Firstname"
               autoCapitalize="none"
               autoCorrect={false}
-              placeholder="First Name"
+              placeholder="Enter Your Firstname"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={firstname}
@@ -196,12 +196,13 @@ const Form = () => {
               backgroundColor="transparent"
             />
           </View>
+          <Text style={[styles.inputLabel]}>LastName</Text>
           <View style={styles.input}>
             <TextInput
               mode="outlined"
               autoCapitalize="none"
               autoCorrect={false}
-              placeholder="Last Name"
+              placeholder="Enter Your Lastname"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={lastname}
@@ -214,13 +215,14 @@ const Form = () => {
               backgroundColor="transparent"
             />
           </View>
+          <Text style={[styles.inputLabel]}>Mobile.No</Text>
           <View style={styles.input}>
             <TextInput
               mode="outlined"
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={text => setMobileNo(text)}
-              placeholder="Mobile.NO"
+              placeholder="Enter Your Mobile.no"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={mobileNo}
@@ -232,6 +234,7 @@ const Form = () => {
               backgroundColor="transparent"
             />
           </View>
+          <Text style={[styles.inputLabel]}>Select date</Text>
             <TouchableOpacity onPress={showPicker}>
           <View style={styles.input}>
             <TextInput
@@ -240,7 +243,7 @@ const Form = () => {
               value={textInputValue}
               onFocus={onTextInputFocus}
               onChangeText={text => setTextInputValue(text)}
-              placeholder="DD-MM-YY"
+              placeholder="DD-MM-YYYY"
               placeholderTextColor="#6b7280"
               style={{
                 color: 'grey',
@@ -268,21 +271,24 @@ const Form = () => {
             )}
           </View>
             </TouchableOpacity>
+            <Text style={[styles.inputLabel]}>Country</Text>
       <Dropdown options={options} onSelect={handleSelect} placeholder='Select Your Country'/>
+      <Text style={[styles.inputLabel]}>Query</Text>
       <Dropdown options={queries} onSelect={handleSelects} placeholder='Select Your query'/>
+      <Text style={[styles.inputLabel]}>Email</Text>
       <View style={styles.input}>
             <TextInput
               mode="outlined"
               autoCorrect={false}
               onChangeText={text => setEmail(text)}
-              placeholder="Email"
+              placeholder="Enter Your Email"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={email}
             />
             <Icon.Button
               name="at"
-              size={27}
+              size={30}
               color={COLORS.primary}
               backgroundColor="transparent"
             />
@@ -293,10 +299,12 @@ const Form = () => {
             <Text style={{color:'white', fontFamily:"Poppins-Bold"}}>BOOK NOW!</Text>
           </View>
 </TouchableOpacity>
+<View style={{height:70}}>
+
+</View>
         </View>
       
       </ScrollView>
-    </SafeAreaView>
   );
 };
 export default Form;
@@ -357,7 +365,7 @@ const styles = StyleSheet.create({
     padding:5
   },
   container: {
-    padding: 10,
+    padding: 15,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
@@ -369,7 +377,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   subtitle: {
-    fontSize: 11,
+    fontSize: 14,
     fontFamily: 'Poppins-Regular',
     color: '#222',
   },
@@ -418,16 +426,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius:10,
-    elevation:2
   },
   inputLabel: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
+    fontSize:hp('2%') ,
+    fontFamily:'Poppins-Regular',
+    color: COLORS.primary,
   },
   inputControl: {
     height: 50,
-    width:wp('40%'),
+    width:wp('55%'),
     paddingHorizontal: 14,
     fontSize: 13,
     fontFamily:'Poppins-Regular',

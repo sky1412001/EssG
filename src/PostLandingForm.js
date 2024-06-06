@@ -65,7 +65,7 @@ const PostLandingForm = ({navigation, route}) => {
           />
         </View>
       </View>
-      <View style={{backgroundColor:'white', margin:10, padding:10, elevation:3,borderRadius:20}}>
+      <View style={{backgroundColor:'white', margin:10, padding:10,borderRadius:20}}>
         <Text
           style={{ 
             fontSize: 19,
@@ -204,7 +204,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 14,
     fontWeight: '500',
-    elevation: 1,
     color: '#222',
     margin: 5,
     borderRadius:10
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 17,
     lineHeight: 26,
-    fontWeight: '600',
+    fontFamily:'Poppins-Bold', 
     color: '#fff',
   },
 });

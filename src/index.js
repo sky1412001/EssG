@@ -13,6 +13,7 @@ import Guide from "./Guide";
 import Notification from "./Notification";
 import Consultant from "./Consultant";
 import { AuthProvider } from "./AuthContext";
+import News from "./News";
 export  {
     HomeScreen,
     DeatailScreen,
@@ -27,5 +28,6 @@ export  {
     Guide,
     Notification,
     Consultant,
-    AuthProvider
+    AuthProvider,
+    News
 }

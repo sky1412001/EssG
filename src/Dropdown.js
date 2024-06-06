@@ -43,7 +43,7 @@ const Dropdown = ({ options, onSelect,placeholder,}) => {
           placeholderTextColor="#6b7280"
         />
         <Icon.Button
-          name="caret-down"
+          name="globe"
           size={36}
           color={COLORS.primary}
           backgroundColor="transparent"
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#e8ecf4',
     borderRadius: 10,
-    elevation:2
   },
   inputControl: {
     flex: 1,

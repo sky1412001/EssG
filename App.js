@@ -9,7 +9,7 @@ import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Student from "./Auth/Student";
 import Ways from "./src/Ways";
-import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Screen, FlagScreen,Chat, About, Blogs, BlogScreen, Guide, Notification, Consultant} from "./src";
+import { Navigator, HomeScreen, DeatailScreen, PostLandingForm, Screen, FlagScreen,Chat, About, Blogs, BlogScreen, Guide, Notification, Consultant, News} from "./src";
 import Status from "./Auth/Status";
 import { AuthProvider, useAuth } from './src/AuthContext';
 const Stack = createNativeStackNavigator();
@@ -39,6 +39,7 @@ const AppNavigator = () =>{
       <Stack.Screen name='Guide' component={Guide} />
       <Stack.Screen name='Notification' component={Notification} />
       <Stack.Screen name='Consultant' component={Consultant} />
+      <Stack.Screen name='News' component={News} />
     </Stack.Navigator>
   </NavigationContainer>
   )

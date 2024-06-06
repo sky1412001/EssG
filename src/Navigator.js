@@ -23,6 +23,8 @@ const Navigator = () => {
           position: 'absolute',
           height: 55,
           padding: 14,
+          margin:8,
+          borderRadius:30
         },
       }}
       initialRouteName="HomeScreen"
@@ -46,7 +48,7 @@ const Navigator = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: focused ? 8 : 10,
+                fontSize: focused ? 8 : 8,
                 color: 'black',
               }}
             >
@@ -71,7 +73,7 @@ const Navigator = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: focused ? 8 : 10,
+                fontSize: focused ? 8 : 8,
                 color: 'black',
               }}
             >
@@ -96,7 +98,7 @@ const Navigator = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: focused ? 8 : 10,
+                fontSize: focused ? 8 :8 ,
                 color: 'black',
               }}
             >
@@ -121,7 +123,7 @@ const Navigator = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
-                fontSize: focused ? 8 : 10,
+                fontSize: focused ? 8 : 8,
                 color: 'black',
               }}
             >

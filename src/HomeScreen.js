@@ -3,6 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -21,14 +22,13 @@ import {
 } from 'react-native';
 import {Rating} from 'react-native-stock-star-rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { useAuth } from '../src/AuthContext';
 const currentDate = new Date();
 import COLORS from './COLORS';
 import Dataco from './Data';
 import Slider from './Slider';
 import Fdata from './Fdata';
 import Visa from './Visa';
-import {FadeIn} from 'react-native-reanimated';
 const date = currentDate.getDate();
 const {width} = Dimensions.get('screen');
 const monthNames = [
@@ -48,6 +48,7 @@ const monthNames = [
 const monthIndex = currentDate.getMonth();
 const monthName = monthNames[monthIndex];
 const HomeScreen = ({navigation}) => {
+  const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([]); // Your components data
@@ -56,13 +57,29 @@ const HomeScreen = ({navigation}) => {
   const screenWidth = Dimensions.get('window').width;
   const [activeIndex, setActiveIndex] = useState(0);
   const windowWidth = Dimensions.get('window').width;
+  const [userName, setUserName] = useState('')
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const storedUserData = await AsyncStorage.getItem('userData');
+        console.log('Stored User Data:', storedUserData);
 
+        if (storedUserData) {
+          const userData = JSON.parse(storedUserData);
+          setUserName(userData.data.app_name);
+        }
+      } catch (error) {
+        console.error('Error retrieving user data:', error);
+      }
+    };
+    fetchUserData(); 
+  }, []);
   const handleSearch = text => {
     const filteredData = data.filter(item => {
       const itemData = item.name.toUpperCase();
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
-    });
+    }); 
     setSearchQuery(text);
     setData(filteredData);
   };
@@ -104,43 +121,23 @@ const HomeScreen = ({navigation}) => {
         onPress={() => navigation.navigate('FlagScreen', Fdata)}>
         <View
           style={{
-            width: 120,
-            height: 90,
+            width: width *0.25,
+            height: width * 0.19,
             padding: 5,
             backgroundColor: 'white',
             margin: 5,
             borderRadius: 10,
+            alignItems:'center', justifyContent:'center', gap:5,elevation:2
           }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Image source={Fdata.image} style={{width: 33, height: 20}} />
-
-            <Icon.Button
-              name="angle-right"
-              size={33}
-              color={'green'}
-              backgroundColor="transparent"
-            />
-          </View>
+            <Image source={Fdata.image} style={{width: 30, height: 20}} />
           <View>
-            <Text
-              style={{
-                fontSize: 12,
-                color: 'black',
-                fontFamily: 'Poppins-Bold',
-              }}>
-              {Fdata.name}
-            </Text>
             <Text
               style={{
                 fontSize: 10,
                 color: 'grey',
-                fontFamily: 'Poppins-Regular',
+                fontFamily: 'Poppins-Bold',
               }}>
+              {Fdata.name}
             </Text>
           </View>
         </View>
@@ -152,26 +149,28 @@ const HomeScreen = ({navigation}) => {
       <View
         style={{
           backgroundColor: 'white',
-          padding: wp('2.9%'),
-          margin: wp('1.5%'),
-          elevation: 1,
-          borderRadius: 10,
-          width: Dimensions.get('window').width - 40,
+          padding: wp('2.5%'),
+          margin: wp('1.3%'),
+          elevation: 2,
+          borderRadius: 7,
+          width: Dimensions.get('window').width - 35,
           height: 100,
           flexDirection: 'row',
         }}>
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             width: '60%',
+            gap:20, alignItems:'center'
+            
           }}>
           <View>
             <Image
               source={Dataco.image}
               style={{
-                width: wp('18%'),
-                height: hp('9%'),
+                width: wp('20%'),
+                height: hp('10%'),
                 borderRadius: hp('5%'),
               }}
             />
@@ -181,7 +180,7 @@ const HomeScreen = ({navigation}) => {
               style={{
                 fontSize: hp('1.7%'),
                 color: '#222',
-                fontFamily: 'Poppins-Regular',
+                fontFamily: 'Poppins-Bold',
               }}>
               {Dataco.name}
             </Text>
@@ -199,9 +198,6 @@ const HomeScreen = ({navigation}) => {
               size={14}
               color={'#0466C8'}
             />
-          </View>
-          <View>
-            <Text></Text>
           </View>
         </View>
         <View
@@ -248,7 +244,6 @@ const HomeScreen = ({navigation}) => {
         <ImageBackground
           style={styles.rmCardImage}
           source={Slider.image}>
-           
           </ImageBackground>
       </TouchableOpacity>
     );
@@ -256,7 +251,7 @@ const HomeScreen = ({navigation}) => {
   const Services = ({Visa}) => {
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.8}
           onPress={() => navigation.navigate('PostLandingForm', Visa)}>
           <View style={styles.card}>
             <View style={styles.content}>
@@ -271,28 +266,30 @@ const HomeScreen = ({navigation}) => {
     );
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#F5F5F5 '}}>
-      <ImageBackground
-        source={require('./OnLogo/backicon.png')}
-        style={{padding: 25}}>
+    <ScrollView>
+
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFFEFE',}}>
+      <ImageBackground source={require('./Page/Homej.jpg') } 
+       
+        style={{padding: 24, tintColor:COLORS.primary}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View
             style={{
               flexDirection: 'column',
               justifyContent: 'space-between',
-              marginTop: 7,
+              marginTop: 9,
             }}>
             <Text
               style={{
-                fontFamily: 'Poppins-Regular',
-                color: 'white',
+                fontFamily: 'Poppins-Bold',
+                color: COLORS.light,
                 fontSize: 16,
               }}>
-              Today {`${monthName} ${date}`}
+              {isAuthenticated ? `Hello, ${userName.split(' ')[0].replace(/[*()\[\]]/g, '')}` :`Today ${monthName} ${date}`}
             </Text>
-            <View style={{flexDirection: 'column', gap: -9, marginTop: 5}}>
-              <Text style={[styles.heading, {fontSize: 15}]}>Find your</Text>
-              <Text style={[styles.heading, {fontSize: 15}]}>
+            <View style={{flexDirection: 'column', gap: -5, marginTop: 6}}>
+              <Text style={[styles.heading, {fontSize: 16}]}>Find your</Text>
+              <Text style={[styles.heading, {fontSize: 16}]}>
                 Immigration Consultant
               </Text>
             </View>
@@ -319,14 +316,16 @@ const HomeScreen = ({navigation}) => {
         <View
           style={{
             backgroundColor: '#FBFFFF',
+            opacity:0.8,
             borderRadius: 10,
             flexDirection: 'row',
             alignItems: 'center',
-            top: 10,
+            top: 6,
             width: wp('88%'),
-            height: wp('11.1%'),
+            height: wp('12%'),
+            elevation:5
           }}>
-          <View style={{marginLeft: 13}}>
+          <View style={{marginLeft: 10}}>
             <Image
               source={require('./OnLogo/find.png')}
               style={{width: 25, height: 25}}
@@ -335,15 +334,14 @@ const HomeScreen = ({navigation}) => {
           <TextInput
             placeholderTextColor="#6b7280"
             placeholder="Search..."
-            style={{fontWeight: '700', width: 135, color: 'grey'}}
+            style={{fontWeight: '700', width: 120, color: 'grey'}}
             onChange={handleSearch}
             value={searchQuery.text}
           />
         </View>
       </ImageBackground>
-      <ScrollView>
-        <View>
-          <View style={{marginTop: 24}}>
+        <View style={{backgroundColor:'snow', top:-10, borderTopLeftRadius:20, borderTopRightRadius:20, elevation:5}}>
+          <View style={{marginTop: 20}}>
             <FlatList
               snapToInterval={width - 20}
               ref={flatlistRef}
@@ -356,6 +354,44 @@ const HomeScreen = ({navigation}) => {
               onScroll={handleScroll}
               renderItem={({item}) => <RecommendedCard Slider={item} />}
             />
+          </View>
+          <View
+            style={{
+              borderLeftWidth: 7,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.light,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={styles.sectionTwo}>For you</Text>  
+          </View>
+          <View style={{flexDirection:"row", justifyContent:"space-around", padding:10,   backgroundColor: '#EDF2FB',}}>
+            <View style={{gap:7}}>
+            <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
+              <Image source={require('./Page/passs.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+            </View>
+            <View style={{width:80, height:20, alignItems:'center', justifyContent:'center'}}>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.dark}}>Immigration</Text>
+            </View>
+            </View>
+            <View style={{gap:7}}>
+            <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
+              <Image source={require('./Page/educate.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+            </View>
+            <View style={{width:80, height:20,  alignItems:'center', justifyContent:'center'}}>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10,color:COLORS.dark}}>Education</Text>
+            </View>
+            </View>
+            <View style={{gap:7}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('News')} activeOpacity={0.9}>
+            <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
+              <Image source={require('./Page/new.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+            </View>
+           </TouchableOpacity>
+            <View style={{width:80, height:20,  alignItems:'center', justifyContent:'center'}}>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.dark}}>Visa News</Text>
+            </View>
+            </View>
           </View>
           <View
             style={{
@@ -379,8 +415,38 @@ const HomeScreen = ({navigation}) => {
               alignItems: 'center',
             }}>
             {Dataco.slice(0, 2).map(item => (
-              <Consultant key={item.id} Dataco={item} navigation={navigation} />
+              <Consultant key={item.id} Dataco={item} navigation={navigation}/>
             ))}
+          </View>
+          
+          <View
+            style={{
+              borderLeftWidth: 7,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.light,
+            }}>
+            <Text
+              style={{
+                marginHorizontal: 15,
+                fontFamily: 'Poppins-Bold',
+                color: 'grey',
+                fontSize: 12,
+              }}>
+              Our Services
+            </Text>
+          </View>
+          <View style={{backgroundColor: '#EDF2FB', elevation: 1}}>
+            <FlatList
+              snapToInterval={width - 20}
+              keyExtractor={item => item.id}
+              contentContainerStyle={{paddingLeft: 10}}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              data={Visa}
+              renderItem={({item}) => (
+                <Services Visa={item} navigation={navigation}/>
+              )}
+            />
           </View>
           <View
             style={{
@@ -407,43 +473,14 @@ const HomeScreen = ({navigation}) => {
               horizontal
               data={Fdata}
               renderItem={({item}) => (
-                <Nation Fdata={item} navigation={navigation} />
-              )}
-            />
-          </View>
-          <View
-            style={{
-              borderLeftWidth: 7,
-              borderColor: COLORS.primary,
-              backgroundColor: COLORS.light,
-            }}>
-            <Text
-              style={{
-                marginHorizontal: 15,
-                fontFamily: 'Poppins-Bold',
-                color: 'grey',
-                fontSize: 12,
-              }}>
-              Our Services
-            </Text>
-          </View>
-          <View style={{backgroundColor: '#EDF2FB', elevation: 1}}>
-            <FlatList
-              snapToInterval={width - 20}
-              keyExtractor={item => item.id}
-              contentContainerStyle={{paddingLeft: 10}}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              data={Visa}
-              renderItem={({item}) => (
-                <Services Visa={item} navigation={navigation} />
+                <Nation Fdata={item} navigation={navigation}/>
               )}
             />
           </View>
         </View>
-        <View style={{height: 60}}></View>
-      </ScrollView>
+        <View style={{height: 50}}></View>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 export default HomeScreen;
@@ -695,12 +732,13 @@ const styles = StyleSheet.create({
   date: {
     marginTop: 5,
     fontSize: 14,
-    color: 'white',
+    color: COLORS.primary,
     fontFamily: 'Poppins-Bold',
   },
   heading: {
     fontFamily: 'Poppins-Bold',
-    color: 'white',
+    color: COLORS.light,
+    fontSize:15
   },
   sectionOne: {
     fontSize: 17,
@@ -755,7 +793,7 @@ const styles = StyleSheet.create({
   },
   rmCardImage: {
     width: Dimensions.get('window').width - 20,
-    height: 160,
+    height: 140,
     marginRight: 20,
     borderRadius: 10,
     overflow: 'hidden',
@@ -788,11 +826,13 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: 'white',
-    width: wp('40%'), // adjust as needed
+    width: width * 0.4, // adjust as needed
     height: hp('11%'), // adjust as needed
     padding: wp('2%'),
     borderRadius: wp('2%'),
     elevation: 1,
+    justifyContent:'center',
+    alignItems:'center'
   },
   content: {
     flex: 1,
@@ -801,8 +841,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {
-    width: wp('12%'), // adjust as needed
-    height: hp('7%'), // adjust as needed
+    width: width * 0.11, // adjust as needed
+    height: width * 0.11, // adjust as needed
   },
   textContainer: {
     flex: 1,
@@ -811,7 +851,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: wp('2.5%'), // adjust as needed
-    color: '#222',
+    color: 'grey',
     fontFamily: 'Poppins-Bold',
   },
   subtitle: {
