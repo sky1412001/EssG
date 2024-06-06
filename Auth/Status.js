@@ -9,7 +9,7 @@ import Services from '../src/Services';
 const y = require('./icons/y.png')
 const camera = require('./icons/camera.png')
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import LottieView from 'lottie-react-native';
 const Status = ({ navigation }) => {
   const {logout} = useAuth()
   const [profilePicture, setProfilePicture] = useState(null);
@@ -23,8 +23,18 @@ const Status = ({ navigation }) => {
   const [file, setFile] = useState('');
   const [status, setStatus] = useState('');
   const [show, setShow] = useState('')
+  const [loading, setLoading] = useState(false)
   
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, []);
 
+  if (loading) {
+    return <Skelton />;
+  }
 
   const Logout =()=>{
     logout()
@@ -34,7 +44,6 @@ const Status = ({ navigation }) => {
       try {
         const storedUserData = await AsyncStorage.getItem('userData');
         console.log('Stored User Data:', storedUserData);
-
         if (storedUserData) {
           const userData = JSON.parse(storedUserData);
           setUserName(userData.data.app_name);
@@ -124,106 +133,47 @@ const Status = ({ navigation }) => {
     setSelectedImage([{ url: imageUri }]);
     setModalVisible(true);
   };
-
   const closeModal = () => {
     setSelectedImage(null);
     setModalVisible(false);
   };
-
   return(
     <SafeAreaView style={{flex: 1}}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)"/>
-      <View style={{flex: 0.6,backgroundColor:COLORS.primary, alignItems:'center', justifyContent:"center"}}> 
-        <View style={style.imageDetails}>
-          <View style={style.iconContainer}>
-            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 75,height: 75, borderRadius: 100 }} />
+      <ImageBackground source={require('../src/Page/Homej.jpg')} style={{flex: 0.3, alignItems:'flex-end'}}> 
+      <TouchableOpacity style={{marginTop:30, right:30}} onPress={logout}>
+        <Image source={require('./icons/log.png')}  style={{width:30, height:30}}/>
+      </TouchableOpacity>
+      </ImageBackground>
+      <ImageBackground source={require('../src/Page/VV.jpg')} style={{flex:0.7, alignItems:'center'}}>
+        <View style={{height:230, backgroundColor:'white', width:'70%', top:-70, elevation:2, borderRadius:10}}>
+        <View style={style.iconContainer}>
+            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 75,height: 75, borderRadius: 100, tintColor:'#ccc' }} />
           </View>
-        <TouchableOpacity onPress={()=>requestCameraPermission("profile")}>
-          <Image source={require('./icons/plus.png')} style={{width:25, height:25,alignSelf:"center", top:-10}}/>
+        <TouchableOpacity onPress={()=>requestCameraPermission("profile")} style={{elevation:1, zIndex:1, alignSelf:'center'}}>
+          <Image source={require('./icons/plus.png')} style={{width:25, height:25, top:-56}}/>
         </TouchableOpacity>
-        <Text style={{marginTop:2, fontFamily:'Poppins-Bold', color:COLORS.light,fontSize:25, textAlign:"center"}}>{userName.replace(/[*()\[\]]/g, '')}</Text>
+        <View>
+          <Text style={{top:-40, fontFamily:'Poppins-Bold', fontSize:20, marginLeft:7, textAlign:'center', color:COLORS.primary}}>{userName.replace(/\(\*\)/g, '')}</Text>
         </View>
-      </View>
-      <View style={style.detailsContainer}>
-        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center', elevation:5, backgroundColor:"white", marginTop:10,}}>
-        <Icon.Button
-              name="location-arrow"
-              size={25}
-              color="green"
-              backgroundColor="transparent"
-            />
-        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Branch : {branch}</Text>
+        <View style={{flexDirection:'row', justifyContent:"space-evenly", }}>
+          <View style={{padding:10}}>
+<Text style={{fontFamily:'Poppins-Bold', color:'black', fontSize:12}}>{dob}</Text>
+          </View>
+          <View style={{padding:10}}>
+<Text style={{fontFamily:'Poppins-Bold', color:"black", fontSize:12}}>{country}</Text>
+          </View>
+          <View style={{padding:10}}>
+<Text style={{fontFamily:'Poppins-Bold', color:"green", fontSize:12}}>{status}</Text>
+          </View>
         </View>
-        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
-        <Icon.Button
-              name="at"
-              size={20}
-              color="blue"
-              backgroundColor="transparent"
-            />
-        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>{email}</Text>
         </View>
-        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
-        <Icon.Button
-              name="phone"
-              size={20}
-              color="red"
-              backgroundColor="transparent"
-            />
-        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Phone : {phoneNO}</Text>
-        </View>
-        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
-        <Icon.Button
-              name="globe"
-              size={20}
-              color={COLORS.primary}
-              backgroundColor="transparent"
-            />
-        <Text style={{color:'grey', fontFamily:'Poppins-Bold'}}>Country : {country}</Text>
-        </View>
-        <View style={{borderRadius:10,padding:5,flexDirection:'row', justifyContent:'flex-start', alignItems:'center',elevation:5, backgroundColor:"white", marginTop:5}}>
-        <Icon.Button
-              name="signal"
-              size={20}
-              color="orange"
-              backgroundColor="transparent"
-            />
-        <Text style={{color:'green', fontFamily:'Poppins-Bold'}}>Status : {status}</Text>
-        </View>
-      {
-        status === "V-G" ? (
-          <Services />
-        ):(
-          <Text style={{color:"black", textAlign:"center"}}>Postlanding Services is not Available For you Right Now</Text>
-        )
-      }
-      <View style={{justifyContent:'space-around', flexDirection:"row", bottom:60}}>
 
-        <TouchableOpacity onPress={Logout}>
-      <View  style={{alignSelf:'flex-start',flexDirection:'row', justifyContent:'flex-start', alignItems:'center', backgroundColor:COLORS.primary, width:150, marginBottom:10, borderRadius:10,height:50}}>
-      <Icon.Button
-              name="gear"
-              size={20}
-              color="white"
-              backgroundColor="transparent"
-            />
-        <Text style={{fontSize:10, fontWeight:"700", color:'white'}}>Logout</Text>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=>navigation.navigate('Chat')}>
-      <View  style={{alignSelf:'flex-start',flexDirection:'row', justifyContent:'flex-start', alignItems:'center', backgroundColor:"red", width:150, marginBottom:10, borderRadius:10,height:50}}>
-      <Icon.Button
-              name="comment"
-              size={20}
-              color="white"
-              backgroundColor="transparent"
-            />
-        <Text style={{fontSize:10, fontWeight:"700", color:'white'}}>Report a problem</Text>
-      </View>
-      </TouchableOpacity>
-      </View>
-      </View>
-     
+<View style={{marginBottom:40}}>
+
+ <Services />
+</View>
+      </ImageBackground>
     </SafeAreaView>
   )
 }
@@ -236,7 +186,7 @@ const style = StyleSheet.create({
     width: 150,
     backgroundColor: COLORS.white,
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   iconContainer: {
@@ -246,20 +196,19 @@ const style = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor:COLORS.primary,
-    borderWidth:1,
     alignSelf:'center',
+    top:-40,
+    elevation:4
   },
   detailsContainer: {
     borderTopLeftRadius: 30,
+    borderTopRightRadius:30,
     backgroundColor: COLORS.white,
     flex: 1.5,
-    padding:5
-    
+    padding:5,
+    top:-20 
   },
-
   imageDetails: {
-  
     width: '100%',
   },
   footer: {
@@ -314,5 +263,24 @@ const style = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
-  
+  containers: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
 });
+const Skelton = () => {
+ 
+  return (
+    <View style={styles.containers}>
+    <LottieView 
+      source={require('../src/Page/loader.json')} 
+      autoPlay 
+      loop 
+      style={{width:200, height:200}}
+    />
+  </View>
+    
+  );
+};

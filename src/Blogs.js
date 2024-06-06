@@ -4,7 +4,7 @@ import COLORS from "./COLORS";
 import BlogD from "./BlogD";
 import { Rating } from 'react-native-stock-star-rating';
 import Dataj from "./Dataj";
-
+import LottieView from 'lottie-react-native';
 const windowWidth = Dimensions.get('window').width;
 
 const Blogs = ({ navigation }) => {
@@ -21,43 +21,7 @@ const Blogs = ({ navigation }) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  const opacity = useRef(new Animated.Value(1)).current;
-  const translateX = useRef(new Animated.Value(0)).current;
-  
-  useEffect(() => {
-    const animateSkeleton = () => {
-      Animated.loop(
-        Animated.parallel([
-          Animated.sequence([
-            Animated.timing(opacity, {
-              toValue: 0.2,
-              duration: 1000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-            Animated.timing(opacity, {
-              toValue: 1,
-              duration: 1000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-          ]),
-          Animated.timing(translateX, {
-            toValue: 1,
-            duration: 2000,
-            easing: Easing.linear,
-            useNativeDriver: true,
-          }),
-        ]),
-        { iterations: -1 }
-      ).start();
-    };
-    animateSkeleton();
-    return () => {
-      opacity.stopAnimation();
-      translateX.stopAnimation();
-    };
-  }, [opacity, translateX]);
+ 
   const Data = ({ Dataj }) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('BlogScreen', Dataj)} activeOpacity={0.9}>
@@ -99,77 +63,7 @@ const Blogs = ({ navigation }) => {
   };
 
   if (loading) {
-    return (
-      <SafeAreaView  style={styles.container}>
-        <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'}/>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={[styles.header, {backgroundColor:'#d0d0d0'}]}>
-          <Text style={styles.headerText}></Text>
-          <Text style={{ fontFamily: 'Poppins-Regular', color: COLORS.primary }}></Text>
-        </View>
-        <View style={{flexDirection:"row",marginTop:10 }}>
-          <TouchableOpacity >
-          <Animated.View style={[styles.rmCardImages,{opacity, transform: [{ translateX: translateX }]}]}>
-            <View style={styles.overlay}>
-              <View style={styles.contentContainer}>
-                <Animated.View style={styles.textContainer}>
-                  <View style={[styles.placeholderText, { width: '50%', marginBottom: 10 }]} />
-                  <View style={[styles.placeholderText, { width: '80%' }]} />
-                </Animated.View>
-                <Animated.View style={styles.titleContainer}>
-                  <View style={[styles.placeholderText, { width: '70%', marginBottom: 5 }]} />
-                  <View style={[styles.placeholderText, { width: '30%' }]} />
-                </Animated.View>
-              </View>
-            </View>
-          </Animated.View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Animated.View style={[styles.rmCardImages,{opacity, transform: [{ translateX: translateX }]}]}>
-            <View style={styles.overlay}>
-              <View style={styles.contentContainer}>
-                <View style={styles.textContainer}>
-                  <View style={[styles.placeholderText, { width: '50%', marginBottom: 10 }]} />
-                  <View style={[styles.placeholderText, { width: '80%' }]} />
-                </View>
-                <View style={styles.titleContainer}>
-                  <View style={[styles.placeholderText, { width: '70%', marginBottom: 5 }]} />
-                  <View style={[styles.placeholderText, { width: '30%' }]} />
-                </View>
-              </View>
-            </View>
-          </Animated.View>
-        </TouchableOpacity>
-        </View>
-      <View style={{padding:15}}>
-        <Animated.View style={[styles.containers,{backgroundColor:"#d0d0d0", opacity, transform: [{ translateX: translateX }]}]}>
-          <View style={styles.imageContainers}>
-          </View>
-          <View style={styles.textContainers}>
-            <Text style={styles.shortText}></Text>
-            <Text style={styles.titleText}></Text>
-          </View>
-        </Animated.View>
-        <Animated.View style={[styles.containers,{backgroundColor:"#d0d0d0",opacity, transform: [{ translateX: translateX }]}]}>
-          <View style={styles.imageContainers}>
-          </View>
-          <View style={styles.textContainers}>
-            <Text style={styles.shortText}></Text>
-            <Text style={styles.titleText}></Text>
-          </View>
-        </Animated.View>
-        <Animated.View style={[styles.containers,{backgroundColor:"#d0d0d0",opacity, transform: [{ translateX: translateX }]}]}>
-          <View style={styles.imageContainers}>
-          </View>
-          <View style={styles.textContainers}>
-            <Text style={styles.shortText}></Text>
-            <Text style={styles.titleText}></Text>
-          </View>
-        </Animated.View>
-      </View>
-      </ScrollView>
-        </SafeAreaView>
-    );
+    return <Skelton />
   }
   return (
       <SafeAreaView  style={styles.container}>
@@ -212,7 +106,26 @@ const Blogs = ({ navigation }) => {
       </SafeAreaView>
   );
 };
+const Skelton = () => {
+ 
+  return (
+    <View style={styles.containerss}>
+    <LottieView 
+      source={require('./Page/loader.json')} 
+      autoPlay 
+      loop 
+      style={{width:200, height:200}}
+    />
+  </View>
+    
+  );
+};
 const styles = StyleSheet.create({
+  containerss: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     width: Dimensions.get('window').width,
     flex: 1,

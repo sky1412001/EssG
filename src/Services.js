@@ -59,15 +59,17 @@ const Services = ({ navigation }) => {
            <TouchableOpacity onPress={()=>setModalVisible(false)} style={{width:'100%', height:'33%'}}>
 
            </TouchableOpacity>
-          <View style={{backgroundColor:COLORS.simple, width:"100%", height:"77%", borderTopLeftRadius:28, borderTopRightRadius:28}}>
+          <View style={{backgroundColor:'snow', width:"100%", height:"77%", borderTopLeftRadius:28, borderTopRightRadius:28}}>
+          
             <View style={{width:40, height:4, backgroundColor:"grey", alignSelf:'center', marginTop:10, borderRadius:10}}></View>
             <View style={styles.input}>
+          <Text style={styles.inputLabel}>Name</Text>
         <TextInput
           mode="outlined"
-          label="Enter your FullName"
+          label="Enter your fullname"
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="FullName"
+          placeholder="Enter Your FullName"
           placeholderTextColor="#6b7280"
           style={styles.inputControl}
           value={fullName}
@@ -75,12 +77,13 @@ const Services = ({ navigation }) => {
           />
       </View>
       <View style={styles.input}>
+      <Text style={styles.inputLabel}>Email</Text>
         <TextInput
           mode="outlined"
           label="Enter your Email"
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder="Email"
+          placeholder=" Enter Your Email"
           placeholderTextColor="#6b7280"
           style={styles.inputControl}
           value={email}
@@ -88,11 +91,12 @@ const Services = ({ navigation }) => {
           />
       </View>
       <View style={styles.input}>
+      <Text style={styles.inputLabel}>Mobile.No</Text>
         <TextInput
           mode="outlined"
           keyboardType='numeric'
           onChangeText={text => setMobileNo(text)}
-          placeholder="Mobile.NO"
+          placeholder="Enter Your Mobile.NO"
           placeholderTextColor="#6b7280"
           style={styles.inputControl}
           value={mobileNo}
@@ -123,8 +127,6 @@ const Services = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
-     
-     
           </View>
         </View>
       </Modal>
@@ -148,17 +150,17 @@ const styles = StyleSheet.create({
     gap:15
   },
   cardContainer: {
-    flexDirection: 'row',
+    flexDirection: "column",
     padding: 10,
     marginVertical: 8,
     backgroundColor: 'white',
     elevation: 5,
     borderRadius: 10,
-    marginLeft:10
+    marginLeft:10, justifyContent:'center', alignItems:'center'
   },
   cardImage: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
     margin: 10,
   },
   cardTextContainer: {
@@ -179,8 +181,8 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   inputLabel: {
-    fontSize: 17,
-    fontWeight: '600',
+    fontSize: 15,
+    fontFamily:'Poppins-Bold',
     color: '#222',
   },
   inputControl: {

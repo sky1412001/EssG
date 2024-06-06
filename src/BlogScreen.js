@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, TouchableOpacity, View, Text, Image, ImageBackground, StatusBar, StyleSheet } from "react-native";
 import COLORS from "./COLORS";
+import LottieView from 'lottie-react-native';
 const BlogScreen = ({navigation, route}) =>{
     const Data = route.params
     return(

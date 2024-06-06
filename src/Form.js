@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import axios from 'axios';
+import LottieView from 'lottie-react-native';
 import {
   View,
   Text,
@@ -310,51 +311,25 @@ const Form = () => {
 export default Form;
 
 const Skelton = () => {
-  const opacity = useRef(new Animated.Value(1)).current;
-  useEffect(() => {
-    const animateSkeleton = () => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(opacity, {
-            toValue: 0.5,
-            duration: 500,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacity, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-          }),
-        ]),
-        {iterations: -1},
-      ).start();
-    };
-
-    animateSkeleton();
-
-    return () => {
-      opacity.stopAnimation();
-    };
-  }, [opacity]);
+ 
   return (
-    <SafeAreaView>
-      <Animated.View style={[styles.headers, {opacity}]}>
-        <Animated.View style={[styles.titleSkeleton, {opacity}]} />
-        <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
-        <Animated.View style={[styles.descriptionSkeleton, {opacity}]} />
-      </Animated.View>
-      <Animated.View style={styles.forms}>
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-        <Animated.View style={[styles.inputControlSkeleton, {opacity}]} />
-      </Animated.View>
-    </SafeAreaView>
+    <View style={styles.containerss}>
+    <LottieView 
+      source={require('./Page/loader.json')} 
+      autoPlay 
+      loop 
+      style={{width:200, height:200}}
+    />
+  </View>
+    
   );
 };
 const styles = StyleSheet.create({
+  containerss: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   inputs: {
     gap: 30,
   },

@@ -19,7 +19,9 @@ import {
   Animated,
   RefreshControl,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import {Rating} from 'react-native-stock-star-rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useAuth } from '../src/AuthContext';
@@ -112,7 +114,7 @@ const HomeScreen = ({navigation}) => {
     return () => clearTimeout(timeout);
   }, []);
   if (loading) {
-    return <Skelton />;
+    return  <Skelton />;
   }
   const Nation = ({Fdata}) => {
     return (
@@ -365,31 +367,31 @@ const HomeScreen = ({navigation}) => {
             }}>
             <Text style={styles.sectionTwo}>For you</Text>  
           </View>
-          <View style={{flexDirection:"row", justifyContent:"space-around", padding:10,   backgroundColor: '#EDF2FB',}}>
+          <View style={{flexDirection:"row", justifyContent:"space-around", padding:5,   backgroundColor: '#EDF2FB',}}>
             <View style={{gap:7}}>
             <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
-              <Image source={require('./Page/passs.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+              <Image source={require('./Page/passs.png')}  style={{width:35, height:35}}/>
             </View>
             <View style={{width:80, height:20, alignItems:'center', justifyContent:'center'}}>
-          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.dark}}>Immigration</Text>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.primary}}>Immigration</Text>
             </View>
             </View>
             <View style={{gap:7}}>
             <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
-              <Image source={require('./Page/educate.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+              <Image source={require('./Page/educate.png')}  style={{width:35, height:35}}/>
             </View>
             <View style={{width:80, height:20,  alignItems:'center', justifyContent:'center'}}>
-          <Text style={{fontFamily:"Poppins-Bold", fontSize:10,color:COLORS.dark}}>Education</Text>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10,color:COLORS.primary}}>Education</Text>
             </View>
             </View>
             <View style={{gap:7}}>
             <TouchableOpacity onPress={()=>navigation.navigate('News')} activeOpacity={0.9}>
             <View style={{width:80, height:60, backgroundColor:"white", elevation:2, alignItems:'center', justifyContent:'center', borderRadius:10}}>
-              <Image source={require('./Page/new.png')}  style={{width:30, height:30, tintColor:COLORS.primary}}/>
+              <Image source={require('./Page/new.png')}  style={{width:35, height:35}}/>
             </View>
            </TouchableOpacity>
             <View style={{width:80, height:20,  alignItems:'center', justifyContent:'center'}}>
-          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.dark}}>Visa News</Text>
+          <Text style={{fontFamily:"Poppins-Bold", fontSize:10, color:COLORS.primary}}>Visa News</Text>
             </View>
             </View>
           </View>
@@ -435,7 +437,7 @@ const HomeScreen = ({navigation}) => {
               Our Services
             </Text>
           </View>
-          <View style={{backgroundColor: '#EDF2FB', elevation: 1}}>
+          <View style={{backgroundColor: '#EDF2FB', elevation:1}}>
             <FlatList
               snapToInterval={width - 20}
               keyExtractor={item => item.id}
@@ -486,249 +488,26 @@ const HomeScreen = ({navigation}) => {
 export default HomeScreen;
 
 const Skelton = () => {
-  const opacity = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    const animateSkeleton = () => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(opacity, {
-            toValue: 0.5,
-            duration: 500,
-            useNativeDriver: true,
-            width: 20,
-          }),
-          Animated.timing(opacity, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-          }),
-        ]),
-        {iterations: -1},
-      ).start();
-    };
-    animateSkeleton();
-    return () => {
-      opacity.stopAnimation();
-    };
-  }, [opacity]);
-
+ 
   return (
-    <SafeAreaView style={{padding: 3}}>
-      <Animated.View
-        style={{
-          borderBottomLeftRadius: 15,
-          borderBottomRightRadius: 15,
-          elevation: 1,
-          backgroundColor: '#d0d0d0',
-        }}>
-        <Animated.View style={[styles.headers, {opacity}]}>
-          <Animated.View>
-            <Animated.View style={{gap: -4}}>
-              <Animated.View style={{flexDirection: 'row', marginBottom: 10}}>
-                <Animated.View
-                  style={{flex: 1, backgroundColor: '#d0d0d0', height: 1}}
-                />
-              </Animated.View>
-              <Animated.View style={{flexDirection: 'row', marginBottom: 10}}>
-                <Animated.View
-                  style={{width: 100, height: 20, backgroundColor: '#d0d0d0'}}
-                />
-              </Animated.View>
-            </Animated.View>
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View
-        style={{
-          top: -27,
-          backgroundColor: 'white',
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
-          padding: 2,
-        }}>
-        <Animated.View
-          style={{
-            width: Dimensions.get('window').width - 20,
-            height: 120,
-            backgroundColor: '#d0d0d0',
-            alignSelf: 'center',
-            borderRadius: 10,
-            marginTop: 10,
-          }}></Animated.View>
-        <Animated.View
-          style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.sectionTwo}></Text>
-        </Animated.View>
-        <Animated.View style={{flexDirection: 'row', marginTop: 20}}>
-          <Animated.View
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 10,
-              flexDirection: 'row',
-            }}>
-            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-              <Animated.View style={styles.content}>
-                <Animated.View style={styles.imageSkeleton} />
-                <Animated.View style={styles.textContainer}>
-                  <Animated.View style={styles.titleSkeleton} />
-                </Animated.View>
-              </Animated.View>
-              <Animated.View style={styles.subtitleButtonContainer}>
-                <Animated.View style={[styles.subtitleSkeleton, {opacity}]} />
-                <TouchableOpacity style={styles.addButtonSkeleton} />
-              </Animated.View>
-            </Animated.View>
-            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-              <Animated.View style={styles.content}>
-                <Animated.View style={styles.imageSkeleton} />
-                <Animated.View style={styles.textContainer}>
-                  <Animated.View style={styles.titleSkeleton} />
-                </Animated.View>
-              </Animated.View>
-              <Animated.View style={styles.subtitleButtonContainer}>
-                <Animated.View style={styles.subtitleSkeleton} />
-                <TouchableOpacity style={styles.addButtonSkeleton} />
-              </Animated.View>
-            </Animated.View>
-            <Animated.View style={[styles.cardSkeleton, {opacity}]}>
-              <Animated.View style={styles.content}>
-                <Animated.View style={styles.imageSkeleton} />
-                <Animated.View style={styles.textContainer}>
-                  <Animated.View style={styles.titleSkeleton} />
-                </Animated.View>
-              </Animated.View>
-              <Animated.View style={styles.subtitleButtonContainer}>
-                <Animated.View style={styles.subtitleSkeleton} />
-                <TouchableOpacity style={styles.addButtonSkeleton} />
-              </Animated.View>
-            </Animated.View>
-          </Animated.View>
-        </Animated.View>
-        <Animated.View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            height: 40,
-            backgroundColor: '#d0d0d0',
-          }}>
-          <Text style={styles.sectionTwo}></Text>
-        </Animated.View>
-        <Animated.View style={{padding: 3, marginTop: 30}}>
-          <Animated.View
-            style={[
-              {
-                gap: 7,
-                padding: 15,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                marginTop: 3,
-                flexDirection: 'row',
-                backgroundColor: '#d0d0d0',
-                elevation: 1,
-              },
-              {opacity},
-            ]}>
-            <Animated.View
-              style={{width: 20, height: 10, backgroundColor: 'white'}}
-            />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 11,
-                fontFamily: 'Poppins-Bold',
-              }}></Text>
-            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-            <Animated.View
-              style={{width: 20, height: 10, backgroundColor: 'white'}}
-            />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 11,
-                fontFamily: 'Poppins-Bold',
-              }}></Text>
-            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-            <Animated.View
-              style={{width: 20, height: 10, backgroundColor: 'white'}}
-            />
-            <Animated.View style={{backgroundColor: 'white', width: wp('5%')}}>
-              <Text style={{textAlign: 'center', color: 'white'}}></Text>
-            </Animated.View>
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View
-        style={[
-          {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: '#d0d0d0',
-          },
-          {opacity},
-        ]}>
-        <Text style={styles.sectionTwo}></Text>
-      </Animated.View>
-      <Animated.View style={{flexDirection: 'row'}}>
-        <Animated.View style={styles.container}>
-          <Animated.View
-            style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Animated.View style={styles.card}>
-              <Animated.View style={styles.content}>
-                <Animated.View style={styles.textContainer}>
-                  <Text style={styles.title}></Text>
-                </Animated.View>
-              </Animated.View>
-              <Animated.View
-                style={[
-                  {
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  },
-                  {opacity},
-                ]}>
-                <Text style={styles.subtitle}></Text>
-                <TouchableOpacity
-                  style={{backgroundColor: '#d0d0d0', width: 21}}>
-                  <Text
-                    style={{color: COLORS.light, textAlign: 'center'}}></Text>
-                </TouchableOpacity>
-              </Animated.View>
-            </Animated.View>
-            <Animated.View style={styles.card}>
-              <Animated.View style={styles.content}>
-                <Animated.View style={styles.textContainer}>
-                  <Text style={styles.title}></Text>
-                </Animated.View>
-              </Animated.View>
-              <Animated.View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text style={styles.subtitle}></Text>
-                <TouchableOpacity
-                  style={{backgroundColor: '#d0d0d0', width: 21}}>
-                  <Text
-                    style={{color: COLORS.light, textAlign: 'center'}}></Text>
-                </TouchableOpacity>
-              </Animated.View>
-            </Animated.View>
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-    </SafeAreaView>
+    <View style={styles.containers}>
+    <LottieView 
+      source={require('./Page/loader.json')} 
+      autoPlay 
+      loop 
+      style={{width:200, height:200}}
+    />
+  </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
+  containers: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   date: {
     marginTop: 5,
     fontSize: 14,

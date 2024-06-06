@@ -14,6 +14,7 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import COLORS from './COLORS';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import LottieView from 'lottie-react-native';
 
 const Ways = ({navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const Ways = ({navigation}) => {
   }, []);
 
   if (loading) {
-    return <Skeleton />;
+    return <Skelton />;
   }
   const getTimeOfDay = () => {
     const hour = new Date().getHours();
@@ -320,180 +321,23 @@ const styles = StyleSheet.create({
     borderRadius:70,
     height:90
     },
+    containers: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
 });
-const Skeleton = () => {
-  const opacity = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    const animateSkeleton = () => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(opacity, {
-            toValue: 0.9,
-            duration: 1000,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacity, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: true,
-          }),
-        ]),
-        {iterations: -1},
-      ).start();
-    };
-
-    animateSkeleton();
-
-    return () => {
-      opacity.stopAnimation();
-    };
-  }, [opacity]);
-
+const Skelton = () => {
+ 
   return (
-    <View>
-    <View
-      style={styles.header}
-      >
-      <Animated.View
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: COLORS.primary,
-          opacity: 0.8,
-          justifyContent: 'flex-end',
-          padding: 10,
-        }}>
-        <Animated.View style={{ marginBottom: 40 }}>
-          {/* Clear the text for skeleton */}
-          {/* <Text style={{ fontSize: 20, fontFamily: 'Poppins-Bold', color: 'white' }}>
-            {getTimeOfDay()}
-          </Text> */}
-        </Animated.View>
-      </Animated.View>
-    </View>
-    <Animated.View style={{ top: -20, backgroundColor: '#FFFFFF', borderTopLeftRadius: 20, borderTopRightRadius: 20, height: 490, }}>
-      <Animated.View
-        style={{
-          flexDirection: 'row',
-          marginTop: 50,
-          justifyContent: "space-around"
-        }}>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Student')}>
-          <Animated.View style={{ gap: 10 }}>
-            <Animated.View
-              style={{
-                width: 80,
-                height: 80,
-                backgroundColor: '#ccc',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 70,
-                 opacity
-              }}
-            >
-             
-            </Animated.View>
-            <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              {/* Clear the text for skeleton */}
-              {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark }}>
-                Student login
-              </Text> */}
-            </Animated.View>
-          </Animated.View>
-        </TouchableOpacity>
-        <Animated.View style={styles.divider}></Animated.View>
-        <Animated.View style={{ gap: 10 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 80,
-              height: 80,
-              backgroundColor: '#ccc',
-              borderRadius: 60,
-            }}>
-
-           
-          </TouchableOpacity>
-          <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            {/* Clear the text for skeleton */}
-            {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
-              Login
-            </Text> */}
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View
-        style={{
-          flexDirection: 'row',
-          marginTop: 20,
-          justifyContent: "space-around"
-        }}>
-
-          <Animated.View style={{ gap: 10 }}>
-            <Animated.View
-              style={{
-                width: 80,
-                height: 80,
-                backgroundColor: '#ccc',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 70
-              }}
-            >
-            
-            </Animated.View>
-            <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              {/* Clear the text for skeleton */}
-              {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark }}>
-                Student Guide
-              </Text> */}
-            </Animated.View>
-          </Animated.View>
-        <Animated.View style={{ gap: 10 }}>
-          <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 80,
-              height: 80,
-              backgroundColor: '#ccc',
-              borderRadius: 60,
-            }}
-          >
-          
-          </TouchableOpacity>
-          <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            {/* Clear the text for skeleton */}
-            {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
-              Contact us
-            </Text> */}
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-      <Animated.View style={{ gap: 10, alignSelf: 'center', marginTop: 30 }}>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 80,
-            height: 80,
-            backgroundColor: '#ccc',
-            borderRadius: 60,
-          }}
-        >
-        
-        </TouchableOpacity>
-        <Animated.View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {/* Clear the text for skeleton */}
-          {/* <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 12, color: COLORS.dark, textAlign: 'center' }}>
-            About us
-          </Text> */}
-        </Animated.View>
-      </Animated.View>
-    </Animated.View>
+    <View style={styles.containers}>
+    <LottieView 
+      source={require('./Page/loader.json')} 
+      autoPlay 
+      loop 
+      style={{width:200, height:200}}
+    />
   </View>
+    
   );
 };
