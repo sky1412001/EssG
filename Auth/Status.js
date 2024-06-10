@@ -148,7 +148,7 @@ const Status = ({ navigation }) => {
       <ImageBackground source={require('../src/Page/VV.jpg')} style={{flex:0.7, alignItems:'center'}}>
         <View style={{height:230, backgroundColor:'white', width:'70%', top:-70, elevation:2, borderRadius:10}}>
         <View style={style.iconContainer}>
-            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 75,height: 75, borderRadius: 100, tintColor:'#ccc' }} />
+            <Image source={profilePicture ? {uri: profilePicture} : camera} style={{width: 75,height: 75, borderRadius: 100 }} />
           </View>
         <TouchableOpacity onPress={()=>requestCameraPermission("profile")} style={{elevation:1, zIndex:1, alignSelf:'center'}}>
           <Image source={require('./icons/plus.png')} style={{width:25, height:25, top:-56}}/>
@@ -157,22 +157,25 @@ const Status = ({ navigation }) => {
           <Text style={{top:-40, fontFamily:'Poppins-Bold', fontSize:20, marginLeft:7, textAlign:'center', color:COLORS.primary}}>{userName.replace(/\(\*\)/g, '')}</Text>
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-evenly", }}>
-          <View style={{padding:10}}>
+          <View style={{padding:10, justifyContent:"center",alignItems:'center'}}>
+            <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>D.O.B</Text>
 <Text style={{fontFamily:'Poppins-Bold', color:'black', fontSize:12}}>{dob}</Text>
           </View>
-          <View style={{padding:10}}>
+          <View style={{padding:10,  justifyContent:"center",alignItems:'center'}}>
+            <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>Country</Text>
 <Text style={{fontFamily:'Poppins-Bold', color:"black", fontSize:12}}>{country}</Text>
           </View>
-          <View style={{padding:10}}>
-<Text style={{fontFamily:'Poppins-Bold', color:"green", fontSize:12}}>{status}</Text>
+          <View style={{padding:10, justifyContent:"center",alignItems:'center'}}>
+          <Text style={{fontFamily:'Poppins-Bold', color:COLORS.primary}}>Status</Text>
+          <Text style={{fontFamily:'Poppins-Bold', color:"green", fontSize:12}}>{status}</Text>
           </View>
         </View>
         </View>
-
-<View style={{marginBottom:40}}>
-
- <Services />
-</View>
+        {status === 'V-G' && (
+        <View style={{ marginBottom: 40 }}>
+          <Services />
+        </View>
+      )}
       </ImageBackground>
     </SafeAreaView>
   )

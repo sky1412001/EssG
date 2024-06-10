@@ -1,0 +1,163 @@
+ <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              Book{' '}
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                  color: COLORS.primary,
+                  textDecorationStyle: 'dotted',
+                }}>
+                an Appointment
+              </Text>
+            </Text>
+         
+            <Text
+              style={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: 13,
+                color: '#222',
+              }}>
+              Share your details with us and our team will contact you for
+              assessment shortly.
+            </Text>
+          </View>
+          <Text style={[styles.inputLabel]}>FirstName</Text>
+          <View style={styles.input}>
+            <TextInput
+              mode="outlined"
+              label="Enter your Firstname"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Enter Your Firstname"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={firstname}
+              onChangeText={text => setFirstName(text)}
+              require
+            />
+            <Icon.Button
+              name="user"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
+          </View>
+          <Text style={[styles.inputLabel]}>LastName</Text>
+          <View style={styles.input}>
+            <TextInput
+              mode="outlined"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Enter Your Lastname"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={lastname}
+              onChangeText={text => setLastName(text)}
+            />
+            <Icon.Button
+              name="plus"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
+          </View>
+          <Text style={[styles.inputLabel]}>Mobile.No</Text>
+          <View style={styles.input}>
+            <TextInput
+              mode="outlined"
+              keyboardType="numeric"
+              autoCorrect={false}
+              onChangeText={text => setMobileNo(text)}
+              placeholder="Enter Your Mobile.no"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={mobileNo}
+            />
+            <Icon.Button
+              name="phone"
+              size={25}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
+          </View>
+          <Text style={[styles.inputLabel]}>Select date</Text>
+            <TouchableOpacity onPress={showPicker}>
+          <View style={styles.input}>
+            <TextInput
+              mode="outlined"
+              editable={false}
+              value={textInputValue}
+              onFocus={onTextInputFocus}
+              onChangeText={text => setTextInputValue(text)}
+              placeholder="DD-MM-YYYY"
+              placeholderTextColor="#6b7280"
+              style={{
+                color: 'grey',
+                fontSize: 13,
+                fontFamily:'Poppins-Regular',
+                marginLeft: 8,
+                width:wp('40%')
+              }}
+            />
+              <View>
+              <Icon.Button
+                name="calendar"
+                size={25}
+                color={COLORS.primary}
+                backgroundColor="transparent"
+              />
+              </View>
+            {Platform.OS === 'android' && isPickerShow && (
+              <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+              />
+            )}
+          </View>
+            </TouchableOpacity>
+            <Text style={[styles.inputLabel]}>Country</Text>
+      <Dropdown options={options} onSelect={handleSelect} placeholder='Select Your Country'/>
+      <Text style={[styles.inputLabel]}>Query</Text>
+      <Dropdown options={queries} onSelect={handleSelects} placeholder='Select Your query'/>
+      <Text style={[styles.inputLabel]}>Email</Text>
+      <View style={styles.input}>
+            <TextInput
+              mode="outlined"
+              autoCorrect={false}
+              onChangeText={text => setEmail(text)}
+              placeholder="Enter Your Email"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={email}
+            />
+            <Icon.Button
+              name="at"
+              size={30}
+              color={COLORS.primary}
+              backgroundColor="transparent"
+            />
+          </View>
+<TouchableOpacity>
+
+          <View style={{width:wp('80%'), height:hp('6%'), backgroundColor:COLORS.primary, alignSelf:'center', justifyContent:'center', alignItems:'center', borderRadius:5}}>
+            <Text style={{color:'white', fontFamily:"Poppins-Bold"}}>BOOK NOW!</Text>
+          </View>
+</TouchableOpacity>
+<View style={{height:70}}>
+
+</View>
+        </View>
+      
+      </ScrollView>
+  );
+}; const handlePercentageChange = (text) => {
+    if (/^\d*\.?\d*$/.test(text)) { // Only allow numeric input with optional decimal point
+      setPercentage(text);
+      handleChange(text + '%', 'percentage');
+    }
+  };     

@@ -89,7 +89,7 @@ const Student = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground source={require('../src/Postdata/formBack.png')} style={{flex:1}}>
+    <ImageBackground source={require('../src/Page/VV.jpg')} style={{flex:1}}>
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={COLORS.primary} />
       <View>

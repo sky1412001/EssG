@@ -105,7 +105,7 @@ const Consultant = ({navigation}) => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <ImageBackground source={require('./OnLogo/backicon.png')}    style={{
+      <ImageBackground source={require('./OnLogo/backicon.png')} style={{
           height: 270,
           backgroundColor: COLORS.primary,
           justifyContent: 'center',

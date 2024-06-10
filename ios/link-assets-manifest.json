@@ -10,20 +10,20 @@
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
     },
     {
-      "path": "assets/fonts/Roboto-Black.ttf",
-      "sha1": "3f8e401d808f6ce84b542266726514ac8be73171"
+      "path": "assets/fonts/Prompt-Black.ttf",
+      "sha1": "1c3cf9a9299210397ab74e9bd305847b7555aa63"
     },
     {
-      "path": "assets/fonts/Roboto-Bold.ttf",
-      "sha1": "62442a18a9fe9457c1afeabf683d263a691b7798"
+      "path": "assets/fonts/Prompt-Bold.ttf",
+      "sha1": "1f6da982f97fb51b13e31fb0ee60f1cb21b7846b"
     },
     {
-      "path": "assets/fonts/Roboto-Regular.ttf",
-      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+      "path": "assets/fonts/Prompt-Medium.ttf",
+      "sha1": "ed15bfac8ac1e25dfbaef4c3e7dc6178b3347379"
     },
     {
-      "path": "assets/fonts/Voces-Regular.ttf",
-      "sha1": "80bce738d8bb52aa33756c98eddaf5e868c9ace1"
+      "path": "assets/fonts/Prompt-Regular.ttf",
+      "sha1": "04e9ee1c1fd671b495103adca8d528d200caed2e"
     }
   ]
 }

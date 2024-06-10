@@ -24,7 +24,6 @@ const BlogScreen = ({navigation, route}) =>{
               }}> 
               {Data.name}
             </Text>
-          
           </View>
         </ImageBackground>
         <View style={style.detailsContainer}>

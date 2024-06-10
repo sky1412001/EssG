@@ -23,7 +23,6 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Rating} from 'react-native-stock-star-rating';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useAuth } from '../src/AuthContext';
 const currentDate = new Date();
 import COLORS from './COLORS';
@@ -65,7 +64,6 @@ const HomeScreen = ({navigation}) => {
       try {
         const storedUserData = await AsyncStorage.getItem('userData');
         console.log('Stored User Data:', storedUserData);
-
         if (storedUserData) {
           const userData = JSON.parse(storedUserData);
           setUserName(userData.data.app_name);

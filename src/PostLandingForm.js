@@ -48,7 +48,7 @@ const PostLandingForm = ({navigation, route}) => {
     }
   };
   return (
-      <ImageBackground  source={require('./Postdata/formBack.png')} style={{flex:1, backgroundColor:'white'}}>
+      <ImageBackground  source={require('./Page/VV.jpg')} style={{flex:1, backgroundColor:'white'}}>
       <StatusBar translucent backgroundColor={COLORS.primary} />
     <ScrollView style={{flex:1}}> 
       <View
@@ -65,7 +65,7 @@ const PostLandingForm = ({navigation, route}) => {
           />
         </View>
       </View>
-      <View style={{backgroundColor:'white', margin:10, padding:10,borderRadius:20}}>
+      <View style={{ margin:10, padding:10,borderRadius:20}}>
         <Text
           style={{ 
             fontSize: 19,

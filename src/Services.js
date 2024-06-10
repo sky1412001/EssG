@@ -35,7 +35,7 @@ const Services = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-   <Text style={{fontFamily:'Poppins-Bold',color:COLORS.primary, textAlign:'center',marginTop:10}}>Post Landing Services</Text>
+   <Text style={{fontFamily:'Poppins-Bold',color:COLORS.primary, textAlign:'left',marginLeft:20, fontSize:18}}>Post Landing Services</Text>
       <View style={styles.cardListContainer}>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
